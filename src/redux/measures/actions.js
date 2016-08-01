@@ -19,9 +19,9 @@ export function getMeasuresNamesList() {
   }
 }
 
-export function addMyNote(note) {
+export function addMyNote(measure, data) {
   return async function(dispatch, getState) {
-    await APIFactory(API_SOURCES.ASYNC_STORAGE).addMyNote(note);
+    await APIFactory(API_SOURCES.ASYNC_STORAGE).addMyNote(measure, data);
     dispatch({type: ADD_MY_NOTE});
     return true;
   }

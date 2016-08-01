@@ -650,7 +650,11 @@
 				);
 				INFOPLIST_FILE = Measures/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+        OTHER_LDFLAGS = (
+					"$(inherited)",
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = Measures;
 			};
 			name = Debug;
@@ -665,9 +669,13 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-controllers/ios/**",
 				);
-				INFOPLIST_FILE = Measures/Info.plist;
+				INFOPLIST_FILE = "Measures/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+        OTHER_LDFLAGS = (
+					"$(inherited)",
+          "-ObjC",
+          "-lc++",
+        );
 				PRODUCT_NAME = Measures;
 			};
 			name = Release;

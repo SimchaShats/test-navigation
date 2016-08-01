@@ -1,3 +1,4 @@
+"use strict";
 import React, {Component} from 'react';
 import {
   View,
@@ -6,6 +7,8 @@ import {
   StyleSheet,
   Picker
 } from 'react-native';
+
+import {UI} from "../constants"
 
 export default class extends Component {
   constructor(props) {
@@ -22,21 +25,21 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.items && (nextProps.items !== this.props.items || isComponentDidMount)) {
-      this.props.updateFilterValue(Object.keys(nextProps.items)[0]);
+      this.props.updateFilterValue(nextProps.items.keySeq().first());
     }
   }
 
   getPickerItems() {
     let pickerItems = [];
-    for (let i in this.props.items) {
-      pickerItems.push(<Picker.Item key={`_${Date.now()}`} label={this.props.items[i]} value={i}/>);
-    }
+    this.props.items.map((value, key) => {
+      pickerItems.push(<Picker.Item key={`_${Date.now()}`} label={value} value={key}/>);
+    });
     return pickerItems;
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <Picker
           style={styles.picker}
           selectedValue={this.props.initialValue}
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   picker: {
-    top: -40,
-    height: 135
+    top: Platform.OS === "ios" ? -40 : 0,
+    height: Platform.OS === "ios" ? 135 : 0
   }
 });

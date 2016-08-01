@@ -35,23 +35,17 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    let filteredMeasuresList = {};
-    if (nextProps.measure === "all") {
-      filteredMeasuresList = nextProps.measuresList;
-    } else {
-      for (let i in nextProps.measuresList) {
-        (nextProps.measuresList[i].measure === nextProps.measure) && (filteredMeasuresList[i] = nextProps.measuresList[i]);
-      }
-      //props.measuresList.filter((item) => item.measure === props.measure);
+    if (nextProps.measure && nextProps.measuresList) {
+      this.setState({dataSource: this.ds.cloneWithRows(nextProps.measuresList.filter((value, key) => value.get("measure") === nextProps.measure || nextProps.measure === "all").toArray())});
     }
-    this.setState({dataSource: this.ds.cloneWithRows(filteredMeasuresList)});
   }
 
   render() {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <MeasuresRow measuresNamesList={this.props.measuresNamesList} measure={rowData.measure} data={rowData.data}/>}
+        enableEmptySections={true}
+        renderRow={(rowData) => <MeasuresRow measuresNamesList={this.props.measuresNamesList} measure={rowData.get("measure")} data={rowData.get("data")}/>}
         refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}

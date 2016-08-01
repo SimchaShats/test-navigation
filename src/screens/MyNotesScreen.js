@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import {Map} from 'immutable';
 import FilteredListView from "../components/FilteredListView";
+const { Keyboard } = require('react-native');
 
 // this is a traditional React component connected to the redux store
 class MyNotesScreen extends Component {
@@ -23,35 +24,29 @@ class MyNotesScreen extends Component {
     navigationBarColor: '#303F9F',
     tabSelectedTextColor: '#FFA000',
     tabNormalTextColor: '#FFC107',
+    statusBarHidden: true,
     tabIndicatorColor: '#FFA000'
-  };
-
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        icon: require('../../img/navicon_add.png'),
-        title: 'Add',
-        id: 'add'
-      }
-    ]
   };
 
   constructor(props) {
     super(props);
-    // if you want to listen on navigator events, set this up
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'add':
-        this.props.actions.addMyNote({measure: "love", data: "Love for my note!"});
-        break;
-    }
-  }
 
   componentWillMount() {
+    Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
+    Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));
     this.props.actions.getMeasuresMyNotesList();
+  }
+
+  keyboardDidShow(e) {
+    this.props.navigator.toggleNavBar({to: 'hidden',
+      animated: true});
+  }
+
+  keyboardDidHide(e) {
+    this.props.navigator.toggleNavBar({to: 'shown',
+      animated: true});
   }
 
   render() {
@@ -76,8 +71,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    measuresNamesList: state.measures.namesList,
-    measuresMyNotesList: state.measures.myNotesList
+    measuresNamesList: state.measures.get("namesList"),
+    measuresMyNotesList: state.measures.get("myNotesList")
   };
 }
 

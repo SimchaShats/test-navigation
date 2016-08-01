@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    measuresNamesList: state.measures.namesList,
-    measuresTheoryList: state.measures.theoryList
+    measuresNamesList: state.measures.get("namesList"),
+    measuresTheoryList: state.measures.get("theoryList")
   };
 }
 

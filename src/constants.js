@@ -3,6 +3,9 @@
  */
 "use strict";
 
+import {
+  Platform
+} from 'react-native';
 
 export const API_SOURCES = {
   "FIREBASE": "FIREBASE",
@@ -19,3 +22,11 @@ export const FIREBASE = {
 export const ASYNC_STORAGE = {
   MY_NOTES: "MY_NOTES"
 };
+
+export const UI = {
+  STATUS_BAR_HEIGHT: Platform.OS === "ios" ? 20 : 0,
+  IOS: {
+    STATUS_BAR_HEIGHT: 20
+  }
+};
+

@@ -17,7 +17,7 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.measure}>{this.props.measuresNamesList[this.props.measure]}: <Text style={styles.text}>{this.props.data}</Text></Text>
+        <Text style={styles.measure}>{this.props.measuresNamesList.get(this.props.measure)}: <Text style={styles.text}>{this.props.data}</Text></Text>
       </View>
     );
   }
@@ -25,7 +25,9 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
+    padding: 15,
+    borderBottomWidth: 1,
+    borderColor: "gray"
   },
   measure: {
     fontWeight: "bold"

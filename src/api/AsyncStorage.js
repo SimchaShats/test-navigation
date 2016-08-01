@@ -23,11 +23,11 @@ export default class extends API {
     }
   }
 
-  addMyNote(note) {
+  addMyNote(measure, data) {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
         notes = JSON.parse(notes) || {};
-        notes[`_${Date.now()}`] = note;
+        notes[`_${Date.now()}`] = {measure, data};
         AsyncStorage.setItem(ASYNC_STORAGE.MY_NOTES, JSON.stringify(notes), () => {
           resolve(true);
         });
@@ -38,7 +38,7 @@ export default class extends API {
   getMeasuresMyNotesList() {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
-        resolve(JSON.parse(notes));
+        resolve(JSON.parse(notes || "{}"));
       });
     })
   }
