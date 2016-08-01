@@ -1,16 +1,14 @@
 import * as types from './actionTypes';
-import Immutable from 'seamless-immutable';
+import {OrderedMap, Map, fromJS} from 'immutable';
 
-const initialState = Immutable({
-  root: undefined // 'login' / 'after-login'
+const initialState = Map({
+  root: null // 'login' / 'after-login'
 });
 
 export default function app(state = initialState, action = {}) {
   switch (action.type) {
     case types.CHANGE_ROOT:
-      return state.merge({
-        root: action.root
-      });
+      return state.set("root", action.root);
     default:
       return state;
   }

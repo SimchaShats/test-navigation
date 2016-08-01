@@ -26,45 +26,13 @@ class TheoryScreen extends Component {
     tabIndicatorColor: '#FFA000'
   };
 
-  static navigatorButtons = {
-    rightButtons: [
-      {
-        title: 'Edit',
-        id: 'edit'
-      },
-      {
-        icon: require('../../img/navicon_add.png'),
-        title: 'Add',
-        id: 'add'
-      }
-    ]
-  };
-
   constructor(props) {
     super(props);
-    // if you want to listen on navigator events, set this up
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillMount() {
     this.props.actions.getMeasuresTheoryList();
     this.props.actions.getMeasuresNamesList();
-  }
-
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'edit':
-        Alert.alert('NavBar', 'Edit button pressed');
-        break;
-
-      case 'add':
-        Alert.alert('NavBar', 'Add button pressed');
-        break;
-
-      default:
-        console.log('Unhandled event ' + event.id);
-        break;
-    }
   }
 
   render() {

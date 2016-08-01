@@ -10,6 +10,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import {ASYNC_STORAGE} from "../constants";
+import {OrderedMap, Map} from 'immutable';
 
 let instance = null;
 export default class extends API {
@@ -27,9 +28,24 @@ export default class extends API {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
         notes = JSON.parse(notes) || {};
-        notes[`_${Date.now()}`] = {measure, data};
+        const key = `_${Date.now()}`;
+        notes[key] = {measure, data};
         AsyncStorage.setItem(ASYNC_STORAGE.MY_NOTES, JSON.stringify(notes), () => {
-          resolve(true);
+          let newNote = {};
+          newNote[key] = {measure, data};
+          resolve(newNote);
+        });
+      });
+    })
+  }
+
+  removeMyNote(noteId) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
+        notes = JSON.parse(notes) || {};
+        delete notes[noteId];
+        AsyncStorage.setItem(ASYNC_STORAGE.MY_NOTES, JSON.stringify(notes), () => {
+          resolve(noteId);
         });
       });
     })
@@ -38,7 +54,7 @@ export default class extends API {
   getMeasuresMyNotesList() {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
-        resolve(JSON.parse(notes || "{}"));
+        resolve(OrderedMap(JSON.parse(notes || "{}")).reverse().toObject());
       });
     })
   }

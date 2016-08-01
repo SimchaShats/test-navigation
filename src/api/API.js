@@ -10,5 +10,6 @@ export default class API {
   login() {}
 
   addMyNote() {}
+  removeMyNote() {}
   getMeasuresMyNotesList() {}
 };

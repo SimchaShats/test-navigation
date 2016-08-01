@@ -1,3 +1,4 @@
+"use strict";
 import {CHANGE_ROOT, LOGIN, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from './actionTypes';
 import APIFactory from "../../api/APIFactory";
 

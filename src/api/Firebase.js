@@ -8,6 +8,7 @@ import {FIREBASE} from "../constants";
 import API from "./API";
 import store from "../redux";
 import * as appActions from "../redux/app/actions";
+import {OrderedMap, Map} from 'immutable';
 
 let instance = null;
 export default class extends API {
@@ -46,8 +47,8 @@ export default class extends API {
 
   getMeasuresTheoryList(){
     return new Promise ((resolve, reject) => {
-      firebase.database().ref('theory/en').on('value', (snapshot) => {
-        resolve(snapshot.val());
+      firebase.database().ref('theory/en').limitToLast(10).on('value', (snapshot) => {
+        resolve(OrderedMap(snapshot.val()).reverse().toObject());
       }, (r) => {reject(r)});
     })
   }

@@ -16,10 +16,10 @@ export default class App {
   }
 
   onStoreUpdate() {
-    const { root } = store.getState().app;
+    const root = store.getState().app.get("root");
     // handle a root change
     // if your app doesn't change roots in runtime, you can remove onStoreUpdate() altogether
-    if (this.currentRoot != root) {
+    if (this.currentRoot !== root) {
       this.currentRoot = root;
       this.startApp(root);
     }

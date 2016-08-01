@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     top: Platform.OS === "ios" ? -40 : 0,
-    height: Platform.OS === "ios" ? 135 : 0
+    height: 135
   }
 });
