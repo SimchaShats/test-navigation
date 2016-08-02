@@ -13,18 +13,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import {Map} from 'immutable';
-import FilteredListView from "../components/FilteredListView";
+import FilteredListView from "../components/measuresViews/FilteredListView";
 
 // this is a traditional React component connected to the redux store
 class TheoryScreen extends Component {
-  static navigatorStyle = {
-    statusBarColor: '#303F9F',
-    toolBarColor: '#3F51B5',
-    navigationBarColor: '#303F9F',
-    tabSelectedTextColor: '#FFA000',
-    tabNormalTextColor: '#FFC107',
-    tabIndicatorColor: '#FFA000'
-  };
 
   constructor(props) {
     super(props);

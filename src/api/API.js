@@ -7,7 +7,7 @@ export default class API {
 
   getMeasuresTheoryList() {}
 
-  login() {}
+  signIn() {}
 
   addMyNote() {}
   removeMyNote() {}

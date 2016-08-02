@@ -41,13 +41,12 @@ export default class extends Component {
       case 'add':
         this.state.text.trim() !== "" && this.props.addAction(this.props.measure, this.state.text);
         this.setState({text: ""});
-        dismissKeyboard();
         break;
       case 'cancel':
-        this.setState({text: ""});
-        dismissKeyboard();
         break;
     }
+    this.setState({text: ""});
+    dismissKeyboard();
   }
 
   render() {

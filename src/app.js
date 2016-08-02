@@ -36,7 +36,14 @@ export default class App {
               icon: require('../img/one.png'),
               selectedIcon: require('../img/one_selected.png'),
               title: 'Theory',
-              navigatorStyle: {},
+              navigatorStyle: {
+                statusBarColor: '#303F9F',
+                toolBarColor: '#3F51B5',
+                navigationBarColor: '#303F9F',
+                tabSelectedTextColor: '#FFA000',
+                tabNormalTextColor: '#FFC107',
+                tabIndicatorColor: '#FFA000'
+              },
             },
             {
               label: 'My notes',
@@ -44,15 +51,29 @@ export default class App {
               icon: require('../img/two.png'),
               selectedIcon: require('../img/two_selected.png'),
               title: 'My notes',
-              navigatorStyle: {},
+              navigatorStyle: {
+                statusBarColor: '#303F9F',
+                toolBarColor: '#3F51B5',
+                navigationBarColor: '#303F9F',
+                tabSelectedTextColor: '#FFA000',
+                tabNormalTextColor: '#FFC107',
+                tabIndicatorColor: '#FFA000'
+              },
             },
             {
               label: 'Friends notes',
               screen: 'measures.FriendsNotesScreen',
               icon: require('../img/two.png'),
               selectedIcon: require('../img/two_selected.png'),
-              title: 'My notes',
-              navigatorStyle: {},
+              title: 'Friends notes',
+              navigatorStyle: {
+                statusBarColor: '#303F9F',
+                toolBarColor: '#3F51B5',
+                navigationBarColor: '#303F9F',
+                tabSelectedTextColor: '#FFA000',
+                tabNormalTextColor: '#FFC107',
+                tabIndicatorColor: '#FFA000'
+              },
             }
           ],
           passProps: {

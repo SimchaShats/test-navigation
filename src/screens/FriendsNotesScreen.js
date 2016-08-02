@@ -1,117 +1,125 @@
+"use strict";
 import React, {Component, PropTypes} from 'react';
 import {
   Text,
-  Image,
   View,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
   Alert
 } from 'react-native';
-import { connect } from 'react-redux';
-import * as counterActions from '../redux/measures/actions';
 
-// this is a traditional React component connected to the redux store
-class SecondTabScreen extends Component {
-  static navigatorStyle = {
-    drawUnderNavBar: true,
-    drawUnderTabBar: true,
-    navBarTranslucent: true
-  };
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as measuresActions from '../redux/measures/actions';
+import * as userActions from '../redux/user/actions';
+import {Map} from 'immutable';
+import FilteredListView from "../components/measuresViews/FilteredListView";
+import Login from "../components/Login";
+import Dimensions from 'Dimensions';
+const { Keyboard } = require('react-native');
+var Spinner = require('react-native-spinkit');
+
+class FriendsNotesScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.buttonsCounter = 0;
+    this.state = {
+      visibleHeight: Dimensions.get('window').height,
+      keyboardShow: false
+    };
+  }
+
+  componentWillMount() {
+    this.keyboardShow = Keyboard.addListener('keyboardWillShow', this.keyboardShow.bind(this));
+    this.keyboardHide = Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
+    this.props.actions.getMeasuresMyNotesList();
+  }
+
+  componentWillUnmount() {
+    this.keyboardShow.remove();
+    this.keyboardHide.remove();
+  }
+
+  keyboardShow(e) {
+    this.setState({
+      visibleHeight: Dimensions.get('window').height - e.endCoordinates.height,
+      keyboardShow: true
+    });
+    this.props.navigator.setButtons({
+      rightButtons: [
+        {
+          icon: require('../../img/navicon_add.png'),
+          id: 'add'
+        }
+      ],
+      leftButtons: [],
+      animated: true
+    });
+  }
+
+  keyboardHide(e) {
+    this.setState({
+      keyboardShow: false,
+      visibleHeight: Dimensions.get('window').height
+    });
+    this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
   }
 
   render() {
     return (
-      <ScrollView style={{flex: 1}}>
-
-        <Image style={{width: undefined, height: 100}} source={require('../../img/colors.png')} />
-
-        <View style={{padding: 20}}>
-
-          <Text style={styles.text}>
-            <Text style={{fontWeight: '500'}}>Here Too: </Text> {this.props.counter.count}
-          </Text>
-
-          <TouchableOpacity onPress={ this.onIncrementPress.bind(this) }>
-            <Text style={styles.button}>Increment Counter</Text>
-          </TouchableOpacity>
-
-          <Text style={{fontWeight: '500'}}>String prop: {this.props.str}</Text>
-          <Text style={{fontWeight: '500'}}>Number prop: {this.props.num}</Text>
-          <Text style={{fontWeight: '500'}}>Object prop: {this.props.obj.str}</Text>
-          <Text style={{fontWeight: '500'}}>Array prop: {this.props.obj.arr[0].str}</Text>
-
-          <TouchableOpacity onPress={ this.onSetButton.bind(this) }>
-            <Text style={styles.button}>Set a button</Text>
-          </TouchableOpacity>
-
-        </View>
-
-      </ScrollView>
+      <View style={styles.container}>
+        {this.props.isUserLoggedIn
+          ? <View/>
+          : <Login navigator={this.props.navigator}
+                   visibleHeight={this.state.visibleHeight}
+                   actions={this.props.actions}
+                   keyboardShow={this.state.keyboardShow}
+                   title="Please signIn to use this option..."/>
+        }
+        {this.props.isFetching.get("user") && <View style={styles.overlay}>
+          <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
+        </View>}
+      </View>
     );
-  }
-
-  onIncrementPress() {
-    this.props.dispatch(counterActions.increment());
-  }
-
-  onSetButton() {
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          title: 'Right',
-          icon: require('../../img/navicon_add.png'),
-          id: 'right'
-        }
-      ],
-      leftButtons: [
-        {
-          title: 'Left',
-          icon: require('../../img/navicon_add.png'),
-          id: 'left'
-        }
-      ]
-    });
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'left':
-        Alert.alert('NavBar', 'Left button pressed');
-        break;
-      case 'right':
-        Alert.alert('NavBar', 'Right button pressed');
-        break;
-    }
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 10,
-    marginTop: 10
+  container: {
+    flex: 1
   },
-  button: {
-    textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 10,
-    marginTop:10,
-    color: 'blue'
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)"
   }
 });
 
-// which props do we want to inject, given the global state?
 function mapStateToProps(state) {
   return {
-    counter: state
+    userProfile: state.user.get("profile"),
+    isUserLoggedIn: state.user.get("isLoggedIn"),
+    isFetching: state.app.get("isFetching")
   };
 }
 
-export default connect(mapStateToProps)(SecondTabScreen);
+const actions = [
+  measuresActions,
+  userActions
+];
+
+function mapDispatchToProps(dispatch) {
+  const creators = Map()
+    .merge(...actions)
+    .filter(value => typeof value === 'function')
+    .toObject();
+
+  return {
+    actions: bindActionCreators(creators, dispatch),
+    dispatch
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsNotesScreen);

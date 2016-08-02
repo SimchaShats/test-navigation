@@ -8,7 +8,7 @@ import {
   Picker
 } from 'react-native';
 
-import {UI} from "../constants"
+import {UI} from "../../constants"
 
 export default class extends Component {
   constructor(props) {

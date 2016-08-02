@@ -1,5 +1,5 @@
 "use strict";
-import {CHANGE_ROOT, LOGIN, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE} from './actionTypes';
+import {CHANGE_ROOT, FETCH_REMOTE_DATA} from './actionTypes';
 import APIFactory from "../../api/APIFactory";
 
 export function appInitialized() {
@@ -10,32 +10,10 @@ export function appInitialized() {
   };
 }
 
-export function login() {
-  return async function (dispatch, getState) {
-    dispatch(loginRequest());
-    await APIFactory().login();
-  }
-}
-
-export function loginRequest() {
-  return {
-    type: LOGIN_REQUEST
-  }
-}
-
-export function loginSuccess() {
-  return async function (dispatch, getState) {
-    dispatch({type: LOGIN_SUCCESS});
-  }
-}
-
-export function loginFailure(error) {
-  return async function (dispatch, getState) {
-    dispatch({type: LOGIN_FAILURE});
-    alert(error);
-  }
-}
-
 export function changeAppRoot(root) {
-  return {type: CHANGE_ROOT, root: root};
+  return {type: CHANGE_ROOT, payload: root};
+}
+
+export function fetchRemoteData(data) {
+  return {type: FETCH_REMOTE_DATA, payload: data};
 }

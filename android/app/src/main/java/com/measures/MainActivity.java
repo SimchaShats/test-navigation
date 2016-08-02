@@ -1,6 +1,7 @@
 package com.measures;
 
 import com.facebook.react.ReactActivity;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.reactnativenavigation.activities.RootActivity;
 
 public class MainActivity extends RootActivity {

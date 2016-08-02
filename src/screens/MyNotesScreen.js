@@ -13,34 +13,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import {Map} from 'immutable';
-import FilteredListView from "../components/FilteredListView";
+import FilteredListView from "../components/measuresViews/FilteredListView";
 const { Keyboard } = require('react-native');
 
 // this is a traditional React component connected to the redux store
 class MyNotesScreen extends Component {
-  static navigatorStyle = {
-    statusBarColor: '#303F9F',
-    toolBarColor: '#3F51B5',
-    navigationBarColor: '#303F9F',
-    tabSelectedTextColor: '#FFA000',
-    tabNormalTextColor: '#FFC107',
-    statusBarHidden: true,
-    tabIndicatorColor: '#FFA000'
-  };
 
   constructor(props) {
     super(props);
     this.state = {
-      keyboardShow: false,
-      actionId: null
+      keyboardShow: false
     };
   }
 
   componentWillMount() {
-    Keyboard.addListener('keyboardWillShow', this.keyboardShow.bind(this));
-    Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
+    this.keyboardShow = Keyboard.addListener('keyboardWillShow', this.keyboardShow.bind(this));
+    this.keyboardHide = Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
     this.props.actions.getMeasuresMyNotesList();
   }
+  componentWillUnmount() {
+    this.keyboardShow.remove();
+    this.keyboardHide.remove();
+  }
+
 
   keyboardShow(e) {
     //this.props.navigator.toggleNavBar({to: 'hidden', animated: true});
@@ -76,7 +71,6 @@ class MyNotesScreen extends Component {
     return (
       <View style={styles.container}>
         <FilteredListView
-          actionId={this.state.actionId}
           navigator={this.props.navigator}
           keyboardShow={this.state.keyboardShow}
           listItems={this.props.measuresMyNotesList}

@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import {FIREBASE} from "../constants";
 import API from "./API";
 import store from "../redux";
-import * as appActions from "../redux/app/actions";
+import * as userActions from "../redux/user/actions";
 import {OrderedMap, Map} from 'immutable';
 
 let instance = null;
@@ -30,19 +30,25 @@ export default class extends API {
 
     firebase.initializeApp(firebaseConfig);
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in.
-      } else {
-        // User is signed out.
-      }
-    });
+    //firebase.auth().onAuthStateChanged((user) => {
+    //  if (user) {
+    //    // User is signed in.
+    //    console.log(user)
+    //    store.dispatch(userActions.signInSuccess(user));
+    //  } else {
+    //    // User is signed out.
+    //  }
+    //});
   }
 
-  login() {
-    firebase.auth().signInAnonymously().catch((error) => {
-      store.dispatch(appActions.loginFailure());
-    });
+  signIn(email, signIn) {
+    return new Promise ((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(email, signIn).then((user) => {
+        resolve(user);
+      }).catch((error) => {
+        reject(error);
+      });
+    })
   }
 
   getMeasuresTheoryList(){

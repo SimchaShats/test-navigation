@@ -7,7 +7,7 @@ import {
   RefreshControl,
   Picker
 } from 'react-native';
-import MeasuresRow from "../components/MeasuresListRow";
+import MeasuresRow from "./MeasuresListRow";
 
 export default class extends Component {
   constructor(props) {

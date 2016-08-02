@@ -17,15 +17,15 @@ const initialState = Map({
 export default function counter(state = initialState, action = {}) {
   switch (action.type) {
     case GET_THEORY_LIST:
-      return state.mergeDeepIn(["theoryList"], fromJS(action.theoryList).toOrderedMap().map((value, key) => value.set("id", key)));
+      return state.mergeDeepIn(["theoryList"], fromJS(action.payload).toOrderedMap().map((value, key) => value.set("id", key)));
     case GET_MY_NOTES_LIST:
-      return state.mergeDeepIn(["myNotesList"], fromJS(action.myNotesList).toOrderedMap().map((value, key) => value.set("id", key)));
+      return state.mergeDeepIn(["myNotesList"], fromJS(action.payload).toOrderedMap().map((value, key) => value.set("id", key)));
     case GET_NAMES_LIST:
-      return state.mergeDeepIn(["namesList"], action.namesList);
+      return state.mergeDeepIn(["namesList"], action.payload);
     case ADD_MY_NOTE:
-      return state.set("myNotesList", fromJS(action.newNote).toOrderedMap().map((value, key) => value.set("id", key)).mergeDeep(state.get("myNotesList")));
+      return state.set("myNotesList", fromJS(action.payload).toOrderedMap().map((value, key) => value.set("id", key)).mergeDeep(state.get("myNotesList")));
     case REMOVE_MY_NOTE:
-      return state.deleteIn(["myNotesList", action.noteId]);
+      return state.deleteIn(["myNotesList", action.payload]);
     default:
       return state;
   }

@@ -40,7 +40,7 @@ export default class extends Component {
         this.state.bounceValue,
         {
           toValue: this.props.keyboardShow ? 0 : -135,
-          duration: 200
+          duration: 250
         }
       ).start();
     }
