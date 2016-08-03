@@ -1,5 +1,9 @@
-export const LOGIN = 'user.LOGIN';
-export const LOGIN_REQUEST = 'user.LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'user.LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'user.LOGIN_FAILURE';
-export const CHANGE_ROOT = 'user.CHANGE_ROOT';
+export const SIGN_IN = 'user.SIGN_IN';
+export const SIGN_IN_SUCCESS = 'user.SIGN_IN_SUCCESS';
+export const SIGN_IN_FAILURE = 'user.SIGN_IN_FAILURE';
+export const SIGN_OUT = 'user.SIGN_OUT';
+export const SIGN_OUT_SUCCESS = 'user.SIGN_OUT_SUCCESS';
+export const SIGN_OUT_FAILURE = 'user.SIGN_OUT_FAILURE';
+export const SIGN_UP = 'user.SIGN_UP';
+export const SIGN_UP_SUCCESS = 'user.SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'user.SIGN_UP_FAILURE';

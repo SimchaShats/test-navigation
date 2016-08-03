@@ -1,0 +1,58 @@
+{
+  "name": "react-native-keyboard-aware-scrollview",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix/react-native-keyboard-aware-scrollview.git"
+  },
+  "version": "1.1.1",
+  "description": "React Native Keyboard Aware ScrollView - auto adjust content ScrollView",
+  "nativePackage": true,
+  "bugs": {
+    "url": "https://github.com/wix/react-native-keyboard-aware-scrollview/issues"
+  },
+  "homepage": "https://github.com/wix/react-native-keyboard-aware-scrollview",
+  "main": "index.js",
+  "author": {
+    "name": "Artal Druk",
+    "email": "artald@wix.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": ">=0.25.1",
+    "react": ">=0.14.5"
+  },
+  "gitHead": "8d1a17b0bdde3348ecc973c42479b9b5f4dab803",
+  "_id": "react-native-keyboard-aware-scrollview@1.1.1",
+  "scripts": {},
+  "_shasum": "cf3110f49235bc413a236040711296d9c585cafd",
+  "_from": "react-native-keyboard-aware-scrollview@latest",
+  "_npmVersion": "3.8.6",
+  "_nodeVersion": "4.2.1",
+  "_npmUser": {
+    "name": "artald",
+    "email": "artald@wix.com"
+  },
+  "dist": {
+    "shasum": "cf3110f49235bc413a236040711296d9c585cafd",
+    "tarball": "https://registry.npmjs.org/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-1.1.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "artald",
+      "email": "artald@wix.com"
+    },
+    {
+      "name": "rotemmiz",
+      "email": "rotemm@wix.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-native-keyboard-aware-scrollview-1.1.1.tgz_1469106500626_0.3602723218500614"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-1.1.1.tgz"
+}

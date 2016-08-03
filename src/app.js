@@ -32,7 +32,7 @@ export default class App {
           tabs: [
             {
               label: 'Theory',
-              screen: 'measures.TheoryScreen',
+              screen: 'TheoryScreen',
               icon: require('../img/one.png'),
               selectedIcon: require('../img/one_selected.png'),
               title: 'Theory',
@@ -43,11 +43,11 @@ export default class App {
                 tabSelectedTextColor: '#FFA000',
                 tabNormalTextColor: '#FFC107',
                 tabIndicatorColor: '#FFA000'
-              },
+              }
             },
             {
               label: 'My notes',
-              screen: 'measures.MyNotesScreen',
+              screen: 'MyNotesScreen',
               icon: require('../img/two.png'),
               selectedIcon: require('../img/two_selected.png'),
               title: 'My notes',
@@ -58,11 +58,11 @@ export default class App {
                 tabSelectedTextColor: '#FFA000',
                 tabNormalTextColor: '#FFC107',
                 tabIndicatorColor: '#FFA000'
-              },
+              }
             },
             {
               label: 'Friends notes',
-              screen: 'measures.FriendsNotesScreen',
+              screen: 'FriendsNotesScreen',
               icon: require('../img/two.png'),
               selectedIcon: require('../img/two_selected.png'),
               title: 'Friends notes',
@@ -73,20 +73,10 @@ export default class App {
                 tabSelectedTextColor: '#FFA000',
                 tabNormalTextColor: '#FFC107',
                 tabIndicatorColor: '#FFA000'
-              },
+              }
             }
           ],
           passProps: {
-            str: 'This is a prop passed in \'startTabBasedApp\'!',
-            obj: {
-              str: 'This is a prop passed in an object!',
-              arr: [
-                {
-                  str: 'This is a prop in an object in an array in an object!'
-                }
-              ]
-            },
-            num: 1234
           },
           animationType: 'slide-down',
           title: 'Redux Example'

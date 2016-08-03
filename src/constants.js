@@ -13,14 +13,15 @@ export const API_SOURCES = {
 };
 
 export const FIREBASE = {
-  API_KEY: "AIzaSyASS6LMmodhPlmkbLIKn0Udth9fcoYXO8E",
-  AUTH_DOMAIN: "measures-1b8d8.firebaseapp.com",
-  DATABASE_URL: "https://measures-1b8d8.firebaseio.com",
-  STORAGE_BUCKET: "measures-1b8d8.appspot.com"
+  API_KEY: "AIzaSyDocGGhSlex8lFpW4k3FZeauHkpw8yD9EI",
+  AUTH_DOMAIN: "measuresproject.firebaseapp.com",
+  DATABASE_URL: "https://measuresproject.firebaseio.com",
+  STORAGE_BUCKET: "measuresproject.appspot.com"
 };
 
 export const ASYNC_STORAGE = {
-  MY_NOTES: "MY_NOTES"
+  MY_NOTES: "MY_NOTES",
+  USER_PROFILE: "USER_PROFILE"
 };
 
 export const UI = {

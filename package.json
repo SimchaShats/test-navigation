@@ -13,11 +13,14 @@
     "immutable": "^3.8.1",
     "react": "~15.2.0",
     "react-native": "0.25.1",
+    "react-native-keyboard-aware-scrollview": "file:libs/react-native-keyboard-aware-scrollview",
     "react-native-navigation": "^1.0.7",
     "react-native-spinkit": "^0.1.2",
     "react-redux": "^4.0.6",
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
-    "seamless-immutable": "^5.0.1"
+    "seamless-immutable": "^5.0.1",
+    "tcomb-form-native": "^0.6.0",
+    "validate.js": "^0.10.0"
   }
 }

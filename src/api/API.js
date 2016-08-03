@@ -8,8 +8,17 @@ export default class API {
   getMeasuresTheoryList() {}
 
   signIn() {}
+  signUp() {}
+  signOut() {}
 
   addMyNote() {}
   removeMyNote() {}
   getMeasuresMyNotesList() {}
+
+  getFriendsNotesList() {}
+  removeFriendNote() {}
+
+  saveUserProfile() {}
+  getUserProfile() {}
+  removeUserProfile() {}
 };

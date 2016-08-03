@@ -41,10 +41,50 @@ export default class extends API {
     //});
   }
 
-  signIn(email, signIn) {
+  signIn(email, password) {
     return new Promise ((resolve, reject) => {
-      firebase.auth().signInWithEmailAndPassword(email, signIn).then((user) => {
+      let user = {};
+      firebase.auth().signInWithEmailAndPassword(email, password).then((snapshot) => {
+        user.id = snapshot.uid;
+        user.email = snapshot.email;
+        return firebase.database().ref(`users/${snapshot.uid}`).once("value", (snapshot) => {
+          user.password = password;
+          user.firstName = snapshot.val().firstName;
+          user.lastName = snapshot.val().lastName;
+          resolve(user);
+        }, (error) => {reject(error)})
+      }).catch((error) => {
+        reject(error);
+      });
+    })
+  }
+
+  signUp(email, password, firstName, lastName) {
+    return new Promise ((resolve, reject) => {
+      let user = {};
+      firebase.auth().createUserWithEmailAndPassword(email, password).then((snapshot) => {
+        user.id = snapshot.uid;
+        user.email = email;
+        return firebase.database().ref(`users/${snapshot.uid}`).set({
+          email,
+          firstName,
+          lastName
+        });
+      }).then(() => {
+        user.password = password;
+        user.firstName = firstName;
+        user.lastName = lastName;
         resolve(user);
+      }).catch((error) => {
+        reject(error);
+      });
+    })
+  }
+
+  signOut() {
+    return new Promise ((resolve, reject) => {
+      firebase.auth().signOut().then(() => {
+        resolve(null);
       }).catch((error) => {
         reject(error);
       });
@@ -53,17 +93,33 @@ export default class extends API {
 
   getMeasuresTheoryList(){
     return new Promise ((resolve, reject) => {
-      firebase.database().ref('theory/en').limitToLast(10).on('value', (snapshot) => {
+      firebase.database().ref('theory/en').limitToLast(100).on('value', (snapshot) => {
         resolve(OrderedMap(snapshot.val()).reverse().toObject());
       }, (r) => {reject(r)});
     })
   }
 
+  getFriendsNotesList(userId){
+    return new Promise ((resolve, reject) => {
+      firebase.database().ref(`friendsNotes/${userId}`).limitToLast(100).once('value', (snapshot) => {
+        resolve(OrderedMap(snapshot.val()).reverse().toObject());
+      }, (error) => {reject(error)});
+    })
+  }
+
+  removeFriendNote(userId, noteId){
+    return new Promise ((resolve, reject) => {
+      firebase.database().ref(`friendsNotes/${userId}/${noteId}`).remove(() => {
+        resolve(null);
+      });
+    })
+  }
+
   getMeasuresNamesList(){
     return new Promise ((resolve, reject) => {
-      firebase.database().ref('names/en').on('value', (snapshot) => {
+      firebase.database().ref('measuresNames/en').once('value', (snapshot) => {
         resolve(snapshot.val());
-      }, (r) => {reject(r)});
+      }, (error) => {reject(error)});
     })
   }
 }

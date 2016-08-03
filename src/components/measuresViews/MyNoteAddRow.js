@@ -37,13 +37,9 @@ export default class extends Component {
   }
 
   onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'add':
-        this.state.text.trim() !== "" && this.props.addAction(this.props.measure, this.state.text);
-        this.setState({text: ""});
-        break;
-      case 'cancel':
-        break;
+    if (event.id === 'add') {
+      this.state.text.trim() !== "" && this.props.addAction(this.props.measure, this.state.text);
+      this.setState({text: ""});
     }
     this.setState({text: ""});
     dismissKeyboard();

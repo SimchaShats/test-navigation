@@ -1,2 +1,4 @@
 export const CHANGE_ROOT = 'app.CHANGE_ROOT';
 export const FETCH_REMOTE_DATA = 'app.FETCH_REMOTE_DATA';
+export const CHANGE_FORM_FIELD = 'app.CHANGE_FORM_FIELD';
+export const SET_FORM_FIELD_ERROR = 'app.SET_FORM_FIELD_ERROR';

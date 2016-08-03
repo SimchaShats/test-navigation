@@ -1,0 +1,145 @@
+"use strict";
+import React, {Component} from 'react';
+import {
+  View,
+  ScrollView,
+  Text,
+  Platform,
+  TouchableOpacity,
+  TouchableHighlight,
+  StyleSheet,
+  TextInput,
+  Picker
+} from 'react-native';
+
+import {UI} from "../constants";
+import Button from "./Button";
+const dismissKeyboard = require('dismissKeyboard');
+const t = require('tcomb-form-native');
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+let Form = t.form.Form;
+
+export default class extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: ""
+    }
+  }
+
+  componentDidMount() {
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    this._componentWillUpdateProps(this.props, true);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._componentWillUpdateProps(nextProps);
+  }
+
+  _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
+    if (nextProps.hasKeyboardShown) {
+      nextProps.navigator.setButtons({
+        rightButtons: [
+          {
+            icon: require('../../img/navicon_add.png'),
+            id: 'add'
+          }
+        ],
+        leftButtons: [],
+        animated: true
+      });
+    } else {
+      this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
+    }
+  }
+
+  onNavigatorEvent(event) {
+    dismissKeyboard();
+  }
+
+  onChange(value) {
+    this.props.actions.changeFormField("login", "email", value.email);
+    this.props.actions.changeFormField("login", "password", value.password);
+  }
+
+  render() {
+    let options = {
+      auto: 'placeholders',
+      fields: {}
+    };
+    let email = {
+      label: 'Email',
+      autoCorrect: false,
+      keyboardType: 'email-address',
+      hasError: this.props.form.get("emailError"),
+      error: this.props.form.get("emailError")
+    };
+    let password = {
+      label: 'Password',
+      maxLength: 12,
+      secureTextEntry: true,
+      hasError: this.props.form.get("passwordError"),
+      error: this.props.form.get("passwordError")
+    };
+
+    const loginForm = t.struct({
+      email: t.String,
+      password: t.String
+    });
+
+    options.fields['email'] = email;
+    options.fields['password'] = password;
+
+    return (
+      <KeyboardAwareScrollView  getTextInputRefs={() => { return [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input];}}>
+        <View style={styles.container}>
+          <Text style={styles.title}>{this.props.title}</Text>
+          <Form ref={(r) => this.form = r}
+                type={loginForm}
+                options={options}
+                value={{email: this.props.form.get("email"), password: this.props.form.get("password")}}
+                onChange={this.onChange.bind(this)}
+          />
+          <TouchableOpacity
+            style={[styles.button, styles.buttonSignIn, {backgroundColor: this.props.form.get("isValid") ? "green" : "rgba(64, 64, 64, 0.5)"}]}
+            disabled={!this.props.form.get("isValid")}
+            onPress={this.props.actions.signIn.bind(null, this.props.form.get("email"), this.props.form.get("password"))}>
+            <Text style={styles.buttonText}>Sing In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.buttonRegister]} onPress={this.props.showRegisterScreen}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
+          </View>
+      </KeyboardAwareScrollView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15
+  },
+  title: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  buttonSignIn: {
+    backgroundColor: 'green'
+  },
+  buttonRegister: {
+    backgroundColor: '#48BBEC'
+  }
+});

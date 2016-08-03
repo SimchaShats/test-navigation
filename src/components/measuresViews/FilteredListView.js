@@ -32,14 +32,14 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.keyboardShow !== this.props.keyboardShow) {
+    if (nextProps.hasKeyboardShown !== this.props.hasKeyboardShown) {
       this.props.navigator.setTitle({
-        title: this.props.keyboardShow ? "My Notes" : this.props.measuresNamesList.get(this.state.filterValue)
+        title: this.props.hasKeyboardShown ? "My Notes" : this.props.measuresNamesList.get(this.state.filterValue)
       });
       Animated.timing(
         this.state.bounceValue,
         {
-          toValue: this.props.keyboardShow ? 0 : -135,
+          toValue: this.props.hasKeyboardShown ? 0 : -135,
           duration: 250
         }
       ).start();

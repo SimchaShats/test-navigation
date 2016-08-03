@@ -13,20 +13,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import * as userActions from '../redux/user/actions';
+import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
-import FilteredListView from "../components/measuresViews/FilteredListView";
-import Login from "../components/Login";
+import FriendsNotesPage from "../components/FriendsNotesPage";
+import LoginForm from "../components/LoginForm";
 import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');
 var Spinner = require('react-native-spinkit');
 
 class FriendsNotesScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      visibleHeight: Dimensions.get('window').height,
-      keyboardShow: false
+      hasKeyboardShown: false
     };
   }
 
@@ -43,39 +42,41 @@ class FriendsNotesScreen extends Component {
 
   keyboardShow(e) {
     this.setState({
-      visibleHeight: Dimensions.get('window').height - e.endCoordinates.height,
-      keyboardShow: true
-    });
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: require('../../img/navicon_add.png'),
-          id: 'add'
-        }
-      ],
-      leftButtons: [],
-      animated: true
+      hasKeyboardShown: true
     });
   }
 
   keyboardHide(e) {
     this.setState({
-      keyboardShow: false,
-      visibleHeight: Dimensions.get('window').height
+      hasKeyboardShown: false
     });
-    this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
+  }
+
+  showRegisterScreen() {
+    this.props.navigator.showModal({
+      screen: "RegisterScreen",
+      title: "Register",
+      animationType: "slide-up"
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         {this.props.isUserLoggedIn
-          ? <View/>
-          : <Login navigator={this.props.navigator}
-                   visibleHeight={this.state.visibleHeight}
-                   actions={this.props.actions}
-                   keyboardShow={this.state.keyboardShow}
-                   title="Please signIn to use this option..."/>
+          ? <FriendsNotesPage navigator={this.props.navigator}
+                              hasKeyboardShown={this.state.hasKeyboardShown}
+                              measuresFriendsNotesList={this.props.measuresFriendsNotesList}
+                              measuresNamesList={this.props.measuresNamesList}
+                              actions={this.props.actions}
+                              features={{remove: {action: this.props.actions.removeFriendNote}}}/>
+          : <LoginForm navigator={this.props.navigator}
+                       actions={this.props.actions}
+                       hasKeyboardShown={this.state.hasKeyboardShown}
+                       form={this.props.form}
+                       showRegisterScreen={this.showRegisterScreen.bind(this)}
+                       keyboardShow={this.state.keyboardShow}
+                       title="Please sign in to use this option, or register if you don't have an account"/>
         }
         {this.props.isFetching.get("user") && <View style={styles.overlay}>
           <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
@@ -101,12 +102,16 @@ function mapStateToProps(state) {
   return {
     userProfile: state.user.get("profile"),
     isUserLoggedIn: state.user.get("isLoggedIn"),
-    isFetching: state.app.get("isFetching")
+    isFetching: state.app.get("isFetching"),
+    form: state.app.get("forms").get("login"),
+    measuresNamesList: state.measures.get("namesList"),
+    measuresFriendsNotesList: state.measures.get("friendsNotesList")
   };
 }
 
 const actions = [
   measuresActions,
+  appActions,
   userActions
 ];
 

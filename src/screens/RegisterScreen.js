@@ -1,7 +1,7 @@
+"use strict";
 import React, {Component, PropTypes} from 'react';
 import {
   Text,
-  Image,
   View,
   ScrollView,
   TouchableOpacity,
@@ -12,13 +12,16 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
+import * as userActions from '../redux/user/actions';
+import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
-import FilteredListView from "../components/measuresViews/FilteredListView";
+import FriendsNotesPage from "../components/FriendsNotesPage";
+import RegisterForm from "../components/RegisterForm";
+import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');
+var Spinner = require('react-native-spinkit');
 
-// this is a traditional React component connected to the redux store
-class MyNotesScreen extends Component {
-
+class RegisterScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,47 +34,40 @@ class MyNotesScreen extends Component {
     this.keyboardHide = Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
     this.props.actions.getMeasuresMyNotesList();
   }
+
   componentWillUnmount() {
     this.keyboardShow.remove();
     this.keyboardHide.remove();
   }
 
-
   keyboardShow(e) {
-    this.setState({hasKeyboardShown: true});
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: require('../../img/navicon_add.png'),
-          id: 'add'
-        }
-      ],
-      leftButtons: [
-        {
-          icon: require('../../img/navicon_menu.png'),
-          id: 'cancel'
-        }
-      ],
-      animated: true
+    this.setState({
+      hasKeyboardShown: true
     });
   }
 
   keyboardHide(e) {
-    this.setState({hasKeyboardShown: false});
-    this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
+    this.setState({
+      hasKeyboardShown: false
+    });
+  }
+
+  showRegisterForm() {
+    this.props.navigator.showModal({
+      screen: {}
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <FilteredListView
-          navigator={this.props.navigator}
-          hasKeyboardShown={this.state.hasKeyboardShown}
-          listItems={this.props.measuresMyNotesList}
-          filterItems={this.props.measuresNamesList}
-          measuresNamesList={this.props.measuresNamesList}
-          actions={this.props.actions}
-          features={{add: {action: this.props.actions.addMyNote}, remove: {action: this.props.actions.removeMyNote}}}/>
+        <RegisterForm navigator={this.props.navigator}
+                      actions={this.props.actions}
+                      form={this.props.form}
+                      hasKeyboardShown={this.state.hasKeyboardShown}/>
+        {this.props.isFetching.get("user") && <View style={styles.overlay}>
+          <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
+        </View>}
       </View>
     );
   }
@@ -80,18 +76,27 @@ class MyNotesScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)"
   }
 });
 
 function mapStateToProps(state) {
   return {
-    measuresNamesList: state.measures.get("namesList"),
-    measuresMyNotesList: state.measures.get("myNotesList")
+    userProfile: state.user.get("profile"),
+    form: state.app.get("forms").get("register"),
+    isFetching: state.app.get("isFetching")
   };
 }
 
 const actions = [
-  measuresActions
+  measuresActions,
+  appActions,
+  userActions
 ];
 
 function mapDispatchToProps(dispatch) {
@@ -106,4 +111,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyNotesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);

@@ -58,4 +58,28 @@ export default class extends API {
       });
     })
   }
+
+  saveUserProfile(userProfile) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.setItem(ASYNC_STORAGE.USER_PROFILE, JSON.stringify(userProfile), () => {
+        resolve(null);
+      });
+    })
+  }
+
+  removeUserProfile(userProfile) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.removeItem(ASYNC_STORAGE.USER_PROFILE, () => {
+        resolve(null);
+      });
+    })
+  }
+
+  getUserProfile() {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem(ASYNC_STORAGE.USER_PROFILE, (error, userProfile) => {
+        resolve(JSON.parse(userProfile));
+      });
+    })
+  }
 }
