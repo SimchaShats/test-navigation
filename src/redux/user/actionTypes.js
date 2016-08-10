@@ -7,3 +7,4 @@ export const SIGN_OUT_FAILURE = 'user.SIGN_OUT_FAILURE';
 export const SIGN_UP = 'user.SIGN_UP';
 export const SIGN_UP_SUCCESS = 'user.SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'user.SIGN_UP_FAILURE';
+export const GET_USERS_LIST = 'user.GET_USERS_LIST';

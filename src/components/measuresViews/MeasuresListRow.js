@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Picker
 } from 'react-native';
-import Button from "./../Button"
+import Button from "./../UI/Button";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class extends Component {
   constructor(props) {
@@ -19,12 +20,16 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.textWrapper}><Text
-          style={styles.measureName}>{this.props.measuresNamesList.get(this.props.measure)}: <Text
-          style={styles.text}>{this.props.data}</Text></Text></View>
+        <View style={styles.textWrapper}>
+          <Text style={styles.measureName}>{this.props.measuresNamesList.get(this.props.measure) + ": "}
+            <Text style={styles.text}>{this.props.message}</Text>
+          </Text>
+        </View>
         {this.props.features && Object.keys(this.props.features).includes("remove") &&
-        <Button style={{marginLeft: 15, backgroundColor: "red"}}
-                onPress={this.props.features.remove.action.bind(null, this.props.id)}>Delete</Button>}
+        <TouchableOpacity onPress={this.props.features.remove.action.bind(null, this.props.id)}><Icon name="delete" size={30} color="gray"/></TouchableOpacity>
+        //<Button style={{marginLeft: 15, backgroundColor: "red"}}
+        //        onPress={this.props.features.remove.action.bind(null, this.props.id)}>Delete</Button>
+        }
       </View>
     );
   }

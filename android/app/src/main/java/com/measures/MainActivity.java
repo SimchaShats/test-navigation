@@ -1,6 +1,8 @@
 package com.measures;
 
 import com.facebook.react.ReactActivity;
+import com.i18n.reactnativei18n.ReactNativeI18n;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.reactnativenavigation.activities.RootActivity;
 

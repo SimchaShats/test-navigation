@@ -12,85 +12,60 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
+import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
-import FilteredListView from "../components/measuresViews/FilteredListView";
-const { Keyboard } = require('react-native');
+import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
+import I18n from "../i18n";
 
 // this is a traditional React component connected to the redux store
 class MyNotesScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      hasKeyboardShown: false
-    };
   }
 
   componentWillMount() {
-    this.keyboardShow = Keyboard.addListener('keyboardWillShow', this.keyboardShow.bind(this));
-    this.keyboardHide = Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
     this.props.actions.getMeasuresMyNotesList();
   }
-  componentWillUnmount() {
-    this.keyboardShow.remove();
-    this.keyboardHide.remove();
+
+  componentDidMount() {
+    this._componentWillUpdateProps(this.props, true);
   }
 
-
-  keyboardShow(e) {
-    this.setState({hasKeyboardShown: true});
-    this.props.navigator.setButtons({
-      rightButtons: [
-        {
-          icon: require('../../img/navicon_add.png'),
-          id: 'add'
-        }
-      ],
-      leftButtons: [
-        {
-          icon: require('../../img/navicon_menu.png'),
-          id: 'cancel'
-        }
-      ],
-      animated: true
-    });
+  componentWillReceiveProps(nextProps) {
+    this._componentWillUpdateProps(nextProps);
   }
 
-  keyboardHide(e) {
-    this.setState({hasKeyboardShown: false});
-    this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
+  _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
+    nextProps.navigator.setTitle({title: I18n.t("tabMyNotes")});
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <FilteredListView
+        <FilteredMeasuresView
+          updateList={this.props.actions.getMeasuresMyNotesList}
           navigator={this.props.navigator}
-          hasKeyboardShown={this.state.hasKeyboardShown}
-          listItems={this.props.measuresMyNotesList}
+          measuresList={this.props.measuresMyNotesList}
           filterItems={this.props.measuresNamesList}
           measuresNamesList={this.props.measuresNamesList}
+          focusedElement={this.props.focusedElement}
           actions={this.props.actions}
+          icons={this.props.icons}
           features={{add: {action: this.props.actions.addMyNote}, remove: {action: this.props.actions.removeMyNote}}}/>
-      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
-
 function mapStateToProps(state) {
   return {
     measuresNamesList: state.measures.get("namesList"),
+    focusedElement: state.app.get("focusedElement"),
     measuresMyNotesList: state.measures.get("myNotesList")
   };
 }
 
 const actions = [
+  appActions,
   measuresActions
 ];
 

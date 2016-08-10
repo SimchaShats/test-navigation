@@ -35,9 +35,9 @@ export function getFriendsNotesList(userId) {
   }
 }
 
-export function addMyNote(measure, data) {
+export function addMyNote(measure, message) {
   return async function(dispatch, getState) {
-    const newNote = await APIFactory(API_SOURCES.ASYNC_STORAGE).addMyNote(measure, data);
+    const newNote = await APIFactory(API_SOURCES.ASYNC_STORAGE).addMyNote(measure, message);
     dispatch({type: ADD_MY_NOTE, payload: newNote});
     return null;
   }

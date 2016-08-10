@@ -24,15 +24,15 @@ export default class extends API {
     }
   }
 
-  addMyNote(measure, data) {
+  addMyNote(measure, message) {
     return new Promise((resolve, reject) => {
       AsyncStorage.getItem(ASYNC_STORAGE.MY_NOTES, (error, notes) => {
         notes = JSON.parse(notes) || {};
         const key = `_${Date.now()}`;
-        notes[key] = {measure, data};
+        notes[key] = {measure, message};
         AsyncStorage.setItem(ASYNC_STORAGE.MY_NOTES, JSON.stringify(notes), () => {
           let newNote = {};
-          newNote[key] = {measure, data};
+          newNote[key] = {measure, message};
           resolve(newNote);
         });
       });
@@ -47,6 +47,22 @@ export default class extends API {
         AsyncStorage.setItem(ASYNC_STORAGE.MY_NOTES, JSON.stringify(notes), () => {
           resolve(noteId);
         });
+      });
+    })
+  }
+
+  setLanguage(lang) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.setItem(ASYNC_STORAGE.LANGUAGE, lang, () => {
+        resolve(null);
+      });
+    })
+  }
+
+  getLanguage() {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem(ASYNC_STORAGE.LANGUAGE, (error, lang) => {
+        resolve(lang);
       });
     })
   }

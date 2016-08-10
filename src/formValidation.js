@@ -11,7 +11,7 @@ export default function (state, action) {
         return state.setIn(["forms", action.payload.form, "isValid"], false);
       }
       break;
-    case "register" :
+    case "userProfile" :
       const formRegister = state.get("forms").get(action.payload.form);
       if (!formRegister.get("emailError") && formRegister.get("email") !== ""
         && !formRegister.get("firstNameError") && formRegister.get("firstName") !== ""

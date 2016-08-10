@@ -21,7 +21,14 @@ export const FIREBASE = {
 
 export const ASYNC_STORAGE = {
   MY_NOTES: "MY_NOTES",
+  LANGUAGE: "LANGUAGE",
   USER_PROFILE: "USER_PROFILE"
+};
+
+export const LANGUAGES = {
+  en: "English",
+  ru: "Русский",
+  he: "עברית"
 };
 
 export const UI = {

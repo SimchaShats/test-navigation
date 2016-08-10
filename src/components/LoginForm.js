@@ -13,11 +13,12 @@ import {
 } from 'react-native';
 
 import {UI} from "../constants";
-import Button from "./Button";
+import Button from "./UI/Button";
 const dismissKeyboard = require('dismissKeyboard');
 const t = require('tcomb-form-native');
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 let Form = t.form.Form;
+import I18n from "../i18n";
 
 export default class extends Component {
   constructor(props) {
@@ -38,19 +39,25 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.hasKeyboardShown) {
-      nextProps.navigator.setButtons({
-        rightButtons: [
-          {
-            icon: require('../../img/navicon_add.png'),
-            id: 'add'
-          }
-        ],
-        leftButtons: [],
-        animated: true
-      });
-    } else {
-      this.props.navigator.setButtons({rightButtons: [], leftButtons: []});
+    if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
+      if (nextProps.focusedElement === "textInputLoginForm") {
+        nextProps.navigator.setButtons({
+          rightButtons: [
+            {
+              icon: this.props.icons.doneIcon,
+              id: 'done'
+            }
+          ],
+          leftButtons: [],
+          animated: true
+        });
+      } else if (this.props.focusedElement === "textInputLoginForm") {
+        nextProps.navigator.setButtons({
+          rightButtons: [],
+          leftButtons: [],
+          animated: true
+        });
+      }
     }
   }
 
@@ -69,16 +76,20 @@ export default class extends Component {
       fields: {}
     };
     let email = {
-      label: 'Email',
+      label: I18n.t("fieldEmail"),
       autoCorrect: false,
       keyboardType: 'email-address',
       hasError: this.props.form.get("emailError"),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
+      onBlur: this.props.actions.focusElement.bind(null),
       error: this.props.form.get("emailError")
     };
     let password = {
-      label: 'Password',
+      label: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
+      onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
+      onBlur: this.props.actions.focusElement.bind(null),
       hasError: this.props.form.get("passwordError"),
       error: this.props.form.get("passwordError")
     };
@@ -92,9 +103,9 @@ export default class extends Component {
     options.fields['password'] = password;
 
     return (
-      <KeyboardAwareScrollView  getTextInputRefs={() => { return [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input];}}>
+      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => { return [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input];}}>
         <View style={styles.container}>
-          <Text style={styles.title}>{this.props.title}</Text>
+          <Text style={styles.header}>{this.props.header}</Text>
           <Form ref={(r) => this.form = r}
                 type={loginForm}
                 options={options}
@@ -105,10 +116,10 @@ export default class extends Component {
             style={[styles.button, styles.buttonSignIn, {backgroundColor: this.props.form.get("isValid") ? "green" : "rgba(64, 64, 64, 0.5)"}]}
             disabled={!this.props.form.get("isValid")}
             onPress={this.props.actions.signIn.bind(null, this.props.form.get("email"), this.props.form.get("password"))}>
-            <Text style={styles.buttonText}>Sing In</Text>
+            <Text style={styles.buttonText}>{I18n.t("buttonSignIn")}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.buttonRegister]} onPress={this.props.showRegisterScreen}>
-            <Text style={styles.buttonText}>Register</Text>
+            <Text style={styles.buttonText}>{I18n.t("buttonRegister")}</Text>
           </TouchableOpacity>
           </View>
       </KeyboardAwareScrollView>
@@ -120,7 +131,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 15
   },
-  title: {
+  header: {
     marginBottom: 15,
     textAlign: "center"
   },
@@ -131,7 +142,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    borderRadius: 8,
+    borderRadius: 5,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'

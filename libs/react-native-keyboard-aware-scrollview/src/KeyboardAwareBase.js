@@ -60,7 +60,7 @@ export default class KeyboardAwareBase extends Component {
   _updateKeyboardAwareViewContentSize() {
     if(ScrollViewManager && ScrollViewManager.getContentSize) {
       ScrollViewManager.getContentSize(ReactNative.findNodeHandle(this._keyboardAwareView), (res)=> {
-        this._keyboardAwareView.contentSize = res;
+        this._keyboardAwareView && (this._keyboardAwareView.contentSize = res);
         if(this.state.scrollBottomOnNextSizeChange) {
           this.scrollToBottom();
           this.state.scrollBottomOnNextSizeChange = false;
@@ -79,7 +79,7 @@ export default class KeyboardAwareBase extends Component {
       textInputRefs.forEach((textInputRef) => {
         if (textInputRef.isFocused()) {
           this._keyboardAwareView.getScrollResponder().scrollResponderScrollNativeHandleToKeyboard(
-              ReactNative.findNodeHandle(textInputRef), 70 + (this.props.scrollOffset || 0), true);
+              ReactNative.findNodeHandle(textInputRef), this.props.marginScrollTop + (this.props.scrollOffset || 0), true);
         }
       });
     }
@@ -128,9 +128,11 @@ export default class KeyboardAwareBase extends Component {
 
 KeyboardAwareBase.propTypes = {
   startScrolledToBottom: PropTypes.bool,
+  marginScrollTop: PropTypes.number,
   scrollToBottomOnKBShow: PropTypes.bool
 };
 KeyboardAwareBase.defaultProps = {
   startScrolledToBottom: false,
+  marginScrollTop: 70,
   scrollToBottomOnKBShow: false
 };

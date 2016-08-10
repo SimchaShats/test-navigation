@@ -1,4 +1,7 @@
 export const CHANGE_ROOT = 'app.CHANGE_ROOT';
 export const FETCH_REMOTE_DATA = 'app.FETCH_REMOTE_DATA';
 export const CHANGE_FORM_FIELD = 'app.CHANGE_FORM_FIELD';
-export const SET_FORM_FIELD_ERROR = 'app.SET_FORM_FIELD_ERROR';
+export const SET_FORM_FIELD = 'app.SET_FORM_FIELD';
+export const CHANGE_KEYBOARD_STATE = 'app.CHANGE_KEYBOARD_STATE';
+export const FOCUS_ELEMENT = 'app.FOCUS_ELEMENT';
+export const CHANGE_LANGUAGE = 'app.CHANGE_LANGUAGE';

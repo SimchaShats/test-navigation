@@ -9,22 +9,19 @@ import {
   TouchableOpacity,
   Picker
 } from 'react-native';
-import Filter from "./Filter";
-import MeasuresList from "./MeasuresList";
 const { Keyboard } = require('react-native');
 const dismissKeyboard = require('dismissKeyboard');
+import I18n from "../../i18n";
 
 export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonWidth: 0,
       text: ""
     };
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -36,21 +33,14 @@ export default class extends Component {
 
   }
 
-  onNavigatorEvent(event) {
-    if (event.id === 'add') {
-      this.state.text.trim() !== "" && this.props.addAction(this.props.measure, this.state.text);
-      this.setState({text: ""});
-    }
-    this.setState({text: ""});
-    dismissKeyboard();
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style={styles.textInput} multiline={true} value={this.state.text}
-                   onChangeText={(text) => this.setState({text})}
-                   placeholder="Type your note about yourself to improve your measure..."/>
+        <TextInput style={styles.textInput}
+                   onChangeText={this.props.updateSearchCondition}
+                   onFocus={this.props.actions.focusElement.bind(null, "textInputFriendsSearch")}
+                   onBlur={this.props.actions.focusElement.bind(null)}
+                   placeholder={I18n.t("placeholderFriendNote")}/>
       </View>
     );
   }

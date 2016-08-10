@@ -12,20 +12,19 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
+import * as appActions from '../redux/app/actions';
+import * as userActions from '../redux/user/actions';
 import {Map} from 'immutable';
-import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
+import FilteredListView from "../components/measuresViews/FilteredMeasuresView";
+import UserProfilePage from "../components/UserProfilePage";
+import FriendsSearch from "../components/friendsViews/FriendsSearch";
 import I18n from "../i18n";
 
 // this is a traditional React component connected to the redux store
-class TheoryScreen extends Component {
+class UserProfileScreen extends Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    this.props.actions.getMeasuresTheoryList();
-    this.props.actions.getMeasuresNamesList();
   }
 
   componentDidMount() {
@@ -37,30 +36,37 @@ class TheoryScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabTheory")});
+    nextProps.navigator.setTitle({title: I18n.t("tabUserProfile")});
   }
 
   render() {
     return (
-        <FilteredMeasuresView
-          updateList={this.props.actions.getMeasuresTheoryList}
-          measuresList={this.props.measuresTheoryList}
-          measuresNamesList={this.props.measuresNamesList}
-          actions={this.props.actions}
-          icons={this.props.icons}/>
+      <UserProfilePage
+        usersList={this.props.usersList}
+        navigator={this.props.navigator}
+        focusedElement={this.props.focusedElement}
+        actions={this.props.actions}
+        icons={this.props.icons}
+        measuresNamesList={this.props.measuresNamesList}
+        meProfile={this.props.meProfile}
+        userId={this.props.userId}/>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
+    usersList: state.user.get("usersList"),
     measuresNamesList: state.measures.get("namesList"),
-    measuresTheoryList: state.measures.get("theoryList")
+    meProfile: state.user.get("profile"),
+    focusedElement: state.app.get("focusedElement")
   };
 }
 
 const actions = [
-  measuresActions
+  measuresActions,
+  userActions,
+  appActions
 ];
 
 function mapDispatchToProps(dispatch) {
@@ -75,4 +81,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TheoryScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileScreen);

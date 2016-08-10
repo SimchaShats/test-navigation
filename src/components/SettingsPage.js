@@ -18,8 +18,8 @@ import FilteredMeasuresView from "./measuresViews/FilteredMeasuresView";
 const dismissKeyboard = require('dismissKeyboard');
 const t = require('tcomb-form-native');
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import I18n from "../i18n";
 let Form = t.form.Form;
+import I18n from "../i18n";
 
 export default class extends Component {
 
@@ -55,6 +55,7 @@ export default class extends Component {
     if (event.id === 'createNote') {
       this.props.navigator.push({
         screen: 'CreateFriendNoteScreen',
+        title: "Create note",
         passProps: {
           icons: this.props.icons
         },

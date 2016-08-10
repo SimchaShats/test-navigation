@@ -7,21 +7,20 @@ import {
   RefreshControl,
   Picker
 } from 'react-native';
-import MeasuresListRow from "./MeasuresListRow";
+import UsersListRow from "./UsersListRow";
 
 export default class extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      refreshing: false,
       dataSource: this.ds.cloneWithRows([])
     }
   }
 
   _onRefresh() {
     this.setState({refreshing: true});
-    this.props.updateList().then(() => {
+    this.props.actions.getMeasuresTheoryList().then(() => {
       this.setState({refreshing: false});
     });
   }
@@ -35,23 +34,19 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.measure && nextProps.measuresList) {
-      this.setState({dataSource: this.ds.cloneWithRows(nextProps.measuresList.filter((value, key) => value.get("measure") === nextProps.measure || nextProps.measure === "all").toArray())});
+    if (nextProps.searchCondition && nextProps.usersList) {
+      this.setState({dataSource: this.ds.cloneWithRows(nextProps.usersList.filter((value, key) => value.get("firstName").includes(nextProps.searchCondition) || value.get("lastName").includes(nextProps.searchCondition)).toArray())});
     }
   }
 
   render() {
     return (
       <ListView
+        keyboardShouldPersistTaps={true}
         dataSource={this.state.dataSource}
         enableEmptySections={true}
-        renderRow={(rowData) => <MeasuresListRow features={this.props.features} measuresNamesList={this.props.measuresNamesList} measure={rowData.get("measure")} message={rowData.get("message")} id={rowData.get("id")}/>}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
-          />
-        }
+        renderRow={(rowData) => <UsersListRow focusedElement={this.props.focusedElement} profile={rowData} navigator={this.props.navigator}
+        icons={this.props.icons}/>}
       />
     );
   }

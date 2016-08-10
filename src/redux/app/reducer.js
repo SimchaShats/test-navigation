@@ -2,7 +2,10 @@ import {
   CHANGE_ROOT,
   FETCH_REMOTE_DATA,
   CHANGE_FORM_FIELD,
-  SET_FORM_FIELD_ERROR
+  CHANGE_LANGUAGE,
+  CHANGE_KEYBOARD_STATE,
+  FOCUS_ELEMENT,
+  SET_FORM_FIELD
 } from './actionTypes';
 import {OrderedMap, Map, fromJS} from 'immutable';
 import fieldValidation from '../../fieldValidation';
@@ -10,20 +13,25 @@ import formValidation from '../../formValidation';
 
 const initialState = Map({
   root: null,
+  focusedElement: null,
+  isKeyboardShown: false,
   isFetching: Map({
+    friendNote: false,
     user: false
   }),
+  lang: "en",
   forms: Map({
     login: Map({
-      isValid: false,
+      isValid: true,
       message: "",
-      email: "",
+      email: "mr.shats@gmail.com",
       emailError: null,
-      password: "",
+      password: "123456",
       passwordError: null
     }),
-    register: Map({
+    userProfile: Map({
       isValid: true,
+      lang: "en",
       message: "",
       email: "mr.shats@gmail.com",
       emailError: null,
@@ -34,7 +42,9 @@ const initialState = Map({
       password: "123456",
       passwordError: null,
       confirmPassword: "123456",
-      passwordAgainError: null
+      passwordAgainError: null,
+      birthDate: new Date(),
+      birthDateError: null
     })
   })
 });
@@ -43,6 +53,12 @@ export default function app(state = initialState, action = {}) {
   switch (action.type) {
     case CHANGE_ROOT:
       return state.set("root", action.payload);
+    case CHANGE_LANGUAGE:
+      return state.set("lang", action.payload);
+    case FOCUS_ELEMENT:
+      return state.set("focusedElement", action.payload);
+    case CHANGE_KEYBOARD_STATE:
+      return state.set("isKeyboardShown", !state.get("isKeyboardShown"));
     case CHANGE_FORM_FIELD:
       return formValidation(
         fieldValidation(
@@ -50,9 +66,9 @@ export default function app(state = initialState, action = {}) {
           action),
         action
       );
-    case SET_FORM_FIELD_ERROR:
+    case SET_FORM_FIELD:
       return formValidation(
-        state.setIn(["forms", action.payload.form, action.payload.errorField], action.payload.error),
+        state.setIn(["forms", action.payload.form, action.payload.field], action.payload.data),
         action
       );
     case FETCH_REMOTE_DATA:

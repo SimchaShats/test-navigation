@@ -20,44 +20,38 @@ import LoginForm from "../components/LoginForm";
 import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');
 var Spinner = require('react-native-spinkit');
+import I18n from "../i18n";
 
 class FriendsNotesScreen extends Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      hasKeyboardShown: false
-    };
   }
 
   componentWillMount() {
-    this.keyboardShow = Keyboard.addListener('keyboardWillShow', this.keyboardShow.bind(this));
-    this.keyboardHide = Keyboard.addListener('keyboardWillHide', this.keyboardHide.bind(this));
     this.props.actions.getMeasuresMyNotesList();
-  }
-
-  componentWillUnmount() {
-    this.keyboardShow.remove();
-    this.keyboardHide.remove();
-  }
-
-  keyboardShow(e) {
-    this.setState({
-      hasKeyboardShown: true
-    });
-  }
-
-  keyboardHide(e) {
-    this.setState({
-      hasKeyboardShown: false
-    });
   }
 
   showRegisterScreen() {
     this.props.navigator.showModal({
       screen: "RegisterScreen",
-      title: "Register",
+      passProps: {
+        icons: this.props.icons
+      },
       animationType: "slide-up"
     });
+  }
+
+  componentDidMount() {
+    this._componentWillUpdateProps(this.props, true);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._componentWillUpdateProps(nextProps);
+  }
+
+  _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
+    nextProps.navigator.setTitle({title: I18n.t("tabFriendsNotes")});
   }
 
   render() {
@@ -65,18 +59,20 @@ class FriendsNotesScreen extends Component {
       <View style={styles.container}>
         {this.props.isUserLoggedIn
           ? <FriendsNotesPage navigator={this.props.navigator}
-                              hasKeyboardShown={this.state.hasKeyboardShown}
+                              updateList={this.props.actions.getFriendsNotesList.bind(null, this.props.userProfile.get("id"))}
+                              focusedElement={this.props.focusedElement}
                               measuresFriendsNotesList={this.props.measuresFriendsNotesList}
                               measuresNamesList={this.props.measuresNamesList}
                               actions={this.props.actions}
+                              icons={this.props.icons}
                               features={{remove: {action: this.props.actions.removeFriendNote}}}/>
           : <LoginForm navigator={this.props.navigator}
                        actions={this.props.actions}
-                       hasKeyboardShown={this.state.hasKeyboardShown}
+                       focusedElement={this.props.focusedElement}
                        form={this.props.form}
+                       icons={this.props.icons}
                        showRegisterScreen={this.showRegisterScreen.bind(this)}
-                       keyboardShow={this.state.keyboardShow}
-                       title="Please sign in to use this option, or register if you don't have an account"/>
+                       header={I18n.t("headerLogin")}/>
         }
         {this.props.isFetching.get("user") && <View style={styles.overlay}>
           <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
@@ -103,6 +99,7 @@ function mapStateToProps(state) {
     userProfile: state.user.get("profile"),
     isUserLoggedIn: state.user.get("isLoggedIn"),
     isFetching: state.app.get("isFetching"),
+    focusedElement: state.app.get("focusedElement"),
     form: state.app.get("forms").get("login"),
     measuresNamesList: state.measures.get("namesList"),
     measuresFriendsNotesList: state.measures.get("friendsNotesList")

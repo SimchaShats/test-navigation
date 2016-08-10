@@ -10,6 +10,8 @@ export default class API {
   signIn() {}
   signUp() {}
   signOut() {}
+  getUsersList() {}
+  addNoteToFriend() {}
 
   addMyNote() {}
   removeMyNote() {}
