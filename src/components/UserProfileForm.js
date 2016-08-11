@@ -45,36 +45,32 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
-      if (nextProps.focusedElement === "textInputRegisterForm") {
+      if (nextProps.focusedElement === "textInputUserProfileForm") {
         nextProps.navigator.setButtons({
           rightButtons: [
             {
-              icon: this.props.icons.doneIcon,
+              icon: nextProps.icons.doneIcon,
               id: 'done'
             }
           ],
           leftButtons: [],
           animated: true
         });
-      } else if (this.props.focusedElement === "textInputRegisterForm" || !this.props.focusedElement) {
-        if (nextProps.isFetching.get("user") || !nextProps.isClosable) {
-          this.props.navigator.setButtons({rightButtons: [], leftButtons: [], animated: true});
-        } else {
-          this.props.navigator.setButtons({
-            rightButtons: [], leftButtons: [
-              {
-                icon: this.props.icons.clearIcon,
-                id: 'close'
-              }
-            ],
-            animated: true
-          });
-        }
-      }
+      }/* else if (this.props.focusedElement === "textInputUserProfileForm" || !nextProps.focusedElement) {
+        const buttonClose = {
+          icon: nextProps.icons.clearIcon,
+          id: 'close'
+        };
+        this.props.navigator.setButtons({
+          rightButtons: Platform.OS === "ios" ? [] : [buttonClose], leftButtons: Platform.OS === "ios" ? [buttonClose] : [],
+          animated: true
+        });
+      }*/
     }
   }
 
   onNavigatorEvent(event) {
+    console.log(event);
     if (event.id === "close") {
       this.props.navigator.dismissModal();
     }
@@ -90,7 +86,7 @@ export default class extends Component {
     this.props.actions.changeFormField("userProfile", "password", value.password);
     this.props.actions.changeFormField("userProfile", "confirmPassword", value.confirmPassword);
     this.props.actions.changeFormField("userProfile", "lang", value.lang);
-    this.props.actions.changeLanguage(value.lang);
+    this.props.actions.changeLanguage(value.lang, true);
   }
 
   render() {
@@ -102,16 +98,16 @@ export default class extends Component {
       label: I18n.t("fieldEmail"),
       autoCorrect: false,
       keyboardType: 'email-address',
-      onFocus: this.props.actions.focusElement.bind(null, "textInputRegisterForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("emailError"),
       error: this.props.form.get("emailError")
     };
     let firstName = {
       label: I18n.t("fieldFirstName"),
       maxLength: 16,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputRegisterForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("firstNameError"),
       error: this.props.form.get("firstNameError")
     };
@@ -125,14 +121,16 @@ export default class extends Component {
       error: this.props.form.get("birthDateError")
     };
     let lang = {
-      label: I18n.t("fieldLanguage")
+      label: I18n.t("fieldLanguage"),
+      nullOption: false,
+      value: "en"
     };
     let languagesList = {...LANGUAGES};
     let lastName = {
       label: I18n.t("fieldLastName"),
       maxLength: 16,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputRegisterForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("lastNameError"),
       error: this.props.form.get("lastNameError")
     };
@@ -140,8 +138,8 @@ export default class extends Component {
       label: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputRegisterForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("passwordError"),
       error: this.props.form.get("passwordError")
     };
@@ -149,20 +147,20 @@ export default class extends Component {
       label: I18n.t("fieldConfirmPassword"),
       maxLength: 12,
       secureTextEntry: true,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputRegisterForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("passwordAgainError"),
       error: this.props.form.get("passwordAgainError")
     };
 
     const userProfileForm = {};
-    this.props.form.get("lang") && (userProfileForm.lang = t.enums(languagesList));
-    this.props.form.get("birthDate") && (userProfileForm.birthDate = t.Date);
-    this.props.form.get("email") && (userProfileForm.email = t.String);
-    this.props.form.get("firstName") && (userProfileForm.firstName = t.String);
-    this.props.form.get("lastName") && (userProfileForm.lastName = t.String);
-    this.props.form.get("password") && (userProfileForm.password = t.String);
-    this.props.form.get("confirmPassword") && (userProfileForm.confirmPassword = t.String);
+    this.props.form.has("lang") && (userProfileForm.lang = t.enums(languagesList));
+    this.props.form.has("birthDate") && (userProfileForm.birthDate = t.Date);
+    this.props.form.has("email") && (userProfileForm.email = t.String);
+    this.props.form.has("firstName") && (userProfileForm.firstName = t.String);
+    this.props.form.has("lastName") && (userProfileForm.lastName = t.String);
+    this.props.form.has("password") && (userProfileForm.password = t.String);
+    this.props.form.has("confirmPassword") && (userProfileForm.confirmPassword = t.String);
 
     options.fields['email'] = email;
     options.fields['firstName'] = firstName;
@@ -171,7 +169,6 @@ export default class extends Component {
     options.fields['confirmPassword'] = confirmPassword;
     options.fields['birthDate'] = birthDate;
     options.fields['lang'] = lang;
-
     return (
       <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => [
         this.form.getComponent("email").refs.input,
@@ -195,10 +192,10 @@ export default class extends Component {
                 }}
                 onChange={this.onChange.bind(this)}
           />
-          {this.props.form.get("password") && this.props.form.get("password") && <TouchableOpacity
+          {this.props.form.has("firstName") && this.props.form.has("lastName") && <TouchableOpacity
             style={[styles.button, styles.buttonSignUp, {backgroundColor: this.props.form.get("isValid") ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
             disabled={!this.props.form.get("isValid")}
-            onPress={this.props.actions.signUp.bind(null, this.props.form.get("email"),
+            onPress={this.props.doneAction.bind(null, this.props.form.get("email"),
               this.props.form.get("password"),
               this.props.form.get("firstName"),
               this.props.form.get("lastName"),

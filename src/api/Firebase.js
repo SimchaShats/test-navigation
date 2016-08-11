@@ -51,6 +51,7 @@ export default class extends API {
           user.password = password;
           user.firstName = snapshot.val().firstName;
           user.lastName = snapshot.val().lastName;
+          user.birthDate = new Date(snapshot.val().birthDate);
           resolve(user);
         }, (error) => {
           reject(error)
@@ -67,7 +68,6 @@ export default class extends API {
       firebase.auth().createUserWithEmailAndPassword(email, password).then(snapshot => {
         user.id = snapshot.uid;
         user.email = email;
-        alert(birthDate);
         return firebase.database().ref(`users/${snapshot.uid}`).set({
           email,
           firstName,
@@ -104,9 +104,9 @@ export default class extends API {
     })
   }
 
-  getMeasuresTheoryList() {
+  getMeasuresTheoryList(lang) {
     return new Promise((resolve, reject) => {
-      firebase.database().ref('theory/en').once('value', snapshot => {
+      firebase.database().ref(`theory/${lang}`).once('value', snapshot => {
         resolve(OrderedMap(snapshot.val()).reverse().toObject());
       }, error => reject(error));
     })
@@ -115,7 +115,6 @@ export default class extends API {
   getFriendsNotesList(userId) {
     return new Promise((resolve, reject) => {
       firebase.database().ref(`friendsNotes/${userId}`).once('value', snapshot => {
-        console.log(snapshot.val(), userId);
         resolve(OrderedMap(snapshot.val()).reverse().toObject());
       }, (error) => {
         reject(error)
@@ -131,6 +130,14 @@ export default class extends API {
     })
   }
 
+  updateUserProfile(userId, email, password, firstName, lastName, birthDate) {
+    return new Promise((resolve, reject) => {
+      firebase.database().ref(`users/${userId}`).update({firstName, lastName, birthDate: birthDate.getTime()}, (error) => {
+        error ? reject(error) : resolve(null);
+      });
+    })
+  }
+
   removeFriendNote(userId, noteId) {
     return new Promise((resolve, reject) => {
       firebase.database().ref(`friendsNotes/${userId}/${noteId}`).remove(() => {
@@ -139,9 +146,9 @@ export default class extends API {
     })
   }
 
-  getMeasuresNamesList() {
+  getMeasuresNamesList(lang) {
     return new Promise((resolve, reject) => {
-      firebase.database().ref('measuresNames/en').once('value', snapshot => {
+      firebase.database().ref(`measuresNames/${lang}`).once('value', snapshot => {
         resolve(snapshot.val());
       }, (error) => {
         reject(error)

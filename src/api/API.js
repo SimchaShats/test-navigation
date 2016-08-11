@@ -10,11 +10,13 @@ export default class API {
   signIn() {}
   signUp() {}
   signOut() {}
+  updateUserProfile() {}
   getUsersList() {}
   addNoteToFriend() {}
 
   addMyNote() {}
   removeMyNote() {}
+  saveCurrentMeasure() {}
   getMeasuresMyNotesList() {}
 
   getFriendsNotesList() {}

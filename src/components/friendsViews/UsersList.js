@@ -35,7 +35,7 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.searchCondition && nextProps.usersList) {
-      this.setState({dataSource: this.ds.cloneWithRows(nextProps.usersList.filter((value, key) => value.get("firstName").includes(nextProps.searchCondition) || value.get("lastName").includes(nextProps.searchCondition)).toArray())});
+      this.setState({dataSource: this.ds.cloneWithRows(nextProps.usersList.filter((value, key) => value.get("id") !== nextProps.userProfile.get("id") && (value.get("firstName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()) || value.get("lastName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()))).toArray())});
     }
   }
 

@@ -38,9 +38,9 @@ export default class extends Component {
       if (nextProps.focusedElement === "textInputFriendsSearch") {
         nextProps.navigator.setButtons({
           rightButtons: [{
-              icon: nextProps.icons.doneIcon,
-              id: 'done'
-            }],
+            icon: nextProps.icons.doneIcon,
+            id: 'done'
+          }],
           leftButtons: [],
           animated: true
         });
@@ -55,7 +55,7 @@ export default class extends Component {
   }
 
   onNavigatorEvent(event) {
-    if (event.id === 'confirm') {
+    if (event.id === 'done') {
       dismissKeyboard();
     }
   }
@@ -63,10 +63,13 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={[styles.caption, {width: Dimensions.get("window").width}]}>{I18n.t("headerFriendsSearch")}</Text>
-        <SearchConditionRow actions={this.props.actions} updateSearchCondition={(searchCondition) => this.setState({searchCondition})}/>
+        <View style={styles.caption}><Text style={[{textAlign: "left", width: Dimensions.get("window").width}]}>{I18n.t("headerFriendsSearch")}</Text></View>
+        <SearchConditionRow actions={this.props.actions}
+                            updateSearchCondition={(searchCondition) => this.setState({searchCondition})}/>
         <UsersList focusedElement={this.props.focusedElement} usersList={this.props.usersList}
-                   navigator={this.props.navigator} searchCondition={this.state.searchCondition} icons={this.props.icons}/>
+                   navigator={this.props.navigator} searchCondition={this.state.searchCondition}
+                   icons={this.props.icons}
+                   userProfile={this.props.userProfile}/>
       </View>
     );
   }
@@ -79,12 +82,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   caption: {
-    padding: 10,
-    textAlign: "left"
+    padding: Platform.OS === "ios" ? 10 : 15
   },
   searchTextWrapper: {
     borderColor: "gray",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth
   },
   searchText: {
     height: 30,

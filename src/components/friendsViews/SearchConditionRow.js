@@ -37,10 +37,11 @@ export default class extends Component {
     return (
       <View style={styles.container}>
         <TextInput style={styles.textInput}
+                   autoCorrect={false}
                    onChangeText={this.props.updateSearchCondition}
                    onFocus={this.props.actions.focusElement.bind(null, "textInputFriendsSearch")}
-                   onBlur={this.props.actions.focusElement.bind(null)}
-                   placeholder={I18n.t("placeholderFriendNote")}/>
+                   onBlur={this.props.actions.focusElement.bind(null)} underlineColorAndroid="transparent"
+                   placeholder={I18n.t("placeholderFriendName")}/>
       </View>
     );
   }
@@ -53,12 +54,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "gray",
     justifyContent: "center",
-    padding: 10,
+    padding: Platform.OS === "ios" ? 10 : 0,
+    paddingHorizontal: 10,
     alignItems: "center"
   },
   textInput: {
     flex: 1,
-    height: 30,
+    height: Platform.OS === "ios" ? 16 : 52,
     fontSize: 14
   }
 });

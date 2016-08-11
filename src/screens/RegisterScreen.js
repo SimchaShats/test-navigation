@@ -40,9 +40,20 @@ class RegisterScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabRegister")});
-    if (nextProps.isLoggedIn) {
+    //nextProps.navigator.setTitle({title: I18n.t("tabRegister")});
+    if (nextProps.isUserLoggedIn) {
       nextProps.navigator.dismissModal();
+    }
+    if (nextProps.focusedElement !== this.props.focusedElement && this.props.focusedElement === "textInputUserProfileForm" || isComponentDidMount) {
+      const buttonClose = {
+        icon: nextProps.icons.clearIcon,
+        id: 'close'
+      };
+      this.props.navigator.setButtons({
+        rightButtons: [buttonClose],
+        leftButtons: [],
+        animated: true
+      });
     }
   }
 
@@ -57,6 +68,7 @@ class RegisterScreen extends Component {
                          userProfile={this.props.userProfile}
                          isClosable={true}
                          buttonDone={I18n.t("buttonSignUp")}
+                         doneAction={this.props.actions.signUp}
                          focusedElement={this.props.focusedElement}
                          isFetching={this.props.isFetching}/>
         {this.props.isFetching.get("user") && <View style={styles.overlay}>
@@ -69,7 +81,8 @@ class RegisterScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white"
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

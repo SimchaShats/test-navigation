@@ -24,8 +24,8 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.items && (nextProps.items !== this.props.items || isComponentDidMount)) {
-      this.props.updateFilterValue(nextProps.items.keySeq().first());
+    if (nextProps.items.size > 0 && (nextProps.items !== this.props.items || isComponentDidMount)) {
+      //this.props.updateFilterValue(nextProps.items.keySeq().first());
     }
   }
 
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     top: Platform.OS === "ios" ? -40 : 0,
-    height: 135
+    height: Platform.OS === "ios" ? 135 : 60
   }
 });

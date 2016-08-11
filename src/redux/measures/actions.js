@@ -6,6 +6,7 @@ import {
   GET_MY_NOTES_LIST,
   REMOVE_MY_NOTE,
   GET_FRIENDS_NOTES_LIST,
+  CHANGE_CURRENT_MEASURE,
   REMOVE_FRIEND_NOTE
 } from './actionTypes';
 import {API_SOURCES} from "../../constants";
@@ -13,7 +14,7 @@ import APIFactory from "../../api/APIFactory";
 
 export function getMeasuresTheoryList() {
   return async function(dispatch, getState) {
-    const theoryList = await APIFactory().getMeasuresTheoryList();
+    const theoryList = await APIFactory().getMeasuresTheoryList(getState().app.get("lang"));
     dispatch({type: GET_THEORY_LIST, payload: theoryList});
     return null;
   }
@@ -21,7 +22,7 @@ export function getMeasuresTheoryList() {
 
 export function getMeasuresNamesList() {
   return async function(dispatch, getState) {
-    const namesList = await APIFactory().getMeasuresNamesList();
+    const namesList = await APIFactory(API_SOURCES.LOCAL).getMeasuresNamesList(getState().app.get("lang"));
     dispatch({type: GET_NAMES_LIST, payload: namesList});
     return null;
   }
@@ -47,6 +48,22 @@ export function removeMyNote(noteId) {
   return async function(dispatch, getState) {
     await APIFactory(API_SOURCES.ASYNC_STORAGE).removeMyNote(noteId);
     dispatch({type: REMOVE_MY_NOTE, payload: noteId});
+    return null;
+  }
+}
+
+export function changeCurrentMeasure(currentMeasure, isPermanentSave = false) {
+  return async function(dispatch, getState) {
+    isPermanentSave && await APIFactory(API_SOURCES.ASYNC_STORAGE).saveCurrentMeasure(currentMeasure);
+    !isPermanentSave && dispatch({type: CHANGE_CURRENT_MEASURE, payload: currentMeasure});
+    return null;
+  }
+}
+
+export function getCurrentMeasure() {
+  return async function(dispatch, getState) {
+    const currentMeasure = await APIFactory(API_SOURCES.ASYNC_STORAGE).getCurrentMeasure(currentMeasure) || "all";
+    dispatch(changeCurrentMeasure(currentMeasure, false));
     return null;
   }
 }

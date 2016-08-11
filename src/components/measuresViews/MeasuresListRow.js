@@ -19,9 +19,9 @@ export default class extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {flexDirection: this.props.lang === "he" ? "row-reverse" : "row"}]}>
         <View style={styles.textWrapper}>
-          <Text style={styles.measureName}>{this.props.measuresNamesList.get(this.props.measure) + ": "}
+          <Text style={[styles.measureName, {textAlign: this.props.lang === "he" ? "right" : "left"}]}>{this.props.measuresNamesList.get(this.props.measure) + ": "}
             <Text style={styles.text}>{this.props.message}</Text>
           </Text>
         </View>
@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "gray",
-    flexDirection: "row"
+    borderColor: "gray"
   },
   textWrapper: {
     flex: 1

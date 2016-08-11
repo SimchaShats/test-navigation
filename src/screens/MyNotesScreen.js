@@ -37,28 +37,44 @@ class MyNotesScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabMyNotes")});
+    if (nextProps.focusedElement !== this.props.focusedElement
+      && this.props.focusedElement === "textInputNoteAddRow" || isComponentDidMount) {
+      nextProps.navigator.setButtons({
+        rightButtons: [],
+        leftButtons: [],
+        animated: true
+      });
+      nextProps.navigator.setTitle({
+        title: I18n.t("tabMyNotes")
+      });
+    }
   }
 
   render() {
     return (
-        <FilteredMeasuresView
-          updateList={this.props.actions.getMeasuresMyNotesList}
-          navigator={this.props.navigator}
-          measuresList={this.props.measuresMyNotesList}
-          filterItems={this.props.measuresNamesList}
-          measuresNamesList={this.props.measuresNamesList}
-          focusedElement={this.props.focusedElement}
-          actions={this.props.actions}
-          icons={this.props.icons}
-          features={{add: {action: this.props.actions.addMyNote}, remove: {action: this.props.actions.removeMyNote}}}/>
+      <FilteredMeasuresView
+        updateList={this.props.actions.getMeasuresMyNotesList}
+        navigator={this.props.navigator}
+        measuresList={this.props.measuresMyNotesList}
+        filterItems={this.props.measuresNamesList}
+        measuresNamesList={this.props.measuresNamesList}
+        focusedElement={this.props.focusedElement}
+        actions={this.props.actions}
+        icons={this.props.icons}
+        currentMeasure={this.props.currentMeasure}
+        lang={this.props.lang}
+        features={{add: {action: this.props.actions.addMyNote}, remove: {action: this.props.actions.removeMyNote}}}/>
     );
   }
 }
 
-function mapStateToProps(state) {
+function
+
+mapStateToProps(state) {
   return {
+    lang: state.app.get("lang"),
     measuresNamesList: state.measures.get("namesList"),
+    currentMeasure: state.measures.get("currentMeasure"),
     focusedElement: state.app.get("focusedElement"),
     measuresMyNotesList: state.measures.get("myNotesList")
   };
@@ -69,7 +85,9 @@ const actions = [
   measuresActions
 ];
 
-function mapDispatchToProps(dispatch) {
+function
+
+mapDispatchToProps(dispatch) {
   const creators = Map()
     .merge(...actions)
     .filter(value => typeof value === 'function')
@@ -81,4 +99,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyNotesScreen);
+export
+default
+
+connect(mapStateToProps, mapDispatchToProps)
+
+(
+  MyNotesScreen
+)
+;

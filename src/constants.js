@@ -9,6 +9,7 @@ import {
 
 export const API_SOURCES = {
   "FIREBASE": "FIREBASE",
+  "LOCAL": "LOCAL",
   "ASYNC_STORAGE": "ASYNC_STORAGE"
 };
 
@@ -22,6 +23,7 @@ export const FIREBASE = {
 export const ASYNC_STORAGE = {
   MY_NOTES: "MY_NOTES",
   LANGUAGE: "LANGUAGE",
+  CURRENT_MEASURE: "CURRENT_MEASURE",
   USER_PROFILE: "USER_PROFILE"
 };
 

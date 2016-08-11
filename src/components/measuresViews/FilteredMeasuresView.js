@@ -24,7 +24,7 @@ export default class extends Component {
     }
   }
 
-  componecomponentDidMount() {
+  componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -38,8 +38,8 @@ export default class extends Component {
         Animated.timing(
           this.state.bounceValue,
           {
-            toValue: -135,
-            duration: 250
+            toValue: Platform.OS === "ios" ? -135 : -90,
+            duration: Platform.OS === "ios" ? 250 : 0
           }
         ).start();
       } else if (this.props.focusedElement === "textInputNoteAddRow") {
@@ -47,10 +47,14 @@ export default class extends Component {
           this.state.bounceValue,
           {
             toValue: 0,
-            duration: 250
+            duration: Platform.OS === "ios" ? 250 : 0
           }
         ).start();
       }
+    }
+
+    if (this.props.measuresNamesList !== nextProps.measuresNamesList || this.props.currentMeasure !== nextProps.currentMeasure || isComponentDidMount) {
+      this.setState({filterValue: nextProps.currentMeasure});
     }
   }
 
@@ -58,14 +62,18 @@ export default class extends Component {
     return (
       <Animated.View style={[styles.container, {transform: [{translateY: this.state.bounceValue}]}]}>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
-                updateFilterValue={(filterValue)=>{this.setState({filterValue})}}/>
+                currentMeasure={this.state.currentMeasure}
+                updateFilterValue={(filterValue)=>{this.setState({filterValue});this.props.actions.changeCurrentMeasure(filterValue, true);}}
+                actions={this.props.actions}/>
         {this.props.features && Object.keys(this.props.features).includes("add") &&
         <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
+                    measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
                     focusedElement={this.props.focusedElement} icons={this.props.icons}
                     placeholder={I18n.t("placeholderAddMyNote")}
                     doneAction={this.props.features.add.action} measure={this.state.filterValue}/>}
         <MeasuresList features={this.props.features} updateList={this.props.updateList} measure={this.state.filterValue}
                       measuresNamesList={this.props.measuresNamesList} measuresList={this.props.measuresList}
+                      lang={this.props.lang}
                       actions={this.props.actions}/>
       </Animated.View>
     );

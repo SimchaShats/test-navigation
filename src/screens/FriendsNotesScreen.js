@@ -34,6 +34,7 @@ class FriendsNotesScreen extends Component {
 
   showRegisterScreen() {
     this.props.navigator.showModal({
+      title: I18n.t("tabRegister"),
       screen: "RegisterScreen",
       passProps: {
         icons: this.props.icons
@@ -51,7 +52,6 @@ class FriendsNotesScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabFriendsNotes")});
   }
 
   render() {
@@ -64,6 +64,7 @@ class FriendsNotesScreen extends Component {
                               measuresFriendsNotesList={this.props.measuresFriendsNotesList}
                               measuresNamesList={this.props.measuresNamesList}
                               actions={this.props.actions}
+                              lang={this.props.lang}
                               icons={this.props.icons}
                               features={{remove: {action: this.props.actions.removeFriendNote}}}/>
           : <LoginForm navigator={this.props.navigator}
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
+    lang: state.app.get("lang"),
     userProfile: state.user.get("profile"),
     isUserLoggedIn: state.user.get("isLoggedIn"),
     isFetching: state.app.get("isFetching"),

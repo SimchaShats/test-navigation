@@ -7,7 +7,7 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     tabTheory: "Theory",
-    tabMyNotes: "My notes",
+    tabMyNotes: "Heshbon nefesh",
     tabFriendsNotes: "Friends notes",
     tabSettings: "Settings",
     tabUserProfile: "User profile",
@@ -33,7 +33,7 @@ I18n.translations = {
     buttonRegister: "Register",
     buttonSignOut: "Sign Out",
     buttonSignIn: "Sign In",
-    buttonUpdateProfile: "Update profile",
+    buttonUpdateUserProfile: "Update profile",
     buttonSend: "Send"
   },
   ru: {

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Button from "./../UI/Button";
 import Dimensions from "Dimensions";
+import I18n from "../../i18n";
 
 export default class extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class extends Component {
   onPress() {
     this.props.navigator.push({
       screen: 'UserProfileScreen',
-      title: "User profile",
+      title: I18n.t("tabUserProfile"),
       passProps: {
         icons: this.props.icons,
         userId: this.props.profile.get("id"),

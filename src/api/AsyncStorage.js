@@ -98,4 +98,20 @@ export default class extends API {
       });
     })
   }
+
+  getCurrentMeasure() {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getItem(ASYNC_STORAGE.CURRENT_MEASURE, (error, currentMeasure) => {
+        resolve(currentMeasure);
+      });
+    })
+  }
+
+  saveCurrentMeasure(currentMeasure) {
+    return new Promise((resolve, reject) => {
+      AsyncStorage.setItem(ASYNC_STORAGE.CURRENT_MEASURE, currentMeasure, (error) => {
+        resolve(null);
+      });
+    })
+  }
 }

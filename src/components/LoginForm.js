@@ -51,7 +51,7 @@ export default class extends Component {
           leftButtons: [],
           animated: true
         });
-      } else if (this.props.focusedElement === "textInputLoginForm") {
+      } else if (!nextProps.focusedElement) {
         nextProps.navigator.setButtons({
           rightButtons: [],
           leftButtons: [],
@@ -81,7 +81,7 @@ export default class extends Component {
       keyboardType: 'email-address',
       hasError: this.props.form.get("emailError"),
       onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       error: this.props.form.get("emailError")
     };
     let password = {
@@ -89,7 +89,7 @@ export default class extends Component {
       maxLength: 12,
       secureTextEntry: true,
       onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
-      onBlur: this.props.actions.focusElement.bind(null),
+      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("passwordError"),
       error: this.props.form.get("passwordError")
     };

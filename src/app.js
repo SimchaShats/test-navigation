@@ -1,3 +1,5 @@
+"use strict";
+import React, {Component, PropTypes} from 'react';
 import { Provider } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import store from './redux';
@@ -5,6 +7,7 @@ import * as appActions from './redux/app/actions';
 import I18n from './i18n';
 const { Keyboard } = require('react-native');
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CodePush from "react-native-code-push";
 
 var theoryIcon;
 var myNotesIcon;
@@ -38,14 +41,25 @@ export default class App {
     Keyboard.addListener('keyboardWillShow', () => {
       store.dispatch(appActions.changeKeyboardState())
     });
+    /*CodePush.sync({
+        installMode: CodePush.InstallMode.IMMEDIATE
+      }, (syncStatus) => {
+        store.dispatch(appActions.syncCodePush(syncStatus));
+
+      }, (progress) => {
+        store.dispatch(appActions.updateCodePush(progress));
+      })*/
   }
 
   onStoreUpdate() {
     const root = store.getState().app.get("root");
+    const lang = store.getState().app.get("lang");
     // handle a root change
     // if your app doesn't change roots in runtime, you can remove onStoreUpdate() altogether
     this._populateIcons().then(() => {
-      if (this.currentRoot !== root) {
+      if ((this.currentRoot !== root || this.lang !== lang) && lang !== null) {
+
+        this.lang = lang;
         this.currentRoot = root;
         this.startApp(root);
       }
@@ -78,7 +92,6 @@ export default class App {
         settingsIcon = values[7];
         resolve(null);
       }).catch((error) => {
-        console.log(error);
         reject(error);
       }).done();
     });
@@ -91,21 +104,29 @@ export default class App {
         Navigation.startTabBasedApp({
           tabs: [
             {
+              title: I18n.t("tabTheory"),
+              label: I18n.t("tabTheory"),
               screen: 'TheoryScreen',
               icon: theoryIcon,
               navigatorStyle
             },
             {
+              title: I18n.t("tabMyNotes"),
+              label: I18n.t("tabMyNotes"),
               screen: 'MyNotesScreen',
               icon: myNotesIcon,
               navigatorStyle
             },
             {
+              title: I18n.t("tabFriendsNotes"),
+              label: I18n.t("tabFriendsNotes"),
               screen: 'FriendsNotesScreen',
               icon: friendsNotesIcon,
               navigatorStyle
             },
             {
+              title: I18n.t("tabSettings"),
+              label: I18n.t("tabSettings"),
               screen: 'SettingsScreen',
               icon: settingsIcon,
               navigatorStyle

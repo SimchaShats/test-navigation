@@ -42,7 +42,14 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-
+    if (nextProps.focusedElement !== this.props.focusedElement
+      && this.props.focusedElement === "textInputNoteAddRow" || isComponentDidMount) {
+      nextProps.navigator.setButtons({
+        rightButtons: [],
+        leftButtons: [],
+        animated: true
+      });
+    }
   }
 
   render() {
@@ -59,7 +66,7 @@ export default class extends Component {
         <TouchableOpacity
           style={[styles.button, {backgroundColor: this.state.noteMessage !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
           disabled={this.state.noteMessage === ""}
-          onPress={this.props.actions.addNoteToFriend.bind(null, this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id"))}>
+          onPress={this.props.actions.sendNoteToFriend.bind(null, this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id"))}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
       </View>

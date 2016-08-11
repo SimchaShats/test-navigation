@@ -23,11 +23,6 @@ class TheoryScreen extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.actions.getMeasuresTheoryList();
-    this.props.actions.getMeasuresNamesList();
-  }
-
   componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
   }
@@ -37,7 +32,7 @@ class TheoryScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabTheory")});
+      //nextProps.navigator.setTitle({title: I18n.t("tabTheory")});
   }
 
   render() {
@@ -45,8 +40,10 @@ class TheoryScreen extends Component {
         <FilteredMeasuresView
           updateList={this.props.actions.getMeasuresTheoryList}
           measuresList={this.props.measuresTheoryList}
+          currentMeasure={this.props.currentMeasure}
           measuresNamesList={this.props.measuresNamesList}
           actions={this.props.actions}
+          lang={this.props.lang}
           icons={this.props.icons}/>
     );
   }
@@ -54,6 +51,8 @@ class TheoryScreen extends Component {
 
 function mapStateToProps(state) {
   return {
+    lang: state.app.get("lang"),
+    currentMeasure: state.measures.get("currentMeasure"),
     measuresNamesList: state.measures.get("namesList"),
     measuresTheoryList: state.measures.get("theoryList")
   };

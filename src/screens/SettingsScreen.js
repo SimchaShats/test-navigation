@@ -17,6 +17,7 @@ import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
 import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
 import UserProfileForm from "../components/UserProfileForm";
+var Spinner = require('react-native-spinkit');
 import I18n from "../i18n";
 
 // this is a traditional React component connected to the redux store
@@ -25,6 +26,7 @@ class SettingsScreen extends Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
   }
@@ -34,26 +36,45 @@ class SettingsScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabSettings")});
+    //nextProps.navigator.setTitle({title: I18n.t("tabSettings")});
   }
 
   render() {
-    let userProfileForm = this.props.form.delete("email");
-    !this.props.isUserLoggedIn
-      && (userProfileForm = userProfileForm.delete("email").delete("birthDate").delete("firstName").delete("lastName").delete("password").delete("confirmPassword"));
+    let userProfileForm = this.props.form.delete("email").delete("password").delete("confirmPassword");
+    !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("email").delete("birthDate").delete("firstName").delete("lastName").delete("password").delete("confirmPassword"));
     return (
-      <UserProfileForm navigator={this.props.navigator}
-                    actions={this.props.actions}
-                    form={userProfileForm}
-                    icons={this.props.icons}
-                    userProfile={this.props.userProfile}
-                    lang={this.props.lang}
-                    buttonDone={I18n.t("buttonUpdateProfile")}
-                    focusedElement={this.props.focusedElement}
-                    isFetching={this.props.isFetching}/>
+      <View style={styles.container}>
+        <UserProfileForm navigator={this.props.navigator}
+                         actions={this.props.actions}
+                         form={userProfileForm}
+                         icons={this.props.icons}
+                         userProfile={this.props.userProfile}
+                         lang={this.props.lang}
+                         buttonDone={I18n.t("buttonUpdateUserProfile")}
+                         doneAction={this.props.actions.updateUserProfile}
+                         focusedElement={this.props.focusedElement}
+                         isFetching={this.props.isFetching}/>
+
+        {this.props.isFetching.get("user") && <View style={styles.overlay}>
+          <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
+        </View>}
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)"
+  }
+});
+
 function mapStateToProps(state) {
   return {
     userProfile: state.user.get("profile"),

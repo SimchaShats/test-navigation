@@ -5,3 +5,5 @@ export const SET_FORM_FIELD = 'app.SET_FORM_FIELD';
 export const CHANGE_KEYBOARD_STATE = 'app.CHANGE_KEYBOARD_STATE';
 export const FOCUS_ELEMENT = 'app.FOCUS_ELEMENT';
 export const CHANGE_LANGUAGE = 'app.CHANGE_LANGUAGE';
+export const SYNC_CODE_PUSH = 'app.SYNC_CODE_PUSH';
+export const UPDATE_CODE_PUSH = 'app.UPDATE_CODE_PUSH';

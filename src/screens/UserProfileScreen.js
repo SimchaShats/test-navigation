@@ -36,7 +36,7 @@ class UserProfileScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabUserProfile")});
+    //nextProps.navigator.setTitle({title: I18n.t("tabUserProfile")});
   }
 
   render() {
@@ -56,6 +56,7 @@ class UserProfileScreen extends Component {
 
 function mapStateToProps(state) {
   return {
+    lang: state.app.get("lang"),
     usersList: state.user.get("usersList"),
     measuresNamesList: state.measures.get("namesList"),
     meProfile: state.user.get("profile"),

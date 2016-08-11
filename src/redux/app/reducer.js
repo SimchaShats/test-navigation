@@ -19,29 +19,29 @@ const initialState = Map({
     friendNote: false,
     user: false
   }),
-  lang: "en",
+  lang: null,
   forms: Map({
     login: Map({
       isValid: true,
       message: "",
-      email: "mr.shats@gmail.com",
+      email: "",
       emailError: null,
-      password: "123456",
+      password: "",
       passwordError: null
     }),
     userProfile: Map({
       isValid: true,
       lang: "en",
       message: "",
-      email: "mr.shats@gmail.com",
+      email: "asdf@sdfg.asd",
       emailError: null,
-      firstName: "Simcha",
+      firstName: "sadfa",
       firstNameError: null,
-      lastName: "Shats",
+      lastName: "asdf",
       lastNameError: null,
-      password: "123456",
+      password: "123123",
       passwordError: null,
-      confirmPassword: "123456",
+      confirmPassword: "123123",
       passwordAgainError: null,
       birthDate: new Date(),
       birthDateError: null

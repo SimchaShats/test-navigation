@@ -35,12 +35,13 @@ class CreateFriendNoteScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    nextProps.navigator.setTitle({title: I18n.t("tabCreateNote")});
+    //nextProps.navigator.setTitle({title: I18n.t("tabCreateNote")});
   }
 
   render() {
     return (
         <FriendsSearch
+          userProfile={this.props.userProfile}
           usersList={this.props.usersList}
           focusedElement={this.props.focusedElement}
           navigator={this.props.navigator}
@@ -52,7 +53,9 @@ class CreateFriendNoteScreen extends Component {
 
 function mapStateToProps(state) {
   return {
+    lang: state.app.get("lang"),
     usersList: state.user.get("usersList"),
+    userProfile: state.user.get("profile"),
     focusedElement: state.app.get("focusedElement")
   };
 }

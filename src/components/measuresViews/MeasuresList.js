@@ -45,7 +45,7 @@ export default class extends Component {
       <ListView
         dataSource={this.state.dataSource}
         enableEmptySections={true}
-        renderRow={(rowData) => <MeasuresListRow features={this.props.features} measuresNamesList={this.props.measuresNamesList} measure={rowData.get("measure")} message={rowData.get("message")} id={rowData.get("id")}/>}
+        renderRow={(rowData) => <MeasuresListRow lang={this.props.lang} features={this.props.features} measuresNamesList={this.props.measuresNamesList} measure={rowData.get("measure")} message={rowData.get("message")} id={rowData.get("id")}/>}
         refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}

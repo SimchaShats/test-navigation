@@ -55,7 +55,7 @@ export default class extends Component {
     if (event.id === 'createNote') {
       this.props.navigator.push({
         screen: 'CreateFriendNoteScreen',
-        title: "Create note",
+        title: I18n.t("createNote"),
         passProps: {
           icons: this.props.icons
         },
