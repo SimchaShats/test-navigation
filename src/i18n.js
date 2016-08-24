@@ -37,7 +37,7 @@ I18n.translations = {
     buttonSend: "Send"
   },
   ru: {
-    tabTheory: "Теория",
+    tabTheory: "Теория"
   },
   he: {
     greeting: "Bonjour!"

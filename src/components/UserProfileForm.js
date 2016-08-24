@@ -170,7 +170,7 @@ export default class extends Component {
     options.fields['birthDate'] = birthDate;
     options.fields['lang'] = lang;
     return (
-      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => [
+      <KeyboardAwareScrollView marginScrollTop={110} getTextInputRefs={() => [
         this.form.getComponent("email").refs.input,
         this.form.getComponent("firstName").refs.input,
         this.form.getComponent("lastName").refs.input,

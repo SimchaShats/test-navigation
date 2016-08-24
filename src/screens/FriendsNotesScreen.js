@@ -59,6 +59,7 @@ class FriendsNotesScreen extends Component {
       <View style={styles.container}>
         {this.props.isUserLoggedIn
           ? <FriendsNotesPage navigator={this.props.navigator}
+                              isUserLoggedIn={this.props.isUserLoggedIn}
                               updateList={this.props.actions.getFriendsNotesList.bind(null, this.props.userProfile.get("id"))}
                               focusedElement={this.props.focusedElement}
                               measuresFriendsNotesList={this.props.measuresFriendsNotesList}

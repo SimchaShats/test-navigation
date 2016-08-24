@@ -38,32 +38,22 @@ export default class extends Component {
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
       if (nextProps.focusedElement === "textInputNoteAddRow") {
+        const buttonDone = {
+          icon: this.props.icons.doneIcon,
+          id: 'done'
+        };
+        const buttonCancel = {
+          icon: this.props.icons.replyIcon,
+          id: 'cancel'
+        };
         nextProps.navigator.setButtons({
-          rightButtons: [
-            {
-              icon: this.props.icons.doneIcon,
-              id: 'done'
-            }
-          ],
-          leftButtons: [
-            {
-              icon: this.props.icons.replyIcon,
-              id: 'cancel'
-            }
-          ],
+          rightButtons: Platform.OS === "ios" ? [buttonDone] : [buttonDone, buttonCancel],
+          leftButtons: Platform.OS === "ios" ? [buttonCancel] : [],
           animated: true
         });
-        nextProps.isSetTitle && this.props.navigator.setTitle({
-          title: nextProps.measuresNamesList.get(this.state.filterValue)
-        });
-      } else if (this.props.focusedElement === "textInputNoteAddRow") {
-        nextProps.navigator.setButtons({
-          rightButtons: [],
-          leftButtons: [],
-          animated: true
-        });
-        nextProps.isSetTitle && nextProps.navigator.setTitle({
-          title: "My Notes"
+        console.log(this.state.filterValue);
+        nextProps.title && nextProps.navigator.setTitle({
+          title: nextProps.measuresNamesList.get(nextProps.title)
         });
       }
     }
@@ -72,19 +62,20 @@ export default class extends Component {
   onNavigatorEvent(event) {
     if (event.id === 'done') {
       this.state.text.trim() !== "" && this.props.doneAction && this.props.doneAction(this.props.measure, this.state.text);
+      this.props.doneAction && this.setState({text: ""});
+    } else if (event.id === 'cancel') {
       this.setState({text: ""});
     }
-    this.setState({text: ""});
     dismissKeyboard();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style={[styles.textInput, {height: 16 * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
+        <TextInput style={[styles.textInput, {height: (Platform.OS === "ios" ? 16 : 26) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
                    onChangeText={(text) => {this.setState({text}); this.props.onChangeText && this.props.onChangeText(text);}}
                    onFocus={this.props.actions.focusElement.bind(null, "textInputNoteAddRow")}
-                   onBlur={this.props.actions.focusElement.bind(null)}
+                   onBlur={this.props.actions.focusElement.bind(null, null)} underlineColorAndroid="transparent"
                    placeholder={this.props.placeholder}/>
       </View>
     );
@@ -98,7 +89,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: "gray",
     justifyContent: "center",
-    padding: 10,
+    padding: Platform.OS === "ios" ? 10 : 0,
+    paddingHorizontal: 10,
     alignItems: "center"
   },
   textInput: {

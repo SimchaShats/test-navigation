@@ -29,19 +29,6 @@ export default class extends Component {
 
   componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
-    const buttonCreateNote = {
-      icon: this.props.icons.createIcon,
-      id: 'createNote'
-    };
-    const buttonSignOut = {
-      title: I18n.t("buttonSignOut"),
-      id: 'signOut'
-    };
-    this.props.navigator.setButtons({
-      rightButtons: Platform.OS === "ios" ? [buttonCreateNote] : [buttonCreateNote, buttonSignOut],
-      leftButtons: Platform.OS === "ios" ? [buttonSignOut] : [],
-      animated: true
-    });
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
@@ -50,7 +37,21 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-
+    if (nextProps.isUserLoggedIn !== this.props.isUserLoggedIn && nextProps.isUserLoggedIn === true || isComponentDidMount) {
+      const buttonCreateNote = {
+        icon: nextProps.icons.createIcon,
+        id: 'createNote'
+      };
+      const buttonSignOut = {
+        title: I18n.t("buttonSignOut"),
+        id: 'signOut'
+      };
+      nextProps.navigator.setButtons({
+        rightButtons: Platform.OS === "ios" ? [buttonCreateNote] : [buttonCreateNote, buttonSignOut],
+        leftButtons: Platform.OS === "ios" ? [buttonSignOut] : [],
+        animated: true
+      });
+    }
   }
 
   onNavigatorEvent(event) {
