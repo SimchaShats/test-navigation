@@ -35,7 +35,13 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.searchCondition && nextProps.usersList) {
-      this.setState({dataSource: this.ds.cloneWithRows(nextProps.usersList.filter((value, key) => value.get("id") !== nextProps.userProfile.get("id") && (value.get("firstName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()) || value.get("lastName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()))).toArray())});
+      this.setState({dataSource: this.ds.cloneWithRows(
+        nextProps.usersList.filter(
+          (value, key) => value.get("id") !== nextProps.userProfile.get("id") && nextProps.searchCondition !== ""
+           && (value.get("firstName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()) || value.get("lastName").toLowerCase().includes(nextProps.searchCondition.toLowerCase()))).toArray())
+      });
+    } else {
+      this.setState({dataSource: this.ds.cloneWithRows([])});
     }
   }
 

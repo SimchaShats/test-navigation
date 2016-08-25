@@ -45,18 +45,7 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
-      if (nextProps.focusedElement === "textInputUserProfileForm") {
-        nextProps.navigator.setButtons({
-          rightButtons: [
-            {
-              icon: nextProps.icons.doneIcon,
-              id: 'done'
-            }
-          ],
-          leftButtons: [],
-          animated: true
-        });
-      }/* else if (this.props.focusedElement === "textInputUserProfileForm" || !nextProps.focusedElement) {
+     /* else if (this.props.focusedElement === "textInputUserProfileForm" || !nextProps.focusedElement) {
         const buttonClose = {
           icon: nextProps.icons.clearIcon,
           id: 'close'
@@ -70,7 +59,6 @@ export default class extends Component {
   }
 
   onNavigatorEvent(event) {
-    console.log(event);
     if (event.id === "close") {
       this.props.navigator.dismissModal();
     }
@@ -162,6 +150,19 @@ export default class extends Component {
     this.props.form.has("password") && (userProfileForm.password = t.String);
     this.props.form.has("confirmPassword") && (userProfileForm.confirmPassword = t.String);
 
+    const self = this;
+    function getScrollFields() {
+      let scrollFields = [];
+      self.props.form.has("firstName") && scrollFields.push(self.form.getComponent("firstName").refs.input);
+      self.props.form.has("email") && scrollFields.push(self.form.getComponent("email").refs.input);
+      self.props.form.has("lastName") && scrollFields.push(self.form.getComponent("lastName").refs.input);
+      self.props.form.has("password") && scrollFields.push(self.form.getComponent("password").refs.input);
+      self.props.form.has("confirmPassword") && scrollFields.push(self.form.getComponent("confirmPassword").refs.input);
+      self.props.form.has("birthDate") && scrollFields.push(self.form.getComponent("birthDate").refs.input);
+      console.log(scrollFields);
+      return scrollFields;
+    }
+
     options.fields['email'] = email;
     options.fields['firstName'] = firstName;
     options.fields['lastName'] = lastName;
@@ -169,14 +170,9 @@ export default class extends Component {
     options.fields['confirmPassword'] = confirmPassword;
     options.fields['birthDate'] = birthDate;
     options.fields['lang'] = lang;
+
     return (
-      <KeyboardAwareScrollView marginScrollTop={110} getTextInputRefs={() => [
-        this.form.getComponent("email").refs.input,
-        this.form.getComponent("firstName").refs.input,
-        this.form.getComponent("lastName").refs.input,
-        this.form.getComponent("password").refs.input,
-        this.form.getComponent("confirmPassword").refs.input
-      ]}>
+      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => getScrollFields()}>
         <View style={styles.container}>
           <Form ref={(r) => this.form = r}
                 type={t.struct(userProfileForm)}
@@ -195,12 +191,12 @@ export default class extends Component {
           {this.props.form.has("firstName") && this.props.form.has("lastName") && <TouchableOpacity
             style={[styles.button, styles.buttonSignUp, {backgroundColor: this.props.form.get("isValid") ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
             disabled={!this.props.form.get("isValid")}
-            onPress={this.props.doneAction.bind(null, this.props.form.get("email"),
+            onPress={() => {this.props.doneAction(this.props.form.get("email"),
               this.props.form.get("password"),
               this.props.form.get("firstName"),
               this.props.form.get("lastName"),
               this.props.form.get("birthDate")
-            )}>
+            )}}>
             <Text style={styles.buttonText}>{this.props.buttonDone}</Text>
           </TouchableOpacity>}
         </View>

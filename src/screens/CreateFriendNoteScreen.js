@@ -15,7 +15,6 @@ import * as measuresActions from '../redux/measures/actions';
 import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
 import FilteredListView from "../components/measuresViews/FilteredMeasuresView";
-import SettingsPage from "../components/SettingsPage";
 import FriendsSearch from "../components/friendsViews/FriendsSearch";
 import I18n from "../i18n";
 

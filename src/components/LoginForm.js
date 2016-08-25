@@ -39,12 +39,12 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
+    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
       if (nextProps.focusedElement === "textInputLoginForm") {
         nextProps.navigator.setButtons({
           rightButtons: [
             {
-              icon: this.props.icons.doneIcon,
+              icon: nextProps.icons.doneIcon,
               id: 'done'
             }
           ],
@@ -103,7 +103,7 @@ export default class extends Component {
     options.fields['password'] = password;
 
     return (
-      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => { return [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input];}}>
+      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input]}>
         <View style={styles.container}>
           <Text style={styles.header}>{this.props.header}</Text>
           <Form ref={(r) => this.form = r}

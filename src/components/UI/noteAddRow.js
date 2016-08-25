@@ -36,14 +36,14 @@ export default class extends Component {
 
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
+    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
       if (nextProps.focusedElement === "textInputNoteAddRow") {
         const buttonDone = {
-          icon: this.props.icons.doneIcon,
+          icon: nextProps.icons.doneIcon,
           id: 'done'
         };
         const buttonCancel = {
-          icon: this.props.icons.replyIcon,
+          icon: nextProps.icons.replyIcon,
           id: 'cancel'
         };
         nextProps.navigator.setButtons({
@@ -51,11 +51,13 @@ export default class extends Component {
           leftButtons: Platform.OS === "ios" ? [buttonCancel] : [],
           animated: true
         });
-        console.log(this.state.filterValue);
         nextProps.title && nextProps.navigator.setTitle({
           title: nextProps.measuresNamesList.get(nextProps.title)
         });
       }
+    }
+    if (nextProps.noteMessage !== this.props.noteMessage) {
+      this.setState({text: nextProps.noteMessage});
     }
   }
 

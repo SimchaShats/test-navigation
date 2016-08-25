@@ -44,16 +44,29 @@ class RegisterScreen extends Component {
     if (nextProps.isUserLoggedIn) {
       nextProps.navigator.dismissModal();
     }
-    if (nextProps.focusedElement !== this.props.focusedElement && this.props.focusedElement === "textInputUserProfileForm" || isComponentDidMount) {
-      const buttonClose = {
-        icon: nextProps.icons.clearIcon,
-        id: 'close'
-      };
-      this.props.navigator.setButtons({
-        rightButtons: [buttonClose],
-        leftButtons: [],
-        animated: true
-      });
+    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement|| isComponentDidMount)) {
+      if (this.props.focusedElement === "textInputUserProfileForm") {
+        const buttonClose = {
+          icon: nextProps.icons.clearIcon,
+          id: 'close'
+        };
+        this.props.navigator.setButtons({
+          rightButtons: [],
+          leftButtons: [],
+          animated: true
+        });
+      } else if (nextProps.focusedElement === "textInputUserProfileForm") {
+        nextProps.navigator.setButtons({
+          rightButtons: [
+            {
+              icon: nextProps.icons.doneIcon,
+              id: 'done'
+            }
+          ],
+          leftButtons: [],
+          animated: true
+        });
+      }
     }
   }
 

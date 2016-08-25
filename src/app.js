@@ -41,14 +41,19 @@ export default class App {
     Keyboard.addListener('keyboardWillShow', () => {
       store.dispatch(appActions.changeKeyboardState())
     });
-    /*CodePush.sync({
+    Keyboard.addListener('keyboardWillHide', () => {
+      store.dispatch(appActions.changeKeyboardState())
+    });
+    CodePush.sync({
         installMode: CodePush.InstallMode.IMMEDIATE
       }, (syncStatus) => {
+      console.log(CodePush.SyncStatus.UNKNOWN_ERROR,syncStatus);
         store.dispatch(appActions.syncCodePush(syncStatus));
 
       }, (progress) => {
+      console.log(2,progress);
         store.dispatch(appActions.updateCodePush(progress));
-      })*/
+      })
   }
 
   onStoreUpdate() {
@@ -58,7 +63,6 @@ export default class App {
     // if your app doesn't change roots in runtime, you can remove onStoreUpdate() altogether
     this._populateIcons().then(() => {
       if ((this.currentRoot !== root || this.lang !== lang) && lang !== null) {
-
         this.lang = lang;
         this.currentRoot = root;
         this.startApp(root);

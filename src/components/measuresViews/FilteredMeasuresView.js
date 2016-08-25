@@ -63,7 +63,7 @@ export default class extends Component {
       <Animated.View style={[styles.container, {transform: [{translateY: this.state.bounceValue}]}]}>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
                 currentMeasure={this.state.currentMeasure}
-                updateFilterValue={(filterValue)=>{this.setState({filterValue});this.props.actions.changeCurrentMeasure(filterValue, true);}}
+                updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
                 actions={this.props.actions}/>
         {this.props.features && Object.keys(this.props.features).includes("add") &&
         <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}

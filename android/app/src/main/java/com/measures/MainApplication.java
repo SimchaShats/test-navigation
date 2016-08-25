@@ -1,35 +1,41 @@
 package com.measures;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.i18n.reactnativei18n.ReactNativeI18n;
+import com.microsoft.codepush.react.CodePush;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.reactnativenavigation.BuildConfig;
+import com.reactnativenavigation.NavigationApplication;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
-
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    protected boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+public class MainApplication extends NavigationApplication {
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
+    public boolean isDebug() {
+        // Make sure you are using BuildConfig from your own application
+        return BuildConfig.DEBUG;
     }
-  };
 
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
-  }
+    @NonNull
+    @Override
+    public List<ReactPackage> createAdditionalReactPackages() {
+        // Add the packages you require here.
+        // No need to add RnnPackage and MainReactPackage
+        return Arrays.<ReactPackage>asList(
+                new ReactNativeI18n(),
+                new RNSpinkitPackage(),
+                new VectorIconsPackage(),
+                new CodePush("uwHC01dOXJPBPvzpnR9w3SI_5m3_VyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
+    }
 }

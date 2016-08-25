@@ -36,7 +36,32 @@ class SettingsScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    //nextProps.navigator.setTitle({title: I18n.t("tabSettings")});
+    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement|| isComponentDidMount)) {
+      if (this.props.focusedElement === "textInputUserProfileForm") {
+        this.props.navigator.setButtons({
+          rightButtons: [],
+          leftButtons: [],
+          animated: true
+        });
+      } else if (nextProps.focusedElement === "textInputUserProfileForm") {
+        nextProps.navigator.setButtons({
+          rightButtons: [
+            {
+              icon: nextProps.icons.doneIcon,
+              id: 'done'
+            }
+          ],
+          leftButtons: [],
+          animated: true
+        });
+      }
+    }
+  }
+
+  updateUserProfile(...args) {
+    this.props.actions.updateUserProfile(...args).then(() => {
+      Alert.alert(I18n.t("titleMessage"), I18n.t("messageProfileUpdatedSuccess"));
+    })
   }
 
   render() {
@@ -51,7 +76,7 @@ class SettingsScreen extends Component {
                          userProfile={this.props.userProfile}
                          lang={this.props.lang}
                          buttonDone={I18n.t("buttonUpdateUserProfile")}
-                         doneAction={this.props.actions.updateUserProfile}
+                         doneAction={this.updateUserProfile.bind(this)}
                          focusedElement={this.props.focusedElement}
                          isFetching={this.props.isFetching}/>
 

@@ -76,7 +76,7 @@ class FriendsNotesScreen extends Component {
                        showRegisterScreen={this.showRegisterScreen.bind(this)}
                        header={I18n.t("headerLogin")}/>
         }
-        {this.props.isFetching.get("user") && <View style={styles.overlay}>
+        {(this.props.isFetching.get("user") || this.props.isFetching.get("friendNote")) && <View style={styles.overlay}>
           <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
         </View>}
       </View>

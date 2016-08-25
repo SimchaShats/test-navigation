@@ -19,7 +19,7 @@ I18n.translations = {
     placeholderFriendName: "Type name one of your friends...",
 
     headerLogin: "Please login to use this option, or register a new account",
-    headerFriendsSearch: "Friends that you want to help him...",
+    headerFriendsSearch: "Friends that you want to help them...",
 
     fieldEmail: "Email",
     fieldPassword: "Password",
@@ -34,7 +34,12 @@ I18n.translations = {
     buttonSignOut: "Sign Out",
     buttonSignIn: "Sign In",
     buttonUpdateUserProfile: "Update profile",
-    buttonSend: "Send"
+    buttonSend: "Send",
+
+    titleMessage: "Message",
+
+    messageSendNoteSuccess: "Note was send successfully",
+    messageProfileUpdatedSuccess: "Profile updated successfully"
   },
   ru: {
     tabTheory: "Теория"

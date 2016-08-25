@@ -34,7 +34,7 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
+    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
       if (nextProps.focusedElement === "textInputFriendsSearch") {
         nextProps.navigator.setButtons({
           rightButtons: [{
@@ -65,7 +65,7 @@ export default class extends Component {
       <View style={styles.container}>
         <View style={styles.caption}><Text style={[{textAlign: "left", width: Dimensions.get("window").width}]}>{I18n.t("headerFriendsSearch")}</Text></View>
         <SearchConditionRow actions={this.props.actions}
-                            updateSearchCondition={(searchCondition) => this.setState({searchCondition})}/>
+                            updateSearchCondition={(searchCondition) => {this.setState({searchCondition})}}/>
         <UsersList focusedElement={this.props.focusedElement} usersList={this.props.usersList}
                    navigator={this.props.navigator} searchCondition={this.state.searchCondition}
                    icons={this.props.icons}

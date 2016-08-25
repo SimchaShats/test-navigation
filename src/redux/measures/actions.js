@@ -55,7 +55,7 @@ export function removeMyNote(noteId) {
 export function changeCurrentMeasure(currentMeasure, isPermanentSave = false) {
   return async function(dispatch, getState) {
     isPermanentSave && await APIFactory(API_SOURCES.ASYNC_STORAGE).saveCurrentMeasure(currentMeasure);
-    !isPermanentSave && dispatch({type: CHANGE_CURRENT_MEASURE, payload: currentMeasure});
+    dispatch({type: CHANGE_CURRENT_MEASURE, payload: currentMeasure});
     return null;
   }
 }

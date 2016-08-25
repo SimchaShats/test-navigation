@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   StyleSheet,
   TextInput,
+  Alert,
   Picker
 } from 'react-native';
 
@@ -52,6 +53,13 @@ export default class extends Component {
     }
   }
 
+  sendNote() {
+    this.props.actions.sendNoteToFriend(this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id")).then(() => {
+      this.setState({noteMessage: ""});
+      Alert.alert(I18n.t("titleMessage"), I18n.t("messageSendNoteSuccess"));
+    });
+  }
+
   render() {
     const userProfile = this.props.usersList.get(this.props.userId);
     return (
@@ -61,12 +69,12 @@ export default class extends Component {
           <Text style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue} updateFilterValue={(filterValue)=>{this.setState({filterValue})}}/>
-        <NoteAddRow actions={this.props.actions} lines={4} navigator={this.props.navigator} onChangeText={(noteMessage) => this.setState({noteMessage})}
+        <NoteAddRow actions={this.props.actions} lines={4} navigator={this.props.navigator} onChangeText={(noteMessage) => this.setState({noteMessage})} noteMessage={this.state.noteMessage}
                     focusedElement={this.props.focusedElement} icons={this.props.icons} placeholder={I18n.t("placeholderFriendNote")}/>
         <TouchableOpacity
           style={[styles.button, {backgroundColor: this.state.noteMessage !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
           disabled={this.state.noteMessage === ""}
-          onPress={this.props.actions.sendNoteToFriend.bind(null, this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id"))}>
+          onPress={this.sendNote.bind(this)}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
       </View>
