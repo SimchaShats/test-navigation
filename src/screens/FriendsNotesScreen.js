@@ -72,6 +72,7 @@ class FriendsNotesScreen extends Component {
                        actions={this.props.actions}
                        focusedElement={this.props.focusedElement}
                        form={this.props.form}
+                       isKeyboardShown={this.props.isKeyboardShown}
                        icons={this.props.icons}
                        showRegisterScreen={this.showRegisterScreen.bind(this)}
                        header={I18n.t("headerLogin")}/>
@@ -105,6 +106,7 @@ function mapStateToProps(state) {
     focusedElement: state.app.get("focusedElement"),
     form: state.app.get("forms").get("login"),
     measuresNamesList: state.measures.get("namesList"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     measuresFriendsNotesList: state.measures.get("friendsNotesList")
   };
 }

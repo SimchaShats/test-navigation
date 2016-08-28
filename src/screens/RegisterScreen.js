@@ -81,6 +81,7 @@ class RegisterScreen extends Component {
                          userProfile={this.props.userProfile}
                          isClosable={true}
                          buttonDone={I18n.t("buttonSignUp")}
+                         isKeyboardShown={this.props.isKeyboardShown}
                          doneAction={this.props.actions.signUp}
                          focusedElement={this.props.focusedElement}
                          isFetching={this.props.isFetching}/>
@@ -112,6 +113,7 @@ function mapStateToProps(state) {
     focusedElement: state.app.get("focusedElement"),
     form: state.app.get("forms").get("userProfile"),
     lang: state.app.get("lang"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     isFetching: state.app.get("isFetching")
   };
 }

@@ -130,10 +130,10 @@ export function signInFailure(error) {
   return async function (dispatch, getState) {
     switch (error.code) {
       case "auth/invalid-email":
-        dispatch(appActions.setFormField("login", "message", error.message));
+        dispatch(appActions.setFormField("login", "emailError", error.message));
         break;
       case "auth/user-not-found":
-        dispatch(appActions.setFormField("login", "message", error.message));
+        dispatch(appActions.setFormField("login", "emailError", error.message));
         break;
       case "auth/user-disabled":
         dispatch(appActions.setFormField("login", "emailError", error.message));

@@ -864,6 +864,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.measures;
 				PRODUCT_NAME = Measures;
 			};
 			name = Debug;
@@ -890,6 +891,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.measures;
 				PRODUCT_NAME = Measures;
 			};
 			name = Release;

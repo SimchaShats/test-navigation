@@ -59,27 +59,27 @@ export default function (state, action) {
 
   switch(field) {
     case('firstName'):
-      const firstNameError = validate({firstName: value}, firstNameConstraints) || null;
+      const firstNameError = validate({firstName: value}, firstNameConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'firstNameError'], firstNameError && firstNameError.firstName);
       break;
     
     case('lastName'):
-      const lastNameError = validate({lastName: value}, lastNameConstraints) || null;
+      const lastNameError = validate({lastName: value}, lastNameConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'lastNameError'], lastNameError && lastNameError.lastName);
       break;
 
     case('email'):
-      const emailError = validate({email: value}, emailConstraints) || null;
+      const emailError = validate({email: value}, emailConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'emailError'], emailError && emailError.email);
       break;
 
     case('password'):
-      const passwordError = validate({password: value}, passwordConstraints) || null;
+      const passwordError = validate({password: value}, passwordConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'passwordError'], passwordError && passwordError.password);
       break;
     
     case('confirmPassword'):
-      const passwordAgainError = validate({password: state.get("forms").get(form).get("password"), confirmPassword: value}, passwordAgainConstraints) || null;
+      const passwordAgainError = validate({password: state.get("forms").get(form).get("password"), confirmPassword: value}, passwordAgainConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'passwordAgainError'], passwordAgainError && passwordAgainError.confirmPassword);
       break;
   }

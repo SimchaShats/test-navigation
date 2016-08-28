@@ -75,6 +75,7 @@ class SettingsScreen extends Component {
                          icons={this.props.icons}
                          userProfile={this.props.userProfile}
                          lang={this.props.lang}
+                         isKeyboardShown={this.props.isKeyboardShown}
                          buttonDone={I18n.t("buttonUpdateUserProfile")}
                          doneAction={this.updateUserProfile.bind(this)}
                          focusedElement={this.props.focusedElement}

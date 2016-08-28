@@ -22,29 +22,29 @@ const initialState = Map({
   lang: null,
   forms: Map({
     login: Map({
-      isValid: true,
+      isValid: false,
       message: "",
       email: "",
-      emailError: null,
+      emailError: "",
       password: "",
-      passwordError: null
+      passwordError: ""
     }),
     userProfile: Map({
-      isValid: true,
+      isValid: false,
       lang: "en",
       message: "",
-      email: "asdf@sdfg.asd",
-      emailError: null,
-      firstName: "sadfa",
-      firstNameError: null,
-      lastName: "asdf",
-      lastNameError: null,
-      password: "123123",
-      passwordError: null,
-      confirmPassword: "123123",
-      passwordAgainError: null,
+      email: "",
+      emailError: "",
+      firstName: "",
+      firstNameError: "",
+      lastName: "",
+      lastNameError: "",
+      password: "",
+      passwordError: "",
+      confirmPassword: "",
+      passwordAgainError: "",
       birthDate: new Date(),
-      birthDateError: null
+      birthDateError: ""
     })
   })
 });
@@ -58,7 +58,7 @@ export default function app(state = initialState, action = {}) {
     case FOCUS_ELEMENT:
       return state.set("focusedElement", action.payload);
     case CHANGE_KEYBOARD_STATE:
-      return state.set("isKeyboardShown", !state.get("isKeyboardShown"));
+      return state.set("isKeyboardShown", action.payload !== state.get("isKeyboardShown") ? !state.get("isKeyboardShown") : state.get("isKeyboardShown"));
     case CHANGE_FORM_FIELD:
       return formValidation(
         fieldValidation(

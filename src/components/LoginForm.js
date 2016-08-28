@@ -59,6 +59,11 @@ export default class extends Component {
         });
       }
     }
+
+    if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
+      this.form.getComponent("password").refs.input.blur();
+      this.form.getComponent("email").refs.input.blur();
+    }
   }
 
   onNavigatorEvent(event) {
@@ -103,7 +108,8 @@ export default class extends Component {
     options.fields['password'] = password;
 
     return (
-      <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input]}>
+      <KeyboardAwareScrollView marginScrollTop={70}
+                               getTextInputRefs={() => [this.form.getComponent("password").refs.input, this.form.getComponent("email").refs.input]}>
         <View style={styles.container}>
           <Text style={styles.header}>{this.props.header}</Text>
           <Form ref={(r) => this.form = r}
@@ -121,7 +127,7 @@ export default class extends Component {
           <TouchableOpacity style={[styles.button, styles.buttonRegister]} onPress={this.props.showRegisterScreen}>
             <Text style={styles.buttonText}>{I18n.t("buttonRegister")}</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </KeyboardAwareScrollView>
     );
   }

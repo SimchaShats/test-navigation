@@ -15,6 +15,7 @@ import {API_SOURCES} from "../../constants";
 import * as userActions from "../user/actions";
 import * as measuresActions from "../measures/actions";
 import {ASYNC_STORAGE} from "../../constants";
+import CodePush from "react-native-code-push";
 import I18n from "../../i18n";
 
 export function appInitialized() {
@@ -41,8 +42,8 @@ export function focusElement(element) {
   return {type: FOCUS_ELEMENT, payload: element || null};
 }
 
-export function changeKeyboardState() {
-  return {type: CHANGE_KEYBOARD_STATE};
+export function changeKeyboardState(state) {
+  return {type: CHANGE_KEYBOARD_STATE, payload: state};
 }
 
 export function changeLanguage(lang, isPermanentSave = false) {

@@ -27,6 +27,11 @@ export const ASYNC_STORAGE = {
   USER_PROFILE: "USER_PROFILE"
 };
 
+export const CODE_PUSH = {
+  PRODUCTION: "7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb",
+  STAGING: "J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb"
+};
+
 export const LANGUAGES = {
   en: "English",
   ru: "Русский",

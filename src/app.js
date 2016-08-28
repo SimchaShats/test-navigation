@@ -8,6 +8,7 @@ import I18n from './i18n';
 const { Keyboard } = require('react-native');
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CodePush from "react-native-code-push";
+import { CODE_PUSH } from "./constants";
 
 var theoryIcon;
 var myNotesIcon;
@@ -38,22 +39,22 @@ export default class App {
     // since react-redux only works on components, we need to subscribe this class manually
     store.subscribe(this.onStoreUpdate.bind(this));
     store.dispatch(appActions.appInitialized());
-    Keyboard.addListener('keyboardWillShow', () => {
-      store.dispatch(appActions.changeKeyboardState())
+    Keyboard.addListener('keyboardDidShow', () => {
+      store.dispatch(appActions.changeKeyboardState(true))
     });
-    Keyboard.addListener('keyboardWillHide', () => {
-      store.dispatch(appActions.changeKeyboardState())
+    Keyboard.addListener('keyboardDidHide', () => {
+      store.dispatch(appActions.changeKeyboardState(false))
     });
-    CodePush.sync({
-        installMode: CodePush.InstallMode.IMMEDIATE
-      }, (syncStatus) => {
-      console.log(CodePush.SyncStatus.UNKNOWN_ERROR,syncStatus);
-        store.dispatch(appActions.syncCodePush(syncStatus));
 
+    CodePush.sync({
+        deploymentKey: CODE_PUSH.STAGING,
+        installMode: CodePush.InstallMode.IMMEDIATE
+      },
+      (syncStatus) => {
+        store.dispatch(appActions.syncCodePush(syncStatus));
       }, (progress) => {
-      console.log(2,progress);
         store.dispatch(appActions.updateCodePush(progress));
-      })
+      });
   }
 
   onStoreUpdate() {

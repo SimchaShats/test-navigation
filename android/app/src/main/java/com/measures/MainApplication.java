@@ -12,7 +12,6 @@ import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
-import com.reactnativenavigation.BuildConfig;
 import com.reactnativenavigation.NavigationApplication;
 
 import java.lang.reflect.Array;
@@ -36,6 +35,6 @@ public class MainApplication extends NavigationApplication {
                 new ReactNativeI18n(),
                 new RNSpinkitPackage(),
                 new VectorIconsPackage(),
-                new CodePush("uwHC01dOXJPBPvzpnR9w3SI_5m3_VyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
+                new CodePush("J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
     }
 }
