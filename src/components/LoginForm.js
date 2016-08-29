@@ -26,11 +26,11 @@ export default class extends Component {
     this.state = {
       email: "",
       password: ""
-    }
+    };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -66,7 +66,7 @@ export default class extends Component {
     }
   }
 
-  onNavigatorEvent(event) {
+  onNavigatorEvent() {
     dismissKeyboard();
   }
 

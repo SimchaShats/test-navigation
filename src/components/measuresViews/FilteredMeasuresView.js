@@ -67,6 +67,7 @@ export default class extends Component {
                 actions={this.props.actions}/>
         {this.props.features && Object.keys(this.props.features).includes("add") &&
         <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
+                    isKeyboardShown={this.props.isKeyboardShown}
                     measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
                     focusedElement={this.props.focusedElement} icons={this.props.icons}
                     placeholder={I18n.t("placeholderAddMyNote")}

@@ -31,11 +31,11 @@ export default class extends Component {
       password: "",
       birthDate: "",
       confirmPassword: ""
-    }
+    };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -166,8 +166,7 @@ export default class extends Component {
       self.props.form.has("lastName") && scrollFields.push(self.form.getComponent("lastName").refs.input);
       self.props.form.has("password") && scrollFields.push(self.form.getComponent("password").refs.input);
       self.props.form.has("confirmPassword") && scrollFields.push(self.form.getComponent("confirmPassword").refs.input);
-      self.props.form.has("birthDate") && scrollFields.push(self.form.getComponent("birthDate").refs.input);
-      console.log(scrollFields);
+      //self.props.form.has("birthDate") && scrollFields.push(self.form.getComponent("birthDate").refs.input);
       return scrollFields;
     }
 

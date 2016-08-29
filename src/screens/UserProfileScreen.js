@@ -46,6 +46,7 @@ class UserProfileScreen extends Component {
         navigator={this.props.navigator}
         focusedElement={this.props.focusedElement}
         actions={this.props.actions}
+        isKeyboardShown={this.props.isKeyboardShown}
         icons={this.props.icons}
         measuresNamesList={this.props.measuresNamesList}
         meProfile={this.props.meProfile}
@@ -60,6 +61,7 @@ function mapStateToProps(state) {
     usersList: state.user.get("usersList"),
     measuresNamesList: state.measures.get("namesList"),
     meProfile: state.user.get("profile"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     focusedElement: state.app.get("focusedElement")
   };
 }

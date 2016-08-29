@@ -60,6 +60,7 @@ class MyNotesScreen extends Component {
         measuresNamesList={this.props.measuresNamesList}
         focusedElement={this.props.focusedElement}
         actions={this.props.actions}
+        isKeyboardShown={this.props.isKeyboardShown}
         icons={this.props.icons}
         currentMeasure={this.props.currentMeasure}
         lang={this.props.lang}
@@ -76,6 +77,7 @@ mapStateToProps(state) {
     measuresNamesList: state.measures.get("namesList"),
     currentMeasure: state.measures.get("currentMeasure"),
     focusedElement: state.app.get("focusedElement"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     measuresMyNotesList: state.measures.get("myNotesList")
   };
 }

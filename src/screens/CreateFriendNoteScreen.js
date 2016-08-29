@@ -42,6 +42,7 @@ class CreateFriendNoteScreen extends Component {
         <FriendsSearch
           userProfile={this.props.userProfile}
           usersList={this.props.usersList}
+          isKeyboardShown={this.props.isKeyboardShown}
           focusedElement={this.props.focusedElement}
           navigator={this.props.navigator}
           icons={this.props.icons}
@@ -55,6 +56,7 @@ function mapStateToProps(state) {
     lang: state.app.get("lang"),
     usersList: state.user.get("usersList"),
     userProfile: state.user.get("profile"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     focusedElement: state.app.get("focusedElement")
   };
 }

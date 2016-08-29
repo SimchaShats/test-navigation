@@ -69,12 +69,13 @@ export default class extends Component {
           <Text style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue} updateFilterValue={(filterValue)=>{this.setState({filterValue})}}/>
-        <NoteAddRow actions={this.props.actions} lines={4} navigator={this.props.navigator} onChangeText={(noteMessage) => this.setState({noteMessage})} noteMessage={this.state.noteMessage}
+        <NoteAddRow actions={this.props.actions} lines={4} navigator={this.props.navigator}
+                    isKeyboardShown={this.props.isKeyboardShown} onChangeText={(noteMessage) => this.setState({noteMessage})} noteMessage={this.state.noteMessage}
                     focusedElement={this.props.focusedElement} icons={this.props.icons} placeholder={I18n.t("placeholderFriendNote")}/>
         <TouchableOpacity
           style={[styles.button, {backgroundColor: this.state.noteMessage !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
-          disabled={this.state.noteMessage === ""}
-          onPress={this.sendNote.bind(this)}>
+          disabled={this.state.noteMessage.trim() === ""}
+          onPress={()=>{this.sendNote.bind(this)}}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
       </View>

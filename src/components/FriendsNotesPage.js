@@ -22,14 +22,13 @@ import I18n from "../i18n";
 let Form = t.form.Form;
 
 export default class extends Component {
-
   constructor(props) {
     super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,23 +36,21 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    //setTimeout(() => {
-      if (nextProps.icons && (nextProps.isUserLoggedIn !== this.props.isUserLoggedIn && nextProps.isUserLoggedIn === true || isComponentDidMount)) {
-        const buttonCreateNote = {
-          icon: nextProps.icons.createIcon,
-          id: 'createNote'
-        };
-        const buttonSignOut = {
-          title: I18n.t("buttonSignOut"),
-          id: 'signOut'
-        };
-        nextProps.navigator.setButtons({
-          rightButtons: Platform.OS === "ios" ? [buttonCreateNote] : [buttonCreateNote, buttonSignOut],
-          leftButtons: Platform.OS === "ios" ? [buttonSignOut] : [],
-          animated: true
-        });
-      }
-    //}, 2000);
+    if (nextProps.icons && (nextProps.isUserLoggedIn !== this.props.isUserLoggedIn && nextProps.isUserLoggedIn === true || isComponentDidMount)) {
+      const buttonCreateNote = {
+        icon: nextProps.icons.createIcon,
+        id: 'createNote'
+      };
+      const buttonSignOut = {
+        title: I18n.t("buttonSignOut"),
+        id: 'signOut'
+      };
+      nextProps.navigator.setButtons({
+        rightButtons: Platform.OS === "ios" ? [buttonCreateNote] : [buttonCreateNote, buttonSignOut],
+        leftButtons: Platform.OS === "ios" ? [buttonSignOut] : [],
+        animated: true
+      });
+    }
   }
 
   onNavigatorEvent(event) {
@@ -77,6 +74,7 @@ export default class extends Component {
       <FilteredMeasuresView navigator={this.props.navigator}
                             measuresList={this.props.measuresFriendsNotesList}
                             measuresNamesList={this.props.measuresNamesList}
+                            isKeyboardShown={this.props.isKeyboardShown}
                             updateList={this.props.actions.getFriendsNotesList}
                             actions={this.props.actions}
                             icons={this.props.icons}

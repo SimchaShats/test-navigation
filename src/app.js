@@ -60,8 +60,7 @@ export default class App {
   onStoreUpdate() {
     const root = store.getState().app.get("root");
     const lang = store.getState().app.get("lang");
-    // handle a root change
-    // if your app doesn't change roots in runtime, you can remove onStoreUpdate() altogether
+
     this._populateIcons().then(() => {
       if ((this.currentRoot !== root || this.lang !== lang) && lang !== null) {
         this.lang = lang;

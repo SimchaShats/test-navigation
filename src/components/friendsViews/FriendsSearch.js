@@ -22,10 +22,10 @@ export default class extends Component {
     this.state = {
       searchCondition: ""
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -65,6 +65,7 @@ export default class extends Component {
       <View style={styles.container}>
         <View style={styles.caption}><Text style={[{textAlign: "left", width: Dimensions.get("window").width}]}>{I18n.t("headerFriendsSearch")}</Text></View>
         <SearchConditionRow actions={this.props.actions}
+                            isKeyboardShown={this.props.isKeyboardShown}
                             updateSearchCondition={(searchCondition) => {this.setState({searchCondition})}}/>
         <UsersList focusedElement={this.props.focusedElement} usersList={this.props.usersList}
                    navigator={this.props.navigator} searchCondition={this.state.searchCondition}

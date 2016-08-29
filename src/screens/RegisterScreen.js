@@ -15,7 +15,6 @@ import * as measuresActions from '../redux/measures/actions';
 import * as userActions from '../redux/user/actions';
 import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
-import FriendsNotesPage from "../components/FriendsNotesPage";
 import UserProfileForm from "../components/UserProfileForm";
 import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');

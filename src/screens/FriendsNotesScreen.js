@@ -66,6 +66,7 @@ class FriendsNotesScreen extends Component {
                               measuresNamesList={this.props.measuresNamesList}
                               actions={this.props.actions}
                               lang={this.props.lang}
+                              isKeyboardShown={this.props.isKeyboardShown}
                               icons={this.props.icons}
                               features={{remove: {action: this.props.actions.removeFriendNote}}}/>
           : <LoginForm navigator={this.props.navigator}
