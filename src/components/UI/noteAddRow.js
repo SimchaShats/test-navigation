@@ -22,18 +22,16 @@ export default class extends Component {
       buttonWidth: 0,
       text: ""
     };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
   componentWillReceiveProps(nextProps) {
     this._componentWillUpdateProps(nextProps);
   }
-
-
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
@@ -59,6 +57,9 @@ export default class extends Component {
     if (nextProps.noteMessage !== this.props.noteMessage) {
       this.setState({text: nextProps.noteMessage});
     }
+    if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
+      this.input.blur();
+    }
   }
 
   onNavigatorEvent(event) {
@@ -74,8 +75,9 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style={[styles.textInput, {height: (Platform.OS === "ios" ? 16 : 26) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
+        <TextInput style={[styles.textInput, {height: (Platform.OS === "ios" ? 16 : 28) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
                    onChangeText={(text) => {this.setState({text}); this.props.onChangeText && this.props.onChangeText(text);}}
+                   ref={r => this.input = r}
                    onFocus={this.props.actions.focusElement.bind(null, "textInputNoteAddRow")}
                    onBlur={this.props.actions.focusElement.bind(null, null)} underlineColorAndroid="transparent"
                    placeholder={this.props.placeholder}/>

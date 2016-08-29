@@ -1,7 +1,4 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">uwHC01dOXJPBPvzpnR9w3SI_5m3_VyyiZVSGb</string>
-
-
-
-    <string name="app_name">Measures</string>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb</string>
+    <string name="app_name">Avodat haMidot</string>
 </resources>

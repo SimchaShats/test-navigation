@@ -1,6 +1,6 @@
 {
   "en" : {
-    "all": " All measures",
+    "all": "#All measures",
     "pride": "Pride",
     "humility": "Humility",
     "shame": "Shame",
@@ -31,7 +31,7 @@
     "fearOfHeaven": "Fear of Heaven"
   },
   "ru" : {
-    "all": " Все качества",
+    "all": "#Все качества",
     "pride": "Гордость",
     "humility": "Смирение",
     "shame": "Стыд",
@@ -62,7 +62,7 @@
     "fearOfHeaven": "Страх перед Всевышним"
   },
   "he" : {
-    "all": " כל המידות",
+    "all": "#כל המידות",
     "pride": "גאווה",
     "humility": "ענווה",
     "shame": "בושה",

@@ -63,22 +63,23 @@ export default class extends Component {
   render() {
     const userProfile = this.props.usersList.get(this.props.userId);
     return (
-      <View style={styles.container}>
+      <KeyboardAwareScrollView getTextInputRefs={() => [this.note.input]}>
         <View style={styles.caption}>
           <Text style={styles.username}>{userProfile.get("firstName")} {userProfile.get("lastName")}</Text>
           <Text style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue} updateFilterValue={(filterValue)=>{this.setState({filterValue})}}/>
         <NoteAddRow actions={this.props.actions} lines={4} navigator={this.props.navigator}
+                    ref={r => this.note = r}
                     isKeyboardShown={this.props.isKeyboardShown} onChangeText={(noteMessage) => this.setState({noteMessage})} noteMessage={this.state.noteMessage}
                     focusedElement={this.props.focusedElement} icons={this.props.icons} placeholder={I18n.t("placeholderFriendNote")}/>
         <TouchableOpacity
-          style={[styles.button, {backgroundColor: this.state.noteMessage !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
+          style={[styles.button, {backgroundColor: this.state.noteMessage.trim() !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
           disabled={this.state.noteMessage.trim() === ""}
-          onPress={()=>{this.sendNote.bind(this)}}>
+          onPress={this.sendNote.bind(this)}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

@@ -118,7 +118,7 @@ export function getUsersList() {
 }
 
 export function sendNoteToFriend(userId, measure, message, from) {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState) {console.log(userId, measure, message, from);
     dispatch(appActions.fetchRemoteData({friendNote: true}));
     await APIFactory().addNoteToFriend(userId, measure, message, from);
     dispatch(appActions.fetchRemoteData({friendNote: false}));
