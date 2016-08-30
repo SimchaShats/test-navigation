@@ -82,6 +82,7 @@ export default class extends Component {
     this.props.actions.changeFormField("userProfile", "middleName", value.middleName);
     this.props.actions.changeFormField("userProfile", "lastName", value.lastName);
     this.props.actions.changeFormField("userProfile", "password", value.password);
+    this.props.actions.changeFormField("userProfile", "birthDate", value.birthDate);
     this.props.actions.changeFormField("userProfile", "confirmPassword", value.confirmPassword);
     this.props.actions.changeFormField("userProfile", "lang", value.lang);
     this.props.actions.changeLanguage(value.lang, true);
@@ -167,7 +168,6 @@ export default class extends Component {
       self.props.form.has("password") && scrollFields.push(self.form.getComponent("password").refs.input);
       self.props.form.has("confirmPassword") && scrollFields.push(self.form.getComponent("confirmPassword").refs.input);
       //self.props.form.has("birthDate") && scrollFields.push(self.form.getComponent("birthDate").refs.input);
-      //console.log(scrollFields);
       return scrollFields;
     }
 
@@ -179,7 +179,6 @@ export default class extends Component {
     options.fields['confirmPassword'] = confirmPassword;
     options.fields['birthDate'] = birthDate;
     options.fields['lang'] = lang;
-
     return (
       <KeyboardAwareScrollView marginScrollTop={70} getTextInputRefs={() => getScrollFields()}>
         <View style={styles.container}>
@@ -187,13 +186,13 @@ export default class extends Component {
                 type={t.struct(userProfileForm)}
                 options={options}
                 value={{
-                  email: this.props.form.get("email"),
-                  firstName: this.props.form.get("firstName"),
-                  lastName: this.props.form.get("lastName"),
-                  password: this.props.form.get("password"),
-                  middleName: this.props.form.get("middleName"),
-                  confirmPassword: this.props.form.get("confirmPassword"),
-                  birthDate: this.props.form.get("birthDate"),
+                  email: this.props.form.get("email") || "",
+                  firstName: this.props.form.get("firstName") || "",
+                  lastName: this.props.form.get("lastName") || "",
+                  password: this.props.form.get("password") || "",
+                  middleName: this.props.form.get("middleName") || "",
+                  confirmPassword: this.props.form.get("confirmPassword") || "",
+                  birthDate: this.props.form.get("birthDate") || "",
                   lang: this.props.form.get("lang")
                 }}
                 onChange={this.onChange.bind(this)}/>

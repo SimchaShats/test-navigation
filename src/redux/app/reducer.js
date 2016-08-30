@@ -44,7 +44,7 @@ const initialState = Map({
       password: "",
       passwordError: "",
       confirmPassword: "",
-      passwordAgainError: "",
+      confirmPasswordError: "",
       birthDate: new Date(),
       birthDateError: ""
     })

@@ -44,7 +44,6 @@ class SettingsScreen extends Component {
           animated: true
         });
       } else {
-        console.log(nextProps.isKeyboardShown);
         nextProps.navigator.setButtons({
           rightButtons: [
             {

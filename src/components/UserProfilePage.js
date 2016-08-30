@@ -55,7 +55,7 @@ export default class extends Component {
 
   buildLocalName(profile) {
     if (profile.get("firstName")[0].search(/[a-zA-Z]/) > -1) {
-      return `${profile.get("firstName")} ${profile.get("middleName")} ${profile.get("lastName")}`;
+      return `${profile.get("firstName")} son of ${profile.get("middleName")} ${profile.get("lastName")}}`;
     } else if (profile.get("firstName")[0].search(/[а-яА-Я]/) > -1) {
       return `${profile.get("firstName")} ${profile.get("lastName")} ${profile.get("middleName")}`;
     } else if (profile.get("firstName")[0].search(/[א-ת]/) > -1) {

@@ -95,7 +95,6 @@ export default function (state, action) {
     
     case('confirmPassword'):
       const confirmPasswordError = validate({password: state.get("forms").get(form).get("password"), confirmPassword: value}, confirmPasswordConstraints) || "";
-      console.log(confirmPasswordError);
       return state.setIn(['forms', action.payload.form, 'confirmPasswordError'], confirmPasswordError && confirmPasswordError.confirmPassword);
       break;
   }
