@@ -14,6 +14,7 @@ import NoteAddRow from "./../UI/NoteAddRow";
 import MeasuresList from "./MeasuresList";
 import {OrderedMap, Map} from 'immutable';
 import I18n from "../../i18n";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 export default class extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class extends Component {
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
       if (nextProps.focusedElement === "textInputNoteAddRow") {
-        Animated.timing(
+        /*Animated.timing(
           this.state.bounceValue,
           {
             toValue: Platform.OS === "ios" ? -135 : -90,
@@ -49,7 +50,7 @@ export default class extends Component {
             toValue: 0,
             duration: Platform.OS === "ios" ? 250 : 0
           }
-        ).start();
+        ).start();*/
       }
     }
 
@@ -59,24 +60,33 @@ export default class extends Component {
   }
 
   render() {
+
+    function getInputRef() {
+      return this.props.features && Object.keys(this.props.features).includes("add") ? [this.note.input] : [];
+    }
+
     return (
-      <Animated.View style={[styles.container, {transform: [{translateY: this.state.bounceValue}]}]}>
-        <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
-                currentMeasure={this.state.currentMeasure}
-                updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
-                actions={this.props.actions}/>
-        {this.props.features && Object.keys(this.props.features).includes("add") &&
-        <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
-                    isKeyboardShown={this.props.isKeyboardShown}
-                    measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
-                    focusedElement={this.props.focusedElement} icons={this.props.icons}
-                    placeholder={I18n.t("placeholderAddMyNote")}
-                    doneAction={this.props.features.add.action} measure={this.state.filterValue}/>}
-        <MeasuresList features={this.props.features} updateList={this.props.updateList} measure={this.state.filterValue}
-                      measuresNamesList={this.props.measuresNamesList} measuresList={this.props.measuresList}
-                      lang={this.props.lang}
-                      actions={this.props.actions}/>
-      </Animated.View>
+      <KeyboardAwareScrollView marginScrollTop={75} getTextInputRefs={getInputRef.bind(this)}>
+        <Animated.View style={[styles.container, {transform: [{translateY: this.state.bounceValue}]}]}>
+          <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
+                  currentMeasure={this.state.currentMeasure}
+                  updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
+                  actions={this.props.actions}/>
+          {this.props.features && Object.keys(this.props.features).includes("add") &&
+          <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
+                      isKeyboardShown={this.props.isKeyboardShown}
+                      ref={r => this.note = r}
+                      measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
+                      focusedElement={this.props.focusedElement} icons={this.props.icons}
+                      placeholder={I18n.t("placeholderAddMyNote")}
+                      doneAction={this.props.features.add.action} measure={this.state.filterValue}/>}
+          <MeasuresList features={this.props.features} updateList={this.props.updateList}
+                        measure={this.state.filterValue}
+                        measuresNamesList={this.props.measuresNamesList} measuresList={this.props.measuresList}
+                        lang={this.props.lang}
+                        actions={this.props.actions}/>
+        </Animated.View>
+      </KeyboardAwareScrollView>
     );
   }
 }
