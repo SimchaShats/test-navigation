@@ -56,7 +56,7 @@ I18n.translations = {
     placeholderFriendName: "Напишите имя вашего дргуга...",
 
     headerLogin: "Пожалуйста зайдите в систему под вашим аккаунтом, или зарегистрируйтесь чтобы использовать эту опцию...",
-    headerFriendsSearch: "Друг, которому вы хотите помочь...",
+    headerFriendsSearch: "Друзья, которым вы хотите помочь...",
 
     fieldEmail: "Электронный адрес",
     fieldPassword: "Пароль",
@@ -80,7 +80,41 @@ I18n.translations = {
     messageProfileUpdatedSuccess: "Профиль обноволен успешно"
   },
   he: {
-    greeting: "Bonjour!"
+    tabTheory: "תיאוריה",
+    tabMyNotes: "חשבון נפש",
+    tabFriendsNotes: "הערות חברים",
+    tabSettings: "הגדרות",
+    tabUserProfile: "פרופיל",
+    tabRegister: "רישום",
+    tabCreateNote: "הערה חדשה",
+
+    placeholderAddMyNote: "כתוב הודעה של אחת מהתכונות שאתה צריך לשפר...",
+    placeholderFriendNote: "כתוב הודעה לחבר שלך על אחת התכונות שאתה רוצה לעזור לו לשפר...",
+    placeholderFriendName: "כתוב שם של חבר...",
+
+    headerLogin: "נא היכנס תחת חשבונך או להירשם כדי להשתמש באפשרות זו...",
+    headerFriendsSearch: "חברים, אתה רוצה לעזור...",
+
+    fieldEmail: "אי-מייל",
+    fieldPassword: "סיסמה",
+    fieldConfirmPassword: "אימות סיסמה",
+    fieldBirthDate: "יום הולדת",
+    fieldLanguage: "שפה",
+    fieldFirstName: "שם",
+    fieldLastName: "שם משפחה",
+    fieldMiddleName: "שם האב",
+
+    buttonSignUp: "הירשם",
+    buttonRegister: "הרשמה",
+    buttonSignOut: "התנתק",
+    buttonSignIn: "התחבר",
+    buttonUpdateUserProfile: "עדכן פרופיל",
+    buttonSend: "שלח",
+
+    titleMessage: "הודעה",
+
+    messageSendNoteSuccess: "ההערה נשלחה בהצלחה",
+    messageProfileUpdatedSuccess: "פרופיל עודכן בהצלחה"
   }
 };
 

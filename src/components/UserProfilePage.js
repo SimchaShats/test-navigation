@@ -53,6 +53,16 @@ export default class extends Component {
     }
   }
 
+  buildLocalName(profile) {
+    if (profile.get("firstName")[0].search(/[a-zA-Z]/) > -1) {
+      return `${profile.get("firstName")} ${profile.get("middleName")} ${profile.get("lastName")}`;
+    } else if (profile.get("firstName")[0].search(/[а-яА-Я]/) > -1) {
+      return `${profile.get("firstName")} ${profile.get("lastName")} ${profile.get("middleName")}`;
+    } else if (profile.get("firstName")[0].search(/[א-ת]/) > -1) {
+      return `${profile.get("firstName")} בן ${profile.get("middleName")} ${profile.get("lastName")}`;
+    }
+  }
+
   sendNote() {
     this.props.actions.sendNoteToFriend(this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id")).then(() => {
       this.setState({noteMessage: ""});
@@ -65,7 +75,7 @@ export default class extends Component {
     return (
       <KeyboardAwareScrollView marginScrollTop={75} getTextInputRefs={() => [this.note.input]}>
         <View style={styles.caption}>
-          <Text style={styles.username}>{userProfile.get("firstName")} {userProfile.get("lastName")}</Text>
+          <Text style={styles.username}>{this.buildLocalName(userProfile)}</Text>
           <Text
             style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>
