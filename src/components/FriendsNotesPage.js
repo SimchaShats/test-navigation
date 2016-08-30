@@ -18,7 +18,7 @@ import FilteredMeasuresView from "./measuresViews/FilteredMeasuresView";
 const dismissKeyboard = require('dismissKeyboard');
 const t = require('tcomb-form-native');
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 let Form = t.form.Form;
 
 export default class extends Component {

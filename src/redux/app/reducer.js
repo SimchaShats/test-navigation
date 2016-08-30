@@ -8,8 +8,8 @@ import {
   SET_FORM_FIELD
 } from './actionTypes';
 import {OrderedMap, Map, fromJS} from 'immutable';
-import fieldValidation from '../../fieldValidation';
-import formValidation from '../../formValidation';
+import fieldValidation from '../../utils/fieldValidation';
+import formValidation from '../../utils/formValidation';
 
 const initialState = Map({
   root: null,
@@ -29,7 +29,7 @@ const initialState = Map({
       password: "",
       passwordError: ""
     }),
-    userProfile: Map({
+    register: Map({
       isValid: false,
       lang: "en",
       message: "",
@@ -45,6 +45,19 @@ const initialState = Map({
       passwordError: "",
       confirmPassword: "",
       confirmPasswordError: "",
+      birthDate: new Date(),
+      birthDateError: ""
+    }),
+    userProfile: Map({
+      isValid: false,
+      lang: "en",
+      message: "",
+      firstName: "",
+      firstNameError: "",
+      middleName: "",
+      middleNameError: "",
+      lastName: "",
+      lastNameError: "",
       birthDate: new Date(),
       birthDateError: ""
     })
@@ -65,7 +78,8 @@ export default function app(state = initialState, action = {}) {
       return formValidation(
         fieldValidation(
           state.setIn(["forms", action.payload.form, action.payload.field], action.payload.value),
-          action),
+          action
+        ),
         action
       );
     case SET_FORM_FIELD:

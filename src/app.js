@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import store from './redux';
 import * as appActions from './redux/app/actions';
-import I18n from './i18n';
+import I18n from './utils/i18n';
 const { Keyboard } = require('react-native');
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CodePush from "react-native-code-push";

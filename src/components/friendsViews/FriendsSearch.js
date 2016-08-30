@@ -14,7 +14,7 @@ import UsersList from "./UsersList";
 const { Keyboard } = require('react-native');
 import Dimensions from "Dimensions";
 const dismissKeyboard = require('dismissKeyboard');
-import I18n from "../../i18n";
+import I18n from "../../utils/i18n";
 
 export default class extends Component {
   constructor(props) {

@@ -16,7 +16,7 @@ import * as userActions from "../user/actions";
 import * as measuresActions from "../measures/actions";
 import {ASYNC_STORAGE} from "../../constants";
 import CodePush from "react-native-code-push";
-import I18n from "../../i18n";
+import I18n from "../../utils/i18n";
 
 export function appInitialized() {
   return async function (dispatch, getState) {
@@ -51,6 +51,7 @@ export function changeLanguage(lang, isPermanentSave = false) {
     I18n.locale = lang;
     dispatch({type: CHANGE_LANGUAGE, payload: lang});
     dispatch(setFormField("userProfile", "lang", lang));
+    dispatch(setFormField("register", "lang", lang));
     dispatch(measuresActions.getMeasuresNamesList());
     dispatch(measuresActions.getMeasuresTheoryList());
     isPermanentSave && await APIFactory(API_SOURCES.ASYNC_STORAGE).setLanguage(lang);

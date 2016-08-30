@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import {Map} from 'immutable';
 import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
 class TheoryScreen extends Component {

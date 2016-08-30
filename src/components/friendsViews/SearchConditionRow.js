@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 const { Keyboard } = require('react-native');
 const dismissKeyboard = require('dismissKeyboard');
-import I18n from "../../i18n";
+import I18n from "../../utils/i18n";
 
 export default class extends Component {
   constructor(props) {

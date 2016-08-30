@@ -18,7 +18,7 @@ import {Map} from 'immutable';
 import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
 import UserProfileForm from "../components/UserProfileForm";
 var Spinner = require('react-native-spinkit');
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
 class SettingsScreen extends Component {
@@ -65,13 +65,14 @@ class SettingsScreen extends Component {
   }
 
   render() {
-    let userProfileForm = this.props.form.delete("email").delete("password").delete("confirmPassword");
-    !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("email").delete("birthDate").delete("firstName").delete("lastName").delete("middleName").delete("password").delete("confirmPassword"));
+    let userProfileForm = this.props.form;
+    !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("birthDate").delete("firstName").delete("lastName").delete("middleName"));
     return (
       <View style={styles.container}>
         <UserProfileForm navigator={this.props.navigator}
                          actions={this.props.actions}
                          form={userProfileForm}
+                         formName={"userProfile"}
                          icons={this.props.icons}
                          userProfile={this.props.userProfile}
                          lang={this.props.lang}

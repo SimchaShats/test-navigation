@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import Button from "./../UI/Button";
 import Dimensions from "Dimensions";
-import I18n from "../../i18n";
+import I18n from "../../utils/i18n";
+import {buildLocalName} from "../utils/helpers";
 
 export default class extends Component {
   constructor(props) {
@@ -30,21 +31,11 @@ export default class extends Component {
     });
   }
 
-  buildLocalName(profile) {
-    if (profile.get("firstName")[0].search(/[a-zA-Z]/) > -1) {
-      return `${profile.get("firstName")} son of ${profile.get("middleName")} ${profile.get("lastName")}}`;
-    } else if (profile.get("firstName")[0].search(/[а-яА-Я]/) > -1) {
-      return `${profile.get("firstName")} ${profile.get("lastName")} ${profile.get("middleName")}`;
-    } else if (profile.get("firstName")[0].search(/[א-ת]/) > -1) {
-      return `${profile.get("firstName")} בן ${profile.get("middleName")} ${profile.get("lastName")}`;
-    } 
-  }
-
   render() {
     let date = this.props.profile.get("birthDate");
     return (
       <TouchableOpacity onPress={this.onPress.bind(this)} style={[styles.container, {width: Dimensions.get("window").width}]}>
-        <Text style={styles.username}>{this.buildLocalName(this.props.profile)}</Text>
+        <Text style={styles.username}>{buildLocalName(this.props.profile.get("firstName"), this.props.profile.get("lastName"), this.props.profile.get("middleName"))}</Text>
         <Text style={styles.birthDate}>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
       </TouchableOpacity>
     );

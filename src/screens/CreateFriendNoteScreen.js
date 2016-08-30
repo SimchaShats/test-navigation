@@ -16,7 +16,7 @@ import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
 import FilteredListView from "../components/measuresViews/FilteredMeasuresView";
 import FriendsSearch from "../components/friendsViews/FriendsSearch";
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
 class CreateFriendNoteScreen extends Component {

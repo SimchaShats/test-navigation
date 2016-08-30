@@ -19,7 +19,7 @@ import UserProfileForm from "../components/UserProfileForm";
 import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');
 var Spinner = require('react-native-spinkit');
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class RegisterScreen extends Component {
         };
         nextProps.navigator.setButtons({
           rightButtons: [],
-          leftButtons: [],
+          leftButtons: [buttonClose],
           animated: true
         });
       } else {
@@ -75,6 +75,7 @@ class RegisterScreen extends Component {
         <UserProfileForm navigator={this.props.navigator}
                          actions={this.props.actions}
                          form={this.props.form}
+                         formName={"register"}
                          icons={this.props.icons}
                          lang={this.props.lang}
                          userProfile={this.props.userProfile}
@@ -110,7 +111,7 @@ function mapStateToProps(state) {
     userProfile: state.user.get("profile"),
     isUserLoggedIn: state.user.get("isLoggedIn"),
     focusedElement: state.app.get("focusedElement"),
-    form: state.app.get("forms").get("userProfile"),
+    form: state.app.get("forms").get("register"),
     lang: state.app.get("lang"),
     isKeyboardShown: state.app.get("isKeyboardShown"),
     isFetching: state.app.get("isFetching")

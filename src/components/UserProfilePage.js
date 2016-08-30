@@ -22,7 +22,8 @@ const dismissKeyboard = require('dismissKeyboard');
 const t = require('tcomb-form-native');
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 let Form = t.form.Form;
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
+import {buildLocalName} from "../utils/helpers";
 
 export default class extends Component {
 
@@ -53,16 +54,6 @@ export default class extends Component {
     }
   }
 
-  buildLocalName(profile) {
-    if (profile.get("firstName")[0].search(/[a-zA-Z]/) > -1) {
-      return `${profile.get("firstName")} son of ${profile.get("middleName")} ${profile.get("lastName")}}`;
-    } else if (profile.get("firstName")[0].search(/[а-яА-Я]/) > -1) {
-      return `${profile.get("firstName")} ${profile.get("lastName")} ${profile.get("middleName")}`;
-    } else if (profile.get("firstName")[0].search(/[א-ת]/) > -1) {
-      return `${profile.get("firstName")} בן ${profile.get("middleName")} ${profile.get("lastName")}`;
-    }
-  }
-
   sendNote() {
     this.props.actions.sendNoteToFriend(this.props.userId, this.state.filterValue, this.state.noteMessage, this.props.meProfile.get("id")).then(() => {
       this.setState({noteMessage: ""});
@@ -75,7 +66,7 @@ export default class extends Component {
     return (
       <KeyboardAwareScrollView marginScrollTop={75} getTextInputRefs={() => [this.note.input]}>
         <View style={styles.caption}>
-          <Text style={styles.username}>{this.buildLocalName(userProfile)}</Text>
+          <Text style={styles.username}>{buildLocalName(userProfile.get("firstName"), userProfile.get("lastName"), userProfile.get("middleName"))}</Text>
           <Text
             style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>

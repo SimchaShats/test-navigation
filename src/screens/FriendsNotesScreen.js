@@ -20,7 +20,7 @@ import LoginForm from "../components/LoginForm";
 import Dimensions from 'Dimensions';
 const { Keyboard } = require('react-native');
 var Spinner = require('react-native-spinkit');
-import I18n from "../i18n";
+import I18n from "../utils/i18n";
 
 class FriendsNotesScreen extends Component {
 

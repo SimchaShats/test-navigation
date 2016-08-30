@@ -13,7 +13,7 @@ import Filter from "./Filter";
 import NoteAddRow from "./../UI/NoteAddRow";
 import MeasuresList from "./MeasuresList";
 import {OrderedMap, Map} from 'immutable';
-import I18n from "../../i18n";
+import I18n from "../../utils/i18n";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 export default class extends Component {
