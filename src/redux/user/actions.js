@@ -101,7 +101,6 @@ export function signInSuccess(userProfile) {
     dispatch(appActions.setFormField("userProfile", "lastName", userProfile.lastName));
     dispatch(appActions.setFormField("userProfile", "middleName", userProfile.middleName));
     dispatch(appActions.setFormField("userProfile", "birthDate", userProfile.birthDate));
-    dispatch(appActions.setFormField("userProfile", "isValid", false));
     dispatch({type: SIGN_IN_SUCCESS, payload: userProfile});
     dispatch(measuresActions.getFriendsNotesList(userProfile.id));
     dispatch(getUsersList());

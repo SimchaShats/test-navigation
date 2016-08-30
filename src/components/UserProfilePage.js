@@ -66,9 +66,9 @@ export default class extends Component {
     return (
       <KeyboardAwareScrollView marginScrollTop={75} getTextInputRefs={() => [this.note.input]}>
         <View style={styles.caption}>
-          <Text style={styles.username}>{buildLocalName(userProfile.get("firstName"), userProfile.get("lastName"), userProfile.get("middleName"))}</Text>
+          <Text style={styles.username}>{userProfile && buildLocalName(userProfile.get("firstName"), userProfile.get("lastName"), userProfile.get("middleName"))}</Text>
           <Text
-            style={styles.birthDate}>{`${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
+            style={styles.birthDate}>{userProfile && `${userProfile.get("birthDate").getDate()}/${userProfile.get("birthDate").getMonth()}/${userProfile.get("birthDate").getFullYear()}`}</Text>
         </View>
         <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
                 updateFilterValue={(filterValue)=>{this.setState({filterValue})}}/>
@@ -81,7 +81,7 @@ export default class extends Component {
         <TouchableOpacity
           style={[styles.button, {backgroundColor: this.state.noteMessage.trim() !== "" ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
           disabled={this.state.noteMessage.trim() === ""}
-          onPress={()=>{this.sendNote.bind(this)}}>
+          onPress={this.sendNote.bind(this)}>
           <Text style={styles.buttonText}>Send</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>

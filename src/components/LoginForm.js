@@ -61,8 +61,8 @@ export default class extends Component {
     }
 
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      //this.form.getComponent("password").refs.input.blur();
-      //this.form.getComponent("email").refs.input.blur();
+      this.form.getComponent("password").refs.input.blur();
+      this.form.getComponent("email").refs.input.blur();
     }
   }
 

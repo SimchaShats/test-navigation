@@ -48,13 +48,14 @@ export default class extends Component {
       }*/
     }
 
-    //if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-    //  this.form.getComponent("firstName") && this.form.getComponent("firstName").refs.input.blur();
-    //  this.form.getComponent("lastName") && this.form.getComponent("lastName").refs.input.blur();
-    //  this.form.getComponent("password") && this.form.getComponent("password").refs.input.blur();
-    //  this.form.getComponent("confirmPassword") && this.form.getComponent("confirmPassword").refs.input.blur();
-    //  this.form.getComponent("email") && this.form.getComponent("email").refs.input.blur();
-    //}
+    if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
+      this.form.getComponent("firstName") && this.form.getComponent("firstName").refs.input.blur();
+      this.form.getComponent("lastName") && this.form.getComponent("lastName").refs.input.blur();
+      this.form.getComponent("lastName") && this.form.getComponent("lastName").refs.input.blur();
+      this.form.getComponent("middleName") && this.form.getComponent("middleName").refs.input.blur();
+      this.form.getComponent("confirmPassword") && this.form.getComponent("confirmPassword").refs.input.blur();
+      this.form.getComponent("email") && this.form.getComponent("email").refs.input.blur();
+    }
   }
 
   onNavigatorEvent(event) {

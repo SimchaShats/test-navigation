@@ -5,7 +5,7 @@ export default function (state, action) {
   const form = state.get("forms").get(action.payload.form);
   switch(action.payload.form) {
     case "login" :
-      if (form.get("emailError") === "" && form.get("email") === "" && form.get("passwordError") === "" && form.get("password") !== "") {
+      if (form.get("emailError") === "" && form.get("email") !== "" && form.get("passwordError") === "" && form.get("password") !== "") {
         return state.setIn(["forms", action.payload.form, "isValid"], true);
       } else {
         return state.setIn(["forms", action.payload.form, "isValid"], false);

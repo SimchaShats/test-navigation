@@ -11,7 +11,7 @@ import {
 import Button from "./../UI/Button";
 import Dimensions from "Dimensions";
 import I18n from "../../utils/i18n";
-import {buildLocalName} from "../utils/helpers";
+import {buildLocalName} from "../../utils/helpers";
 
 export default class extends Component {
   constructor(props) {

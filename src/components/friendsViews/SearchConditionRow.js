@@ -31,7 +31,7 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      //this.input.blur();
+      this.input.blur();
     }
   }
 
