@@ -39,8 +39,8 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
-      if (nextProps.focusedElement === "textInputLoginForm") {
+    if (nextProps.icons && (nextProps.isKeyboardShown !== this.props.isKeyboardShown || isComponentDidMount)) {
+      if (nextProps.isKeyboardShown) {
         nextProps.navigator.setButtons({
           rightButtons: [
             {
@@ -51,7 +51,7 @@ export default class extends Component {
           leftButtons: [],
           animated: true
         });
-      } else if (!nextProps.focusedElement) {
+      } else {
         nextProps.navigator.setButtons({
           rightButtons: [],
           leftButtons: [],
@@ -61,8 +61,8 @@ export default class extends Component {
     }
 
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      this.form.getComponent("password").refs.input.blur();
-      this.form.getComponent("email").refs.input.blur();
+      //this.form.getComponent("password").refs.input.blur();
+      //this.form.getComponent("email").refs.input.blur();
     }
   }
 
@@ -85,16 +85,12 @@ export default class extends Component {
       autoCorrect: false,
       keyboardType: 'email-address',
       hasError: this.props.form.get("emailError"),
-      onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       error: this.props.form.get("emailError")
     };
     let password = {
       label: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputLoginForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("passwordError"),
       error: this.props.form.get("passwordError")
     };

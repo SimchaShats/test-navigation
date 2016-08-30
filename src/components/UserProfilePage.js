@@ -43,8 +43,8 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.focusedElement !== this.props.focusedElement
-      && this.props.focusedElement === "textInputNoteAddRow" || isComponentDidMount) {
+    if ((nextProps.isKeyboardShown !== this.props.isKeyboardShown || isComponentDidMount)
+      && !nextProps.isKeyboardShown) {
       nextProps.navigator.setButtons({
         rightButtons: [],
         leftButtons: [],

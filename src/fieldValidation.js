@@ -37,6 +37,16 @@ const lastNameConstraints = {
   }
 };
 
+const middleNameConstraints = {
+  middleName: {
+    format: {
+      pattern: namePattern,
+      flags: 'i',
+      message: "must have 2-16 letters, whitespaces or symbol \"-\""
+    }
+  }
+};
+
 const passwordPattern =  /^[a-zA-Z0-9!@#$%^&*]{6,12}$/;
 const passwordConstraints = {
   password: {
@@ -48,7 +58,7 @@ const passwordConstraints = {
   }
 };
 
-const passwordAgainConstraints = {
+const confirmPasswordConstraints = {
   confirmPassword: {
     equality: "password"
   }
@@ -68,6 +78,11 @@ export default function (state, action) {
       return state.setIn(['forms', action.payload.form, 'lastNameError'], lastNameError && lastNameError.lastName);
       break;
 
+    case('middleName'):
+      const middleNameError = validate({middleName: value}, middleNameConstraints) || "";
+      return state.setIn(['forms', action.payload.form, 'middleNameError'], middleNameError && middleNameError.middleName);
+      break;
+
     case('email'):
       const emailError = validate({email: value}, emailConstraints) || "";
       return state.setIn(['forms', action.payload.form, 'emailError'], emailError && emailError.email);
@@ -79,8 +94,9 @@ export default function (state, action) {
       break;
     
     case('confirmPassword'):
-      const passwordAgainError = validate({password: state.get("forms").get(form).get("password"), confirmPassword: value}, passwordAgainConstraints) || "";
-      return state.setIn(['forms', action.payload.form, 'passwordAgainError'], passwordAgainError && passwordAgainError.confirmPassword);
+      const confirmPasswordError = validate({password: state.get("forms").get(form).get("password"), confirmPassword: value}, confirmPasswordConstraints) || "";
+      console.log(confirmPasswordError);
+      return state.setIn(['forms', action.payload.form, 'confirmPasswordError'], confirmPasswordError && confirmPasswordError.confirmPassword);
       break;
   }
   return state;

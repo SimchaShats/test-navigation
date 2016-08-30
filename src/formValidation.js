@@ -16,6 +16,7 @@ export default function (state, action) {
       if (!formRegister.get("emailError") && formRegister.get("email") !== ""
         && !formRegister.get("firstNameError") && formRegister.get("firstName") !== ""
         && !formRegister.get("lastNameError") && formRegister.get("lastName") !== ""
+        && !formRegister.get("middleNameError") && formRegister.get("middleName") !== ""
         && !formRegister.get("passwordError") && formRegister.get("password") !== ""
         && !formRegister.get("confirmPasswordError") && formRegister.get("confirmPassword") !== "") {
         return state.setIn(["forms", action.payload.form, "isValid"], true);

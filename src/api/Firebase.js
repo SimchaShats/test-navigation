@@ -51,6 +51,7 @@ export default class extends API {
           user.password = password;
           user.firstName = snapshot.val().firstName;
           user.lastName = snapshot.val().lastName;
+          user.middleName = snapshot.val().middleName;
           user.birthDate = new Date(snapshot.val().birthDate);
           resolve(user);
         }, (error) => {
@@ -62,7 +63,7 @@ export default class extends API {
     })
   }
 
-  signUp(email, password, firstName, lastName, birthDate) {
+  signUp(email, password, firstName, lastName, middleName, birthDate) {
     return new Promise((resolve, reject) => {
       let user = {};
       firebase.auth().createUserWithEmailAndPassword(email, password).then(snapshot => {
@@ -72,12 +73,14 @@ export default class extends API {
           email,
           firstName,
           lastName,
+          middleName,
           birthDate: birthDate.getTime()
         });
       }).then(() => {
         user.password = password;
         user.firstName = firstName;
         user.lastName = lastName;
+        user.middleName = middleName;
         user.birthDate = birthDate;
         resolve(user);
       }).catch((error) => {
@@ -130,9 +133,9 @@ export default class extends API {
     })
   }
 
-  updateUserProfile(userId, email, password, firstName, lastName, birthDate) {
+  updateUserProfile(userId, email, password, firstName, lastName, middleName, birthDate) {
     return new Promise((resolve, reject) => {
-      firebase.database().ref(`users/${userId}`).update({firstName, lastName, birthDate: birthDate.getTime()}, (error) => {
+      firebase.database().ref(`users/${userId}`).update({firstName, lastName, middleName, birthDate: birthDate.getTime()}, (error) => {
         error ? reject(error) : resolve(null);
       });
     })

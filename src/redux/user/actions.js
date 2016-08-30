@@ -31,11 +31,11 @@ export function signIn(email, password) {
   }
 }
 
-export function signUp(email, password, firstName, lastName, birthDate) {
+export function signUp(email, password, firstName, lastName, middleName, birthDate) {
   return async function (dispatch, getState) {
     dispatch(appActions.fetchRemoteData({user: true}));
     try {
-      const userProfile = await APIFactory().signUp(email, password, firstName, lastName, birthDate);
+      const userProfile = await APIFactory().signUp(email, password, firstName, lastName, middleName, birthDate);
       dispatch(signUpSuccess(userProfile));
     } catch (error) {
       dispatch(signUpFailure(error));
@@ -45,12 +45,12 @@ export function signUp(email, password, firstName, lastName, birthDate) {
   }
 }
 
-export function updateUserProfile(email, password, firstName, lastName, birthDate) {
+export function updateUserProfile(email, password, firstName, lastName, middleName, birthDate) {
   return async function (dispatch, getState) {
     dispatch(appActions.fetchRemoteData({user: true}));
     try {
-      await APIFactory().updateUserProfile(getState().user.get("profile").get("id"), email, password, firstName, lastName, birthDate);
-      dispatch(signInSuccess({...getState().get("profile").toJS(), firstName, lastName, birthDate}));
+      await APIFactory().updateUserProfile(getState().user.get("profile").get("id"), email, password, firstName, lastName, middleName, birthDate);
+      dispatch(signInSuccess({...getState().get("profile").toJS(), firstName, lastName, middleName, birthDate}));
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -79,7 +79,9 @@ export function signInSuccess(userProfile) {
     dispatch(appActions.setFormField("userProfile", "email", userProfile.email));
     dispatch(appActions.setFormField("userProfile", "firstName", userProfile.firstName));
     dispatch(appActions.setFormField("userProfile", "lastName", userProfile.lastName));
+    dispatch(appActions.setFormField("userProfile", "middleName", userProfile.middleName));
     dispatch(appActions.setFormField("userProfile", "birthDate", userProfile.birthDate));
+    dispatch(appActions.setFormField("userProfile", "isValid", false));
     dispatch({type: SIGN_IN_SUCCESS, payload: userProfile});
     dispatch(measuresActions.getFriendsNotesList(userProfile.id));
     dispatch(getUsersList());
@@ -101,6 +103,7 @@ export function signOutSuccess() {
     dispatch(appActions.setFormField("userProfile", "email", ""));
     dispatch(appActions.setFormField("userProfile", "firstName", ""));
     dispatch(appActions.setFormField("userProfile", "lastName", ""));
+    dispatch(appActions.setFormField("userProfile", "middleName", ""));
     dispatch(appActions.setFormField("userProfile", "password", ""));
     dispatch(appActions.setFormField("userProfile", "confirmPassword", ""));
     dispatch(appActions.setFormField("userProfile", "birthDate", new Date()));

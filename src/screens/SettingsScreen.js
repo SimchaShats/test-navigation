@@ -36,14 +36,15 @@ class SettingsScreen extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement|| isComponentDidMount)) {
-      if (this.props.focusedElement === "textInputUserProfileForm") {
-        this.props.navigator.setButtons({
+    if (nextProps.icons && (nextProps.isKeyboardShown !== this.props.isKeyboardShown || isComponentDidMount)) {
+      if (!nextProps.isKeyboardShown) {
+        nextProps.navigator.setButtons({
           rightButtons: [],
           leftButtons: [],
           animated: true
         });
-      } else if (nextProps.focusedElement === "textInputUserProfileForm") {
+      } else {
+        console.log(nextProps.isKeyboardShown);
         nextProps.navigator.setButtons({
           rightButtons: [
             {
@@ -66,7 +67,7 @@ class SettingsScreen extends Component {
 
   render() {
     let userProfileForm = this.props.form.delete("email").delete("password").delete("confirmPassword");
-    !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("email").delete("birthDate").delete("firstName").delete("lastName").delete("password").delete("confirmPassword"));
+    !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("email").delete("birthDate").delete("firstName").delete("lastName").delete("middleName").delete("password").delete("confirmPassword"));
     return (
       <View style={styles.container}>
         <UserProfileForm navigator={this.props.navigator}
@@ -105,6 +106,7 @@ function mapStateToProps(state) {
   return {
     userProfile: state.user.get("profile"),
     isUserLoggedIn: state.user.get("isLoggedIn"),
+    isKeyboardShown: state.app.get("isKeyboardShown"),
     focusedElement: state.app.get("focusedElement"),
     form: state.app.get("forms").get("userProfile"),
     lang: state.app.get("lang"),

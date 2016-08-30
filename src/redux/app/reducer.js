@@ -37,6 +37,8 @@ const initialState = Map({
       emailError: "",
       firstName: "",
       firstNameError: "",
+      middleName: "",
+      middleNameError: "",
       lastName: "",
       lastNameError: "",
       password: "",

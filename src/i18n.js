@@ -28,6 +28,7 @@ I18n.translations = {
     fieldLanguage: "Language",
     fieldFirstName: "First Name",
     fieldLastName: "Last Name",
+    fieldMiddleName: "Middle Name",
 
     buttonSignUp: "Sign Up",
     buttonRegister: "Register",
@@ -42,7 +43,7 @@ I18n.translations = {
     messageProfileUpdatedSuccess: "Profile updated successfully"
   },
   ru: {
-  tabTheory: "Теория",
+    tabTheory: "Теория",
     tabMyNotes: "Хэшбон нэфеш",
     tabFriendsNotes: "Заметки друзей",
     tabSettings: "Настройки",
@@ -64,6 +65,7 @@ I18n.translations = {
     fieldLanguage: "Язык",
     fieldFirstName: "Имя",
     fieldLastName: "Фамилия",
+    fieldMiddleName: "Отчество",
 
     buttonSignUp: "Зарегистрироваться",
     buttonRegister: "Регистрация",

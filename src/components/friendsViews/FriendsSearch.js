@@ -34,8 +34,8 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
-      if (nextProps.focusedElement === "textInputFriendsSearch") {
+    if (nextProps.icons && (nextProps.isKeyboardShown !== this.props.focusedElement || isComponentDidMount)) {
+      if (nextProps.isKeyboardShown) {
         nextProps.navigator.setButtons({
           rightButtons: [{
             icon: nextProps.icons.doneIcon,
@@ -44,7 +44,7 @@ export default class extends Component {
           leftButtons: [],
           animated: true
         });
-      } else if (this.props.focusedElement === "textInputFriendsSearch") {
+      } else {
         nextProps.navigator.setButtons({
           rightButtons: [],
           leftButtons: [],

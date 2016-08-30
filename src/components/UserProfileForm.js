@@ -30,12 +30,13 @@ export default class extends Component {
       lastName: "",
       password: "",
       birthDate: "",
+      middleName: "",
       confirmPassword: ""
-    }
+    };
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
   componentDidMount() {
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     this._componentWillUpdateProps(this.props, true);
   }
 
@@ -57,13 +58,13 @@ export default class extends Component {
       }*/
     }
 
-    if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      this.form.getComponent("firstName") && this.form.getComponent("firstName").refs.input.blur();
-      this.form.getComponent("lastName") && this.form.getComponent("lastName").refs.input.blur();
-      this.form.getComponent("password") && this.form.getComponent("password").refs.input.blur();
-      this.form.getComponent("confirmPassword") && this.form.getComponent("confirmPassword").refs.input.blur();
-      this.form.getComponent("email") && this.form.getComponent("email").refs.input.blur();
-    }
+    //if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
+    //  this.form.getComponent("firstName") && this.form.getComponent("firstName").refs.input.blur();
+    //  this.form.getComponent("lastName") && this.form.getComponent("lastName").refs.input.blur();
+    //  this.form.getComponent("password") && this.form.getComponent("password").refs.input.blur();
+    //  this.form.getComponent("confirmPassword") && this.form.getComponent("confirmPassword").refs.input.blur();
+    //  this.form.getComponent("email") && this.form.getComponent("email").refs.input.blur();
+    //}
   }
 
   onNavigatorEvent(event) {
@@ -78,6 +79,7 @@ export default class extends Component {
   onChange(value) {
     this.props.actions.changeFormField("userProfile", "email", value.email);
     this.props.actions.changeFormField("userProfile", "firstName", value.firstName);
+    this.props.actions.changeFormField("userProfile", "middleName", value.middleName);
     this.props.actions.changeFormField("userProfile", "lastName", value.lastName);
     this.props.actions.changeFormField("userProfile", "password", value.password);
     this.props.actions.changeFormField("userProfile", "confirmPassword", value.confirmPassword);
@@ -94,18 +96,20 @@ export default class extends Component {
       label: I18n.t("fieldEmail"),
       autoCorrect: false,
       keyboardType: 'email-address',
-      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("emailError"),
       error: this.props.form.get("emailError")
     };
     let firstName = {
       label: I18n.t("fieldFirstName"),
       maxLength: 16,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("firstNameError"),
       error: this.props.form.get("firstNameError")
+    };
+    let middleName = {
+      label: I18n.t("fieldMiddleName"),
+      maxLength: 16,
+      hasError: this.props.form.get("middleNameError"),
+      error: this.props.form.get("middleNameError")
     };
     let birthDate = {
       label: I18n.t("fieldBirthDate"),
@@ -125,8 +129,6 @@ export default class extends Component {
     let lastName = {
       label: I18n.t("fieldLastName"),
       maxLength: 16,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("lastNameError"),
       error: this.props.form.get("lastNameError")
     };
@@ -134,8 +136,6 @@ export default class extends Component {
       label: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
       hasError: this.props.form.get("passwordError"),
       error: this.props.form.get("passwordError")
     };
@@ -143,10 +143,8 @@ export default class extends Component {
       label: I18n.t("fieldConfirmPassword"),
       maxLength: 12,
       secureTextEntry: true,
-      onFocus: this.props.actions.focusElement.bind(null, "textInputUserProfileForm"),
-      onBlur: this.props.actions.focusElement.bind(null, null),
-      hasError: this.props.form.get("passwordAgainError"),
-      error: this.props.form.get("passwordAgainError")
+      hasError: this.props.form.get("confirmPasswordError"),
+      error: this.props.form.get("confirmPasswordError")
     };
 
     const userProfileForm = {};
@@ -155,6 +153,7 @@ export default class extends Component {
     this.props.form.has("email") && (userProfileForm.email = t.String);
     this.props.form.has("firstName") && (userProfileForm.firstName = t.String);
     this.props.form.has("lastName") && (userProfileForm.lastName = t.String);
+    this.props.form.has("middleName") && (userProfileForm.middleName = t.String);
     this.props.form.has("password") && (userProfileForm.password = t.String);
     this.props.form.has("confirmPassword") && (userProfileForm.confirmPassword = t.String);
 
@@ -164,6 +163,7 @@ export default class extends Component {
       self.props.form.has("firstName") && scrollFields.push(self.form.getComponent("firstName").refs.input);
       self.props.form.has("email") && scrollFields.push(self.form.getComponent("email").refs.input);
       self.props.form.has("lastName") && scrollFields.push(self.form.getComponent("lastName").refs.input);
+      self.props.form.has("middleName") && scrollFields.push(self.form.getComponent("middleName").refs.input);
       self.props.form.has("password") && scrollFields.push(self.form.getComponent("password").refs.input);
       self.props.form.has("confirmPassword") && scrollFields.push(self.form.getComponent("confirmPassword").refs.input);
       //self.props.form.has("birthDate") && scrollFields.push(self.form.getComponent("birthDate").refs.input);
@@ -175,6 +175,7 @@ export default class extends Component {
     options.fields['firstName'] = firstName;
     options.fields['lastName'] = lastName;
     options.fields['password'] = password;
+    options.fields['middleName'] = middleName;
     options.fields['confirmPassword'] = confirmPassword;
     options.fields['birthDate'] = birthDate;
     options.fields['lang'] = lang;
@@ -190,19 +191,20 @@ export default class extends Component {
                   firstName: this.props.form.get("firstName"),
                   lastName: this.props.form.get("lastName"),
                   password: this.props.form.get("password"),
+                  middleName: this.props.form.get("middleName"),
                   confirmPassword: this.props.form.get("confirmPassword"),
                   birthDate: this.props.form.get("birthDate"),
                   lang: this.props.form.get("lang")
                 }}
-                onChange={this.onChange.bind(this)}
-          />
-          {this.props.form.has("firstName") && this.props.form.has("lastName") && <TouchableOpacity
+                onChange={this.onChange.bind(this)}/>
+          {this.props.form.has("firstName") && this.props.form.has("lastName") && this.props.form.has("middleName") && <TouchableOpacity
             style={[styles.button, styles.buttonSignUp, {backgroundColor: this.props.form.get("isValid") ? "orange" : "rgba(64, 64, 64, 0.5)"}]}
             disabled={!this.props.form.get("isValid")}
             onPress={() => {this.props.doneAction(this.props.form.get("email"),
               this.props.form.get("password"),
               this.props.form.get("firstName"),
               this.props.form.get("lastName"),
+              this.props.form.get("middleName"),
               this.props.form.get("birthDate")
             )}}>
             <Text style={styles.buttonText}>{this.props.buttonDone}</Text>

@@ -31,7 +31,7 @@ export default class extends Component {
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      this.input.blur();
+      //this.input.blur();
     }
   }
 
@@ -42,8 +42,7 @@ export default class extends Component {
                    autoCorrect={false}
                    ref={r => this.input = r}
                    onChangeText={this.props.updateSearchCondition}
-                   onFocus={this.props.actions.focusElement.bind(null, "textInputFriendsSearch")}
-                   onBlur={this.props.actions.focusElement.bind(null)} underlineColorAndroid="transparent"
+                   underlineColorAndroid="transparent"
                    placeholder={I18n.t("placeholderFriendName")}/>
       </View>
     );

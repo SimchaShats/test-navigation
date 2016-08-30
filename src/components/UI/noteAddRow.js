@@ -34,8 +34,8 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.icons && (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount)) {
-      if (nextProps.focusedElement === "textInputNoteAddRow") {
+    if (nextProps.icons && (nextProps.isKeyboardShown !== this.props.isKeyboardShown || isComponentDidMount)) {
+      if (nextProps.isKeyboardShown) {
         const buttonDone = {
           icon: nextProps.icons.doneIcon,
           id: 'done'
@@ -49,16 +49,16 @@ export default class extends Component {
           leftButtons: Platform.OS === "ios" ? [buttonCancel] : [],
           animated: true
         });
-        nextProps.title && nextProps.navigator.setTitle({
-          title: nextProps.measuresNamesList.get(nextProps.title)
-        });
+        //nextProps.title && nextProps.navigator.setTitle({
+        //  title: nextProps.measuresNamesList.get(nextProps.title)
+        //});
       }
     }
     if (nextProps.noteMessage !== this.props.noteMessage) {
       this.setState({text: nextProps.noteMessage});
     }
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      this.input.blur();
+      //this.input.blur();
     }
   }
 
@@ -77,9 +77,7 @@ export default class extends Component {
       <View style={styles.container}>
         <TextInput style={[styles.textInput, {height: (Platform.OS === "ios" ? 16 : 28) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
                    onChangeText={(text) => {this.setState({text}); this.props.onChangeText && this.props.onChangeText(text);}}
-                   ref={r => this.input = r}
-                   onFocus={this.props.actions.focusElement.bind(null, "textInputNoteAddRow")}
-                   onBlur={this.props.actions.focusElement.bind(null, null)} underlineColorAndroid="transparent"
+                   ref={r => this.input = r} underlineColorAndroid="transparent"
                    placeholder={this.props.placeholder}/>
       </View>
     );
