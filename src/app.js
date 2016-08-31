@@ -47,7 +47,7 @@ export default class App {
     });
 
     CodePush.sync({
-        deploymentKey: CODE_PUSH.STAGING,
+        deploymentKey: CODE_PUSH.PRODUCTION,
         installMode: CodePush.InstallMode.IMMEDIATE
       },
       (syncStatus) => {

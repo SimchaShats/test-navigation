@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    padding: 15
+    padding: 15,
+    height: 47
   },
   wrapper: {
     height: Platform.OS === "ios" ? 135 : 90
