@@ -70,7 +70,7 @@ export default class extends Component {
         <View style={[styles.wrapper, this.props.style]}>
           <KeyboardAwareScrollView style={[styles.dynamicScroll]} scrollEnabled={false} marginScrollTop={75}
                                    getTextInputRefs={getInputRef.bind(this)}>
-            {this.props.header && <View style={styles.header}><Text>{this.props.header}</Text></View>}
+            {this.props.header && <View style={[styles.header]}><Text style={{textAlign: this.props.lang === "he" ? "right" : "left"}}>{this.props.header}</Text></View>}
             <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
                     currentMeasure={this.state.currentMeasure}
                     updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
@@ -79,6 +79,7 @@ export default class extends Component {
             <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
                         isKeyboardShown={this.props.isKeyboardShown}
                         ref={r => this.note = r}
+                        lang={this.props.lang}
                         measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
                         focusedElement={this.props.focusedElement} icons={this.props.icons}
                         placeholder={I18n.t("placeholderAddMyNote")}
