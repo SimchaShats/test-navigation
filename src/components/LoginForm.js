@@ -82,6 +82,7 @@ export default class extends Component {
     };
     let email = {
       label: I18n.t("fieldEmail"),
+      placeholder: I18n.t("fieldEmail"),
       autoCorrect: false,
       keyboardType: 'email-address',
       hasError: this.props.form.get("emailError"),
@@ -89,6 +90,7 @@ export default class extends Component {
     };
     let password = {
       label: I18n.t("fieldPassword"),
+      placeholder: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
       hasError: this.props.form.get("passwordError"),

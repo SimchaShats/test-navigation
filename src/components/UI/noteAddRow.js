@@ -75,7 +75,7 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style={[styles.textInput, {height: (Platform.OS === "ios" ? 16 : 28) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
+        <TextInput style={[styles.textInput, {textAlign: this.props.lang === "he" ? "right" : "left"}, {height: (Platform.OS === "ios" ? 16 : 28) * (this.props.lines || 2)}]} multiline={true} value={this.state.text}
                    onChangeText={(text) => {this.setState({text}); this.props.onChangeText && this.props.onChangeText(text);}}
                    ref={r => this.input = r} underlineColorAndroid="transparent"
                    placeholder={this.props.placeholder}/>

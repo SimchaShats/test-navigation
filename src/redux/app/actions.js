@@ -61,7 +61,7 @@ export function changeLanguage(lang, isPermanentSave = false) {
 
 export function getLanguage() {
   return async function (dispatch, getState) {
-    const lang = await APIFactory(API_SOURCES.ASYNC_STORAGE).getLanguage() || I18n.locale;
+    const lang = await APIFactory(API_SOURCES.ASYNC_STORAGE).getLanguage() || I18n.locale.split("-")[0];
     dispatch(changeLanguage(lang, false));
     return null;
   }

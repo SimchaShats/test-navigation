@@ -86,6 +86,7 @@ export default class extends Component {
     };
     let email = {
       label: I18n.t("fieldEmail"),
+      placeholder: I18n.t("fieldEmail"),
       autoCorrect: false,
       keyboardType: 'email-address',
       hasError: this.props.form.get("emailError"),
@@ -93,12 +94,14 @@ export default class extends Component {
     };
     let firstName = {
       label: I18n.t("fieldFirstName"),
+      placeholder: I18n.t("fieldFirstName"),
       maxLength: 16,
       hasError: this.props.form.get("firstNameError"),
       error: this.props.form.get("firstNameError")
     };
     let middleName = {
       label: I18n.t("fieldMiddleName"),
+      placeholder: I18n.t("fieldMiddleName"),
       maxLength: 16,
       hasError: this.props.form.get("middleNameError"),
       error: this.props.form.get("middleNameError")
@@ -114,18 +117,21 @@ export default class extends Component {
     };
     let lang = {
       label: I18n.t("fieldLanguage"),
+      placeholder: I18n.t("fieldLanguage"),
       nullOption: false,
       value: "en"
     };
     let languagesList = {...LANGUAGES};
     let lastName = {
       label: I18n.t("fieldLastName"),
+      placeholder: I18n.t("fieldLastName"),
       maxLength: 16,
       hasError: this.props.form.get("lastNameError"),
       error: this.props.form.get("lastNameError")
     };
     let password = {
       label: I18n.t("fieldPassword"),
+      placeholder: I18n.t("fieldPassword"),
       maxLength: 12,
       secureTextEntry: true,
       hasError: this.props.form.get("passwordError"),
@@ -133,6 +139,7 @@ export default class extends Component {
     };
     let confirmPassword = {
       label: I18n.t("fieldConfirmPassword"),
+      placeholder: I18n.t("fieldConfirmPassword"),
       maxLength: 12,
       secureTextEntry: true,
       hasError: this.props.form.get("confirmPasswordError"),
