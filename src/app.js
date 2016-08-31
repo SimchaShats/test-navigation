@@ -9,6 +9,9 @@ const { Keyboard } = require('react-native');
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CodePush from "react-native-code-push";
 import { CODE_PUSH } from "./constants";
+import {
+  Platform,
+} from 'react-native';
 
 var theoryIcon;
 var myNotesIcon;
@@ -45,9 +48,8 @@ export default class App {
     Keyboard.addListener('keyboardDidHide', () => {
       store.dispatch(appActions.changeKeyboardState(false))
     });
-
     CodePush.sync({
-        deploymentKey: CODE_PUSH.PRODUCTION,
+        deploymentKey: Platform.OS === "ios" ? CODE_PUSH.IOS.STAGING : CODE_PUSH.ANDROID.STAGING,
         installMode: CodePush.InstallMode.IMMEDIATE
       },
       (syncStatus) => {

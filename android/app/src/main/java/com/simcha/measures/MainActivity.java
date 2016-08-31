@@ -1,4 +1,4 @@
-package com.measures;
+package com.simcha.measures;
 
 import com.reactnativenavigation.controllers.SplashActivity;
 

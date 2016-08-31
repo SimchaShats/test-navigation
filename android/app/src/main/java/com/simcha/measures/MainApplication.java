@@ -1,4 +1,4 @@
-package com.measures;
+package com.simcha.measures;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
@@ -35,6 +35,6 @@ public class MainApplication extends NavigationApplication {
                 new ReactNativeI18n(),
                 new RNSpinkitPackage(),
                 new VectorIconsPackage(),
-                new CodePush("J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
+                new CodePush("7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
     }
 }

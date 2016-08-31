@@ -28,8 +28,14 @@ export const ASYNC_STORAGE = {
 };
 
 export const CODE_PUSH = {
-  PRODUCTION: "7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb",
-  STAGING: "J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb"
+  ANDROID: {
+    PRODUCTION: "7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb",
+    STAGING: "J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb"
+  },
+  IOS: {
+    PRODUCTION: "aTDBdIsrZAPVqaxKdkdp1GiQIk0uVyyiZVSGb",
+    STAGING: "p3I26VbhB2B4LV4VHjVMlpcmWdeHVyyiZVSGb"
+  }
 };
 
 export const LANGUAGES = {

@@ -90,12 +90,12 @@ I18n.translations = {
     tabRegister: "רישום",
     tabCreateNote: "הערה חדשה",
 
-    placeholderAddMyNote: "ותאר את המצב...",
+    placeholderAddMyNote: "תאר את המצבך...",
     placeholderFriendNote: "כתוב הודעה לחבר שלך על אחת התכונות שאתה רוצה לעזור לו לשפר...",
     placeholderFriendName: "כתוב שם של חבר...",
 
     headerLogin: "נא היכנס תחת חשבונך או להירשם כדי להשתמש באפשרות זו...",
-    headerMyNotes: "בחור אחת מהמידות...",
+    headerMyNotes: "בחר אחת מהמידות...",
     headerFriendsSearch: "חברים, אתה רוצה לעזור...",
 
     fieldEmail: "אי-מייל",
