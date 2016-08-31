@@ -58,7 +58,7 @@ export default class extends Component {
       this.setState({text: nextProps.noteMessage});
     }
     if (nextProps.isKeyboardShown !== this.props.isKeyboardShown && !nextProps.isKeyboardShown) {
-      //this.input.blur();
+      this.input.blur();
     }
   }
 

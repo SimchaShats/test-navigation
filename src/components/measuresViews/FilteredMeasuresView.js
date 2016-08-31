@@ -37,20 +37,20 @@ export default class extends Component {
     if (nextProps.focusedElement !== this.props.focusedElement || isComponentDidMount) {
       if (nextProps.focusedElement === "textInputNoteAddRow") {
         /*Animated.timing(
-          this.state.bounceValue,
-          {
-            toValue: Platform.OS === "ios" ? -135 : -90,
-            duration: Platform.OS === "ios" ? 250 : 0
-          }
-        ).start();
-      } else if (this.props.focusedElement === "textInputNoteAddRow") {
-        Animated.timing(
-          this.state.bounceValue,
-          {
-            toValue: 0,
-            duration: Platform.OS === "ios" ? 250 : 0
-          }
-        ).start();*/
+         this.state.bounceValue,
+         {
+         toValue: Platform.OS === "ios" ? -135 : -90,
+         duration: Platform.OS === "ios" ? 250 : 0
+         }
+         ).start();
+         } else if (this.props.focusedElement === "textInputNoteAddRow") {
+         Animated.timing(
+         this.state.bounceValue,
+         {
+         toValue: 0,
+         duration: Platform.OS === "ios" ? 250 : 0
+         }
+         ).start();*/
       }
     }
 
@@ -66,27 +66,31 @@ export default class extends Component {
     }
 
     return (
-      <KeyboardAwareScrollView marginScrollTop={75} getTextInputRefs={getInputRef.bind(this)}>
-        <Animated.View style={[styles.container, {transform: [{translateY: this.state.bounceValue}]}]}>
-          <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
-                  currentMeasure={this.state.currentMeasure}
-                  updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
-                  actions={this.props.actions}/>
-          {this.props.features && Object.keys(this.props.features).includes("add") &&
-          <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
-                      isKeyboardShown={this.props.isKeyboardShown}
-                      ref={r => this.note = r}
-                      measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
-                      focusedElement={this.props.focusedElement} icons={this.props.icons}
-                      placeholder={I18n.t("placeholderAddMyNote")}
-                      doneAction={this.props.features.add.action} measure={this.state.filterValue}/>}
-          <MeasuresList features={this.props.features} updateList={this.props.updateList}
-                        measure={this.state.filterValue}
-                        measuresNamesList={this.props.measuresNamesList} measuresList={this.props.measuresList}
-                        lang={this.props.lang}
-                        actions={this.props.actions}/>
-        </Animated.View>
-      </KeyboardAwareScrollView>
+      <View style={[styles.container]}>
+        <View style={[styles.wrapper, this.props.style]}>
+          <KeyboardAwareScrollView style={[styles.dynamicScroll]} scrollEnabled={false} marginScrollTop={75}
+                                   getTextInputRefs={getInputRef.bind(this)}>
+            {this.props.header && <View style={styles.header}><Text>{this.props.header}</Text></View>}
+            <Filter items={this.props.measuresNamesList} initialValue={this.state.filterValue}
+                    currentMeasure={this.state.currentMeasure}
+                    updateFilterValue={(filterValue)=>{this.setState({filterValue}); this.props.actions.changeCurrentMeasure(filterValue, true);}}
+                    actions={this.props.actions}/>
+            {this.props.features && Object.keys(this.props.features).includes("add") &&
+            <NoteAddRow actions={this.props.actions} navigator={this.props.navigator}
+                        isKeyboardShown={this.props.isKeyboardShown}
+                        ref={r => this.note = r}
+                        measuresNamesList={this.props.measuresNamesList} title={this.state.filterValue}
+                        focusedElement={this.props.focusedElement} icons={this.props.icons}
+                        placeholder={I18n.t("placeholderAddMyNote")}
+                        doneAction={this.props.features.add.action} measure={this.state.filterValue}/>}
+          </KeyboardAwareScrollView>
+        </View>
+        <MeasuresList features={this.props.features} updateList={this.props.updateList}
+                      measure={this.state.filterValue}
+                      measuresNamesList={this.props.measuresNamesList} measuresList={this.props.measuresList}
+                      lang={this.props.lang}
+                      actions={this.props.actions}/>
+      </View>
     );
   }
 }
@@ -94,5 +98,15 @@ export default class extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  header: {
+    padding: 15
+  },
+  wrapper: {
+    height: Platform.OS === "ios" ? 135 : 90
+  },
+  dynamicScroll: {
+    flex: 1,
+    height: Platform.OS === "ios" ? 103 : 0
   }
 });

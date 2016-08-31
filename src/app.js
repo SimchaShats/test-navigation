@@ -108,17 +108,17 @@ export default class App {
         Navigation.startTabBasedApp({
           tabs: [
             {
-              title: I18n.t("tabTheory"),
-              label: I18n.t("tabTheory"),
-              screen: 'TheoryScreen',
-              icon: theoryIcon,
-              navigatorStyle
-            },
-            {
               title: I18n.t("tabMyNotes"),
               label: I18n.t("tabMyNotes"),
               screen: 'MyNotesScreen',
               icon: myNotesIcon,
+              navigatorStyle
+            },
+            {
+              title: I18n.t("tabTheory"),
+              label: I18n.t("tabTheory"),
+              screen: 'TheoryScreen',
+              icon: theoryIcon,
               navigatorStyle
             },
             {

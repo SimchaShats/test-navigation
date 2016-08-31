@@ -14,11 +14,12 @@ I18n.translations = {
     tabRegister: "Register",
     tabCreateNote: "Create note",
 
-    placeholderAddMyNote: "Type about one of your measures, that you want to improve...",
+    placeholderAddMyNote: "Describe your situation...",
     placeholderFriendNote: "Type about one of measures about your friend, you want to help him to improve...",
     placeholderFriendName: "Type name one of your friends...",
 
     headerLogin: "Please login to use this option, or register a new account to use this feature...",
+    headerMyNotes: "Choose one of the measures...",
     headerFriendsSearch: "Friends that you want to help them...",
 
     fieldEmail: "Email",
@@ -51,11 +52,12 @@ I18n.translations = {
     tabRegister: "Регистрация",
     tabCreateNote: "Создать заметку",
 
-    placeholderAddMyNote: "Напишите заметку об одном из ваших качеств, которые вы бы хотели улучшить...",
+    placeholderAddMyNote: "Опишите вашу ситуацию...",
     placeholderFriendNote: "Напишите заметку вашему другу об одном из  качеств, которые вы бы хотели помочь ему улучшить...",
     placeholderFriendName: "Напишите имя вашего дргуга...",
 
     headerLogin: "Пожалуйста зайдите в систему под вашим аккаунтом, или зарегистрируйтесь чтобы использовать эту опцию...",
+    headerMyNotes: "Выберите одно из качеств...",
     headerFriendsSearch: "Друзья, которым вы хотите помочь...",
 
     fieldEmail: "Электронный адрес",
@@ -88,11 +90,12 @@ I18n.translations = {
     tabRegister: "רישום",
     tabCreateNote: "הערה חדשה",
 
-    placeholderAddMyNote: "כתוב הודעה של אחת מהתכונות שאתה צריך לשפר...",
+    placeholderAddMyNote: "ותאר את המצב...",
     placeholderFriendNote: "כתוב הודעה לחבר שלך על אחת התכונות שאתה רוצה לעזור לו לשפר...",
     placeholderFriendName: "כתוב שם של חבר...",
 
     headerLogin: "נא היכנס תחת חשבונך או להירשם כדי להשתמש באפשרות זו...",
+    headerMyNotes: "בחור אחת מהמידות...",
     headerFriendsSearch: "חברים, אתה רוצה לעזור...",
 
     fieldEmail: "אי-מייל",

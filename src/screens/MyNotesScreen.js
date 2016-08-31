@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import * as measuresActions from '../redux/measures/actions';
 import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
-import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
+import MyNotesPage from "../components/MyNotesPage";
 import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
@@ -52,7 +52,7 @@ class MyNotesScreen extends Component {
 
   render() {
     return (
-      <FilteredMeasuresView
+      <MyNotesPage
         updateList={this.props.actions.getMeasuresMyNotesList}
         navigator={this.props.navigator}
         measuresList={this.props.measuresMyNotesList}
@@ -101,12 +101,4 @@ mapDispatchToProps(dispatch) {
   };
 }
 
-export
-default
-
-connect(mapStateToProps, mapDispatchToProps)
-
-(
-  MyNotesScreen
-)
-;
+export default connect(mapStateToProps, mapDispatchToProps)(MyNotesScreen);

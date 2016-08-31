@@ -43,6 +43,7 @@ export default class extends Component {
   render() {
     return (
       <ListView
+        style={this.props.style}
         dataSource={this.state.dataSource}
         enableEmptySections={true}
         renderRow={(rowData) => <MeasuresListRow lang={this.props.lang} features={this.props.features} measuresNamesList={this.props.measuresNamesList} measure={rowData.get("measure")} message={rowData.get("message")} id={rowData.get("id")}/>}
