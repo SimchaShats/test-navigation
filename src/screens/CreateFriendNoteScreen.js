@@ -46,6 +46,7 @@ class CreateFriendNoteScreen extends Component {
           focusedElement={this.props.focusedElement}
           navigator={this.props.navigator}
           icons={this.props.icons}
+          lang={this.props.lang}
           actions={this.props.actions}/>
     );
   }

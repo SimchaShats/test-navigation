@@ -38,7 +38,7 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style={styles.textInput}
+        <TextInput style={[styles.textInput, {textAlign: this.props.lang === "he" ? "right" : "left"}]}
                    autoCorrect={false}
                    ref={r => this.input = r}
                    onChangeText={this.props.updateSearchCondition}

@@ -27,18 +27,6 @@ class UserProfileScreen extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this._componentWillUpdateProps(this.props, true);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._componentWillUpdateProps(nextProps);
-  }
-
-  _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    //nextProps.navigator.setTitle({title: I18n.t("tabUserProfile")});
-  }
-
   render() {
     return (
       <UserProfilePage

@@ -63,8 +63,9 @@ export default class extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.caption}><Text style={[{textAlign: "left", width: Dimensions.get("window").width}]}>{I18n.t("headerFriendsSearch")}</Text></View>
+        <View style={styles.caption}><Text style={[{textAlign: this.props.lang === "he" ? "right" : "left"}]}>{I18n.t("headerFriendsSearch")}</Text></View>
         <SearchConditionRow actions={this.props.actions}
+                            lang={this.props.lang}
                             isKeyboardShown={this.props.isKeyboardShown}
                             updateSearchCondition={(searchCondition) => {this.setState({searchCondition})}}/>
         <UsersList focusedElement={this.props.focusedElement} usersList={this.props.usersList}
@@ -79,8 +80,7 @@ export default class extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "center"
   },
   caption: {
     padding: Platform.OS === "ios" ? 10 : 15

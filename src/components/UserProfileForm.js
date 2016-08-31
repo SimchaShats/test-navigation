@@ -111,7 +111,7 @@ export default class extends Component {
       mode: "date",
       maximumDate: new Date(),
       minimumDate: new Date(1900, 0, 1),
-      config: {format: (date) => `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`},
+      config: {format: (date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`},
       hasError: this.props.form.get("birthDateError"),
       error: this.props.form.get("birthDateError")
     };
