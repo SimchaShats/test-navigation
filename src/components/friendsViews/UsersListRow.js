@@ -20,8 +20,8 @@ export default class extends Component {
 
   onPress() {
     this.props.navigator.push({
-      screen: 'UserProfileScreen',
-      title: I18n.t("tabUserProfile"),
+      screen: 'SendFriendNoteScreen',
+      title: I18n.t("tabSendFriendNote"),
       passProps: {
         icons: this.props.icons,
         userId: this.props.profile.get("id"),

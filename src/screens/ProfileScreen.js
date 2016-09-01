@@ -16,12 +16,12 @@ import * as userActions from '../redux/user/actions';
 import * as appActions from '../redux/app/actions';
 import {Map} from 'immutable';
 import FilteredMeasuresView from "../components/measuresViews/FilteredMeasuresView";
-import UserProfileForm from "../components/UserProfileForm";
+import ProfilePage from "../components/ProfilePage";
 var Spinner = require('react-native-spinkit');
 import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
-class SettingsScreen extends Component {
+class ProfileScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -69,19 +69,18 @@ class SettingsScreen extends Component {
     !this.props.isUserLoggedIn && (userProfileForm = userProfileForm.delete("birthDate").delete("firstName").delete("lastName").delete("middleName"));
     return (
       <View style={styles.container}>
-        <UserProfileForm navigator={this.props.navigator}
-                         actions={this.props.actions}
-                         form={userProfileForm}
-                         formName={"userProfile"}
-                         icons={this.props.icons}
-                         userProfile={this.props.userProfile}
-                         lang={this.props.lang}
-                         isKeyboardShown={this.props.isKeyboardShown}
-                         buttonDone={I18n.t("buttonUpdateUserProfile")}
-                         doneAction={this.updateUserProfile.bind(this)}
-                         focusedElement={this.props.focusedElement}
-                         isFetching={this.props.isFetching}/>
-
+        <ProfilePage navigator={this.props.navigator}
+                     actions={this.props.actions}
+                     form={userProfileForm}
+                     formName={"userProfile"}
+                     icons={this.props.icons}
+                     userProfile={this.props.userProfile}
+                     lang={this.props.lang}
+                     isKeyboardShown={this.props.isKeyboardShown}
+                     buttonDone={I18n.t("buttonUpdateUserProfile")}
+                     doneAction={this.updateUserProfile.bind(this)}
+                     focusedElement={this.props.focusedElement}
+                     isFetching={this.props.isFetching}/>
         {this.props.isFetching.get("user") && <View style={styles.overlay}>
           <Spinner size={100} type="9CubeGrid" color="#FFFFFF"/>
         </View>}
@@ -132,4 +131,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

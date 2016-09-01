@@ -18,13 +18,6 @@ export default class extends Component {
     }
   }
 
-  _onRefresh() {
-    this.setState({refreshing: true});
-    this.props.actions.getMeasuresTheoryList().then(() => {
-      this.setState({refreshing: false});
-    });
-  }
-
   componentDidMount() {
     this._componentWillUpdateProps(this.props, true);
   }

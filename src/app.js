@@ -21,7 +21,7 @@ var doneIcon;
 var replyIcon;
 var createIcon;
 var clearIcon;
-var settingsIcon;
+var profileIcon;
 
 // screen related book keeping
 import { registerScreens } from './screens';
@@ -95,7 +95,7 @@ export default class App {
         replyIcon = values[4];
         createIcon = values[5];
         clearIcon = values[6];
-        settingsIcon = values[7];
+        profileIcon = values[7];
         resolve(null);
       }).catch((error) => {
         reject(error);
@@ -131,10 +131,10 @@ export default class App {
               navigatorStyle
             },
             {
-              title: I18n.t("tabSettings"),
-              label: I18n.t("tabSettings"),
-              screen: 'SettingsScreen',
-              icon: settingsIcon,
+              title: I18n.t("tabProfile"),
+              label: I18n.t("tabProfile"),
+              screen: 'ProfileScreen',
+              icon: profileIcon,
               navigatorStyle
             }
           ],

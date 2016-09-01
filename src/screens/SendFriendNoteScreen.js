@@ -16,12 +16,12 @@ import * as appActions from '../redux/app/actions';
 import * as userActions from '../redux/user/actions';
 import {Map} from 'immutable';
 import FilteredListView from "../components/measuresViews/FilteredMeasuresView";
-import UserProfilePage from "../components/UserProfilePage";
+import SendFriendNotePage from "../components/SendFriendNotePage";
 import FriendsSearch from "../components/friendsViews/FriendsSearch";
 import I18n from "../utils/i18n";
 
 // this is a traditional React component connected to the redux store
-class UserProfileScreen extends Component {
+class SendFriendNoteScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ class UserProfileScreen extends Component {
 
   render() {
     return (
-      <UserProfilePage
+      <SendFriendNotePage
         usersList={this.props.usersList}
         navigator={this.props.navigator}
         focusedElement={this.props.focusedElement}
@@ -72,4 +72,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SendFriendNoteScreen);

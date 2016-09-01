@@ -9,8 +9,8 @@ I18n.translations = {
     tabTheory: "Theory",
     tabMyNotes: "Heshbon nefesh",
     tabFriendsNotes: "Friends notes",
-    tabSettings: "Settings",
-    tabUserProfile: "User profile",
+    tabProfile: "Profile",
+    tabSendFriendNote: "Friend's profile",
     tabRegister: "Register",
     tabCreateNote: "Create note",
 
@@ -19,7 +19,6 @@ I18n.translations = {
     placeholderFriendName: "Type name one of your friends...",
 
     headerLogin: "Please login to use this option, or register a new account to use this feature...",
-    headerMyNotes: "Choose one of the measures:",
     headerMyNotes: "Choose one of the measures:",
     headerFriendsSearch: "Friends that you want to help them...",
 
@@ -48,8 +47,8 @@ I18n.translations = {
     tabTheory: "Теория",
     tabMyNotes: "Хэшбон нэфеш",
     tabFriendsNotes: "Заметки друзей",
-    tabSettings: "Настройки",
-    tabUserProfile: "Профиль",
+    tabProfile: "Профиль",
+    tabSendFriendNote: "Профиль друга",
     tabRegister: "Регистрация",
     tabCreateNote: "Создать заметку",
 
@@ -86,8 +85,8 @@ I18n.translations = {
     tabTheory: "תיאוריה",
     tabMyNotes: "חשבון נפש",
     tabFriendsNotes: "הערות חברים",
-    tabSettings: "הגדרות",
-    tabUserProfile: "פרופיל",
+    tabProfile: "פרופיל",
+    tabSendFriendNote: "פרופיל לש חבר",
     tabRegister: "רישום",
     tabCreateNote: "הערה חדשה",
 
