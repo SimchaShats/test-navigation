@@ -864,7 +864,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.measures;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simcha.measures;
 				PRODUCT_NAME = Measures;
 			};
 			name = Debug;
@@ -891,7 +891,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.measures;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simcha.measures;
 				PRODUCT_NAME = Measures;
 			};
 			name = Release;

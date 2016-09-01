@@ -30,7 +30,7 @@ export default class extends Component {
     return (
       <View style={styles.container}>
         <FilteredMeasuresView
-          style={{height: Platform.OS === "ios" ? 235 : 196}}
+          style={{height: (Platform.OS === "ios") ? (UI.INITIAL_SIZES.DEVICE_HEIGHT <= 480 ? 188 : 228) : 187}}
           header={I18n.t("headerMyNotes")}
           updateList={this.props.updateList}
           navigator={this.props.navigator}

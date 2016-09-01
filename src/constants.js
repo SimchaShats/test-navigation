@@ -6,6 +6,8 @@
 import {
   Platform
 } from 'react-native';
+import Dimensions from "Dimensions";
+var {height, width} = Dimensions.get('window');
 
 export const API_SOURCES = {
   "FIREBASE": "FIREBASE",
@@ -48,6 +50,10 @@ export const UI = {
   STATUS_BAR_HEIGHT: Platform.OS === "ios" ? 20 : 0,
   IOS: {
     STATUS_BAR_HEIGHT: 20
+  },
+  INITIAL_SIZES: {
+    DEVICE_HEIGHT: height,
+    DEVICE_WIDTH: width
   }
 };
 

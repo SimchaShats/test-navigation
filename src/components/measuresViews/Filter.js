@@ -50,7 +50,6 @@ export default class extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     padding: Platform.OS === "android" ? 15 : 0,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   picker: {
-    top: Platform.OS === "ios" ? -40 : 0,
-    height: Platform.OS === "ios" ? 135 : 60
+    top: Platform.OS === "ios" ? (UI.INITIAL_SIZES.DEVICE_HEIGHT <= 480 ? -60 : -40) : 0,
+    height: Platform.OS === "ios" ? (UI.INITIAL_SIZES.DEVICE_HEIGHT <= 480 ? 95 : 135) : 60
   }
 });

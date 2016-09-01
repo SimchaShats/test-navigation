@@ -15,6 +15,7 @@ import MeasuresList from "./MeasuresList";
 import {OrderedMap, Map} from 'immutable';
 import I18n from "../../utils/i18n";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import {UI} from "../../constants"
 
 export default class extends Component {
   constructor(props) {
@@ -101,14 +102,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    padding: 15,
-    height: 47
+    padding: 10,
+    height: 40
   },
   wrapper: {
-    height: Platform.OS === "ios" ? 135 : 90
+    height: Platform.OS === "ios" ? (UI.INITIAL_SIZES.DEVICE_HEIGHT <= 480 ? 95 : 135) : 90
   },
   dynamicScroll: {
     flex: 1,
-    height: Platform.OS === "ios" ? 103 : 0
+    height: Platform.OS === "ios" ? 95 : 0
   }
 });

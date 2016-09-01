@@ -19,7 +19,8 @@ I18n.translations = {
     placeholderFriendName: "Type name one of your friends...",
 
     headerLogin: "Please login to use this option, or register a new account to use this feature...",
-    headerMyNotes: "Choose one of the measures...",
+    headerMyNotes: "Choose one of the measures:",
+    headerMyNotes: "Choose one of the measures:",
     headerFriendsSearch: "Friends that you want to help them...",
 
     fieldEmail: "Email",
@@ -57,7 +58,7 @@ I18n.translations = {
     placeholderFriendName: "Напишите имя вашего дргуга...",
 
     headerLogin: "Пожалуйста зайдите в систему под вашим аккаунтом, или зарегистрируйтесь чтобы использовать эту опцию...",
-    headerMyNotes: "Выберите одно из качеств...",
+    headerMyNotes: "Выберите одно из качеств:",
     headerFriendsSearch: "Друзья, которым вы хотите помочь...",
 
     fieldEmail: "Электронный адрес",
@@ -95,7 +96,7 @@ I18n.translations = {
     placeholderFriendName: "כתוב שם של חבר...",
 
     headerLogin: "נא היכנס תחת חשבונך או להירשם כדי להשתמש באפשרות זו...",
-    headerMyNotes: "בחר אחת מהמידות...",
+    headerMyNotes: "בחר אחת מהמידות:",
     headerFriendsSearch: "חברים, אתה רוצה לעזור...",
 
     fieldEmail: "אי-מייל",
