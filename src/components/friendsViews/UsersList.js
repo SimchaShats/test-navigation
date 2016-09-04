@@ -27,7 +27,7 @@ export default class extends Component {
   }
 
   _componentWillUpdateProps(nextProps, isComponentDidMount = false) {
-    if (nextProps.searchCondition && nextProps.usersList) {
+    if (nextProps.searchCondition && nextProps.usersList && nextProps.userProfile) {
       this.setState({dataSource: this.ds.cloneWithRows(
         nextProps.usersList.filter(
           (value, key) => value.get("id") !== nextProps.userProfile.get("id") && nextProps.searchCondition !== ""

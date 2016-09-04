@@ -34,7 +34,7 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
                 new ReactNativeI18n(),
                 new RNSpinkitPackage(),
-                new VectorIconsPackage(),
-                new CodePush("7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb", MainApplication.this, BuildConfig.DEBUG));
+                new VectorIconsPackage()
+                /*new CodePush("7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb", MainApplication.this, BuildConfig.DEBUG)*/);
     }
 }

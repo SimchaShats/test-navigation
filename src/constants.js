@@ -16,10 +16,10 @@ export const API_SOURCES = {
 };
 
 export const FIREBASE = {
-  API_KEY: "AIzaSyDocGGhSlex8lFpW4k3FZeauHkpw8yD9EI",
-  AUTH_DOMAIN: "measuresproject.firebaseapp.com",
-  DATABASE_URL: "https://measuresproject.firebaseio.com",
-  STORAGE_BUCKET: "measuresproject.appspot.com"
+  API_KEY: "",
+  AUTH_DOMAIN: "",
+  DATABASE_URL: "",
+  STORAGE_BUCKET: ""
 };
 
 export const ASYNC_STORAGE = {
@@ -31,12 +31,12 @@ export const ASYNC_STORAGE = {
 
 export const CODE_PUSH = {
   ANDROID: {
-    PRODUCTION: "7LA9NVCayTubrNTaO7fj9zAtODcFVyyiZVSGb",
-    STAGING: "J2ji8ts17_JjrYgE82fhUpz3rZaRVyyiZVSGb"
+    PRODUCTION: "",
+    STAGING: ""
   },
   IOS: {
-    PRODUCTION: "aTDBdIsrZAPVqaxKdkdp1GiQIk0uVyyiZVSGb",
-    STAGING: "p3I26VbhB2B4LV4VHjVMlpcmWdeHVyyiZVSGb"
+    PRODUCTION: "",
+    STAGING: ""
   }
 };
 

@@ -7,8 +7,8 @@ import * as appActions from './redux/app/actions';
 import I18n from './utils/i18n';
 const { Keyboard } = require('react-native');
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import CodePush from "react-native-code-push";
-import { CODE_PUSH } from "./constants";
+//import CodePush from "react-native-code-push";
+//import { CODE_PUSH } from "./constants";
 import {
   Platform,
 } from 'react-native';
@@ -48,30 +48,31 @@ export default class App {
     Keyboard.addListener('keyboardDidHide', () => {
       store.dispatch(appActions.changeKeyboardState(false))
     });
-    CodePush.sync({
-        deploymentKey: Platform.OS === "ios" ? CODE_PUSH.IOS.STAGING : CODE_PUSH.ANDROID.STAGING,
-        installMode: CodePush.InstallMode.IMMEDIATE
-      },
-      (syncStatus) => {
-        store.dispatch(appActions.syncCodePush(syncStatus));
-      }, (progress) => {
-        store.dispatch(appActions.updateCodePush(progress));
-      });
+    //CodePush.sync({
+    //    deploymentKey: Platform.OS === "ios" ? CODE_PUSH.IOS.STAGING : CODE_PUSH.ANDROID.STAGING,
+    //    installMode: CodePush.InstallMode.IMMEDIATE
+    //  },
+    //  (syncStatus) => {
+    //    store.dispatch(appActions.syncCodePush(syncStatus));
+    //  }, (progress) => {
+    //    store.dispatch(appActions.updateCodePush(progress));
+    //  });
   }
 
   onStoreUpdate() {
     const root = store.getState().app.get("root");
     const lang = store.getState().app.get("lang");
 
-    this._populateIcons().then(() => {
-      if ((this.currentRoot !== root || this.lang !== lang) && lang !== null) {
-        this.lang = lang;
-        this.currentRoot = root;
+
+    if ((this.currentRoot !== root || this.lang !== lang) && lang !== null) {
+      this.lang = lang;
+      this.currentRoot = root;
+      this._populateIcons().then(() => {
         this.startApp(root);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   _populateIcons = function () {

@@ -15,7 +15,7 @@ import {API_SOURCES} from "../../constants";
 import * as userActions from "../user/actions";
 import * as measuresActions from "../measures/actions";
 import {ASYNC_STORAGE} from "../../constants";
-import CodePush from "react-native-code-push";
+//import CodePush from "react-native-code-push";
 import I18n from "../../utils/i18n";
 
 export function appInitialized() {
@@ -79,7 +79,7 @@ export function updateCodePush(form, field, data) {
   return {type: UPDATE_CODE_PUSH, payload: {form, field, data}};
 }
 
-export function syncCodePush(syncStatus) {
+/*export function syncCodePush(syncStatus) {
   let syncMessage = "";
   switch (syncStatus) {
     case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
@@ -108,4 +108,4 @@ export function syncCodePush(syncStatus) {
       break;
   }
   return {type: SYNC_CODE_PUSH, payload: syncMessage};
-}
+}*/
